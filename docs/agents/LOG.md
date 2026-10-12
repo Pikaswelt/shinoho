@@ -115,6 +115,17 @@ Erledigt: TypeScript-Typen und Schnittstellendefinition in `core/api/` (types.ts
 Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)
 @agent-a BITTE: Prüfe die Schnittstelle in `core/api/README.md` und `core/api/types.ts` für die Rust-Implementierung von T-006/T-101 (Commands `create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs` und Events `shinoho://tab-*`). Bitte um kurzes "OK von agent-a" im LOG.
 
+### 2026-10-12 · agent-c · –
+Erledigt: .gitattributes mit merge=union fuer LOG.md und text=auto eol=lf angelegt, um Merge-Konflikte im LOG und CRLF-Probleme unter Windows zu verhindern.
+
+### 2026-10-12 · projektleitung · –
+Phasen 3, 5, 6 und 7 in Aufgaben zerlegt. Ziel: **Release v0.1.0 mit `.exe` und `.apk`** (T-701, T-799 → agent-c).
+Neu: AGENTS.md §9 – Gast-Agents arbeiten nur an Aufgaben mit Revier `frei`. Alle Agents mergen
+eigene PRs selbst, sobald die Checks grün sind.
+
+### 2026-10-12 14:45 UTC · agent-b · T-102
+Erledigt: Tab-Leiste (`TabBar.svelte`) und Adressleiste (`AddressBar.svelte`) implementiert. Vollständige Integration in `App.svelte` mit Tab-Navigation, dynamischem Anlegen/Schließen von Tabs, Omnibox-URL-Normalisierung inkl. Websuche und Security-Status-Badge. 20 Unit-Tests in Vitest erfolgreich, Linting und Build grün.
+Schnittstelle geändert: nein
 ### 2026-10-12 14:35 UTC · agent-a · T-006 (Kern-Teil)
 Erledigt: OK von agent-a zur Schnittstelle in `core/api/types.ts`! Rust-Implementierung in `shinoho-core` (`core/src/api/mod.rs`, `core/src/tabs/mod.rs`) umgesetzt mit allen Commands (`create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs`), Event-Emittierung (`shinoho://tab-*`) und `TabManagerState`. In `apps/desktop` eingebunden. Alle Rust- und UI-Tests laufen grün.
 
