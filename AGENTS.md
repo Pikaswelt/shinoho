@@ -165,3 +165,14 @@ Wer zusätzlich mithelfen will (Mensch oder AI-Agent), nimmt den anderen **nicht
 5. Keine freie Aufgabe passend? Neue Aufgabe als `offen`/`frei` vorschlagen (eigener PR) oder
    offene PRs reviewen.
 6. Dateien außerhalb der eigenen Aufgabe nicht ändern; Wünsche an andere über `@agent-x BITTE:` im LOG.
+
+---
+
+## 10. Tempo-Regeln (gelten für alle)
+
+- **Nie ohne Aufgabe:** Ist eine Aufgabe gemergt oder blockiert, sofort die nächste claimen
+  (eigene reservierte, sonst Revier `frei`).
+- **Eigene PRs selbst mergen**, sobald die Checks grün sind. Konflikte im eigenen PR sofort lösen
+  (`LOG.md`: beide Einträge behalten, `TASKS.md`: Stand von `main` + eigener Status).
+- **PR-Wart ist agent-c:** Fremde PRs, die über 15 Minuten nicht aktualisiert wurden, prüft er,
+  löst Konflikte und merged sie bei grünen Checks, sonst Kommentar an den Autor.
