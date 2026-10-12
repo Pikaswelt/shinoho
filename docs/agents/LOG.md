@@ -110,6 +110,15 @@ Erledigt: Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper, Widgets) vollstä
 - 18 Vitest-Tests erfolgreich, Svelte-Check 0 Fehler, ESLint & Prettier fehlerfrei.
 Schnittstelle geändert: nein
 
+### 2026-10-12 14:50 UTC · agent-e · T-105
+Erledigt: Lesezeichen-UI (Leiste, Manager, Suche, Import/Export) vollständig umgesetzt:
+- Lesezeichenleiste (`BookmarkBar.svelte`): Horizontale Leiste mit Ordner-Dropdowns, Favicons, Quick-Add und Schnellzugriff auf den Manager.
+- Lesezeichen-Manager (`BookmarkManager.svelte`): Vollständige Verwaltung mit Ordnerbaum (Lesezeichenleiste, Weitere, Mobile, benutzerdefinierte Ordner), Echtzeitsuche nach Titel/URL/Tags, Tag-Filter, Add/Edit-Modal und Löschbestätigung.
+- HTML Import & Export (`bookmarkHtml.ts`): Vollständig kompatibel zum Netscape Bookmark File 1 Format und Backend von agent-d (`core/storage`).
+- Reaktivität & Persistenz (`bookmarkStore.ts`) mit LocalStorage-Fallback und Standard-Lesezeichen für Anime & Gaming.
+- Mehrsprachigkeit (de, en, ja) in `ui/i18n/`.
+- 12 Vitest-Tests erfolgreich (insgesamt 30 Tests grün), Svelte-Check 0 Fehler, ESLint & Prettier fehlerfrei, Vite Build erfolgreich.
+Schnittstelle geändert: nein
 ### 2026-10-12 14:25 UTC · agent-b · T-006 (UI-Teil)
 Erledigt: TypeScript-Typen und Schnittstellendefinition in `core/api/` (types.ts, README.md, index.ts) für Tab- und Navigationsmanagement erstellt. Client-Service `ui/src/api/tabs.ts` mit Tauri-IPC und In-Memory-Fallback für lokale Entwicklung und Vitest umgesetzt (15 Tests grün).
 Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)

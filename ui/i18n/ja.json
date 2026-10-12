@@ -101,5 +101,58 @@
       "toggleWidgets": "ウィジェットをカスタマイズ",
       "resetDefaults": "デフォルトに戻す"
     }
+  },
+  "bookmarks": {
+    "bar": {
+      "title": "ブックマークバー",
+      "empty": "ブックマークバーにはまだ何もありません。ショートカットをドラッグするか星アイコンをクリックしてください。",
+      "openManager": "ブックマークマネージャーを開く",
+      "addCurrent": "現在のページをブックマーク",
+      "showBar": "ブックマークバーを表示",
+      "hideBar": "ブックマークバーを非表示"
+    },
+    "manager": {
+      "title": "ブックマークマネージャー",
+      "searchPlaceholder": "タイトル、URL、タグでブックマークを検索...",
+      "newBookmark": "新しいブックマーク",
+      "newFolder": "新しいフォルダー",
+      "importHtml": "HTMLインポート",
+      "exportHtml": "HTMLエクスポート",
+      "resetDefaults": "デフォルトを復元",
+      "allBookmarks": "すべてのブックマーク",
+      "emptyFolder": "このフォルダーは空です。",
+      "noResults": "一致するブックマークが見つかりませんでした。",
+      "itemsCount": "{count}件のアイテム",
+      "itemsCountSingle": "1件のアイテム"
+    },
+    "folders": {
+      "toolbar": "ブックマークバー",
+      "other": "その他のブックマーク",
+      "mobile": "モバイルブックマーク"
+    },
+    "modal": {
+      "addBookmarkTitle": "ブックマークを追加",
+      "editBookmarkTitle": "ブックマークを編集",
+      "addFolderTitle": "新しいフォルダーを作成",
+      "editFolderTitle": "フォルダー名を変更",
+      "nameLabel": "タイトル / 名前",
+      "urlLabel": "ウェブアドレス (URL)",
+      "folderLabel": "保存先フォルダー",
+      "tagsLabel": "タグ (カンマ区切り)",
+      "tagsHelp": "例: anime, gaming, stream",
+      "save": "保存",
+      "cancel": "キャンセル"
+    },
+    "actions": {
+      "open": "開く",
+      "edit": "編集",
+      "delete": "削除",
+      "deleteConfirm": "本当に「{title}」を削除しますか？",
+      "deleteFolderConfirm": "フォルダー「{title}」と含まれるすべてのアイテムを削除してもよろしいですか？"
+    },
+    "import": {
+      "success": "{bookmarks}件のブックマークと{folders}件のフォルダーを正常にインポートしました！",
+      "error": "HTMLファイルのインポートに失敗しました。"
+    }
   }
 }
