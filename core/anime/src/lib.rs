@@ -5,6 +5,8 @@
 //! Login läuft über den Implicit Grant von AniList: [`authorize_url`] im Browser-Tab öffnen,
 //! die Weiterleitung abfangen und mit [`parse_redirect`] den Token herauslösen.
 
+pub mod schedule;
+
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use thiserror::Error;
