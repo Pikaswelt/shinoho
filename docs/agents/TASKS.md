@@ -28,7 +28,7 @@ Bis dahin höchstens offene PRs reviewen (nur Kommentare).
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
 | T-001 | Lizenzdatei (MPL-2.0) + `.gitignore` + `.editorconfig` anlegen | A | – | offen |
-| T-002 | Tauri-2-Projekt anlegen (`apps/desktop`), leeres Fenster | A | – | offen |
+| T-002 | Tauri-2-Projekt anlegen (`apps/desktop`), leeres Fenster | A | – | in Arbeit (agent-a) |
 | T-003 | Rust-Workspace `core/` + `cargo fmt/clippy/test` einrichten | A | T-002 | offen |
 | T-004 | UI-Grundgerüst `ui/` (Svelte + TS, Lint, Prettier, Vitest) | B | – | in Arbeit (agent-b) |
 | T-005 | CI: Builds Windows + Linux (GitHub Actions); macOS unsigniert optional | A | T-002, T-004 | offen |
