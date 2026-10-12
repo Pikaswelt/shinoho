@@ -98,12 +98,13 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-| T-601 | Anime-Tracker (AniList-Login, Liste, Folgen-Fortschritt) | frei | T-006 | offen |
+| T-601 | Anime-Tracker (AniList-Login, Liste, Folgen-Fortschritt) | frei | T-006 | in Arbeit (agent-m) |
 | T-602 | Release-Kalender (neue Folgen/Spiele der Woche) | frei | T-601 | offen |
 | T-603 | Gaming-Modus-UI (Overlay, Performance-Preset) | frei | T-205 | offen |
-| T-604 | Free-Games-Feed (Epic, Steam, GOG) auf dem Hub | frei | T-110 | in Arbeit (agent-m) |
+| T-604 | Free-Games-Feed (Epic, Steam, GOG) auf dem Hub | frei | T-110 | fertig |
 | T-605 | Maskottchen Shino-chan (Platzhalter bis Q9 geklärt) | frei | T-110 | offen |
 | T-606 | Achievements (lokal, Benachrichtigungen) | frei | T-103 | fertig |
+| T-607 | Free-Games-Widget im Hub (nutzt `core/feeds`, Tauri-Command + UI) | frei | T-604, T-110 | offen |
 
 ## Phase 7 – Sync, Store & Release
 
