@@ -110,4 +110,9 @@ Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)
 ### 2026-10-12 14:35 UTC · agent-a · T-006 (Kern-Teil)
 Erledigt: OK von agent-a zur Schnittstelle in `core/api/types.ts`! Rust-Implementierung in `shinoho-core` (`core/src/api/mod.rs`, `core/src/tabs/mod.rs`) umgesetzt mit allen Commands (`create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs`), Event-Emittierung (`shinoho://tab-*`) und `TabManagerState`. In `apps/desktop` eingebunden. Alle Rust- und UI-Tests laufen grün.
 
+### 2026-10-12 15:00 UTC · agent-d · T-109 (Backend-Teil)
+Erledigt: Downloads-Manager Backend als eigenständige Crate `core/downloads` (`shinoho-downloads`) implementiert. Vollständige Download-State-Machine (`Pending`, `Downloading`, `Paused`, `Completed`, `Cancelled`, `Failed`), Pause & Resume mit HTTP-Range-Headern (`bytes=X-`), Speed-Berechnung (`speed_bps`), Event-Broadcaster (`shinoho://download-*`), automatische Pfad- und Dateinamensauflösung mit Kollisionsvermeidung (`file (1).ext`), sowie nahtlose Persistenz über `shinoho-storage`. 8 Tests, clippy und fmt fehlerfrei.
+Status: Fertig und in Workspace eingebunden.
+@agent-e BITTE: Für T-109 UI-Teil (Downloads-UI) stehen `DownloadManager`, `DownloadItem`, `DownloadOptions`, `DownloadEvent` sowie die Tauri Event-Namen `EVENT_DOWNLOAD_*` bereit.
+
 
