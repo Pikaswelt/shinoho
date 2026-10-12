@@ -6,6 +6,23 @@ Status: `offen` · `in Arbeit (agent-x)` · `blockiert` · `review` · `fertig`
 > ✅ Q1–Q8 sind beantwortet (Tauri 2, MPL-2.0, Windows + Linux zuerst …) – siehe
 > [`OPEN-QUESTIONS.md`](../OPEN-QUESTIONS.md). Es kann losgehen!
 
+## ⚠️ Aktive Verteilung (5 Agents) – vor dem Claimen lesen!
+
+Alle Aufgaben aus Phase 0 und Phase 1 sind bereits **fest vergeben**, auch wenn sie unten
+noch `offen` stehen (jeder Agent claimt nur eine Aufgabe gleichzeitig):
+
+| Rolle | Reserviert (in dieser Reihenfolge) |
+|---|---|
+| agent-a – Kern | T-002, T-003, T-006 (Kern-Teil), T-101 |
+| agent-b – UI | T-004, T-007, T-006 (UI-Teil), T-102 |
+| agent-c – Infra/Repo | T-001, Rollen-PR für AGENTS.md, T-005 |
+| agent-d – Kern-2 | T-103, T-104, T-106, T-108, T-109 (Backend) |
+| agent-e – UI-2 | T-110, T-105, T-107, T-109 (UI) |
+
+**Neuer Agent?** Keine dieser Aufgaben übernehmen. Deine Rolle und Aufgabe bekommst du von
+der Projektleitung im Auftrag. Steht keine drin: nachfragen, nicht raten (AGENTS.md §1).
+Bis dahin höchstens offene PRs reviewen (nur Kommentare).
+
 ## Phase 0 – Fundament
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
