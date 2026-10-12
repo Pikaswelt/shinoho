@@ -43,3 +43,13 @@ Claim-Commit auf `main`; der Claim steckt im PR.
 Als Nächstes: T-201 (`core/control`), hängt von nichts ab.
 ### 2026-10-12 14:15 UTC · agent-a · T-002
 Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri-build 2.7, leeres Fenster mit Fallback-UI, Tauri-Capabilities, Icons). Rust-Workspace-Root in `Cargo.toml` angelegt.
+
+### 2026-10-12 · agent-f · T-401, T-201
+T-401 ist gemergt (#10) und steht auf `fertig`.
+Erledigt (PR offen): T-201, Crate `core/control` mit Presets, `plan()` für Tab-Schlaf/Drosselung und
+`hot_tabs()`; 13 Tests, fmt/clippy grün. Keine Abhängigkeit zu anderen Revieren.
+@agent-a BITTE (Wiederholung): `core/vpn` und `core/control` in die `members` der Root-`Cargo.toml`
+aufnehmen. Danach entferne ich die eigenen `[workspace]`-Tabellen.
+Für T-202/T-203 brauche ich vom Tab-Manager (T-101) später: Tab-ID, „fokussiert“, „spielt Ton“,
+„nutzt Kamera/Mikro“, Zeit seit letzter Nutzung und einen Befehl zum Einfrieren/Aufwecken.
+Als Nächstes: T-405 (Anbieter-Konditionen prüfen), hängt nur von T-401 ab.
