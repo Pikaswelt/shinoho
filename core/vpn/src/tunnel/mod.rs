@@ -8,8 +8,11 @@
 //! TCP-Verbindungen selbst, boringtun verschlüsselt die IP-Pakete. Nur der Verkehr,
 //! der über den Proxy läuft, geht durch das VPN (Browser-VPN, siehe docs/VPN.md).
 //!
-//! Noch nicht enthalten: Domainnamen/DNS über den Tunnel (T-404) und das Anbinden an
-//! die WebViews samt Kill-Switch (T-403).
+//! Domainnamen löst der Tunnel selbst über die DNS-Server aus der Konfiguration auf,
+//! und zwar *durch* den Tunnel. Hat die Konfiguration keinen DNS-Server, werden
+//! Domainnamen abgelehnt, statt sie am VPN vorbei aufzulösen.
+//!
+//! Noch nicht enthalten: Anbinden an die WebViews samt Kill-Switch (T-403).
 
 mod device;
 pub mod socks;
@@ -21,9 +24,10 @@ use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use boringtun::noise::{Tunn, TunnResult};
 use boringtun::x25519::{PublicKey, StaticSecret};
 use smoltcp::iface::{Config, Interface, SocketHandle, SocketSet};
+use smoltcp::socket::dns::{self, GetQueryResultError, QueryHandle};
 use smoltcp::socket::tcp;
 use smoltcp::time::Instant as SmolInstant;
-use smoltcp::wire::{HardwareAddress, IpAddress, IpCidr};
+use smoltcp::wire::{DnsQueryType, HardwareAddress, IpAddress, IpCidr};
 use thiserror::Error;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream, UdpSocket};
@@ -114,6 +118,14 @@ impl Tunnel {
             }
         }
 
+        let mut sockets = SocketSet::new(Vec::new());
+        // DNS-Anfragen gehen an den ersten DNS-Server der Konfiguration, durch den Tunnel.
+        let dns = config.interface.dns.first().map(|server| {
+            let slots: Vec<Option<dns::DnsQuery>> = (0..64).map(|_| None).collect();
+            sockets.add(dns::Socket::new(&[IpAddress::from(*server)], slots))
+        });
+        let has_ipv4 = config.interface.addresses.iter().any(|n| n.addr.is_ipv4());
+
         let listener = TcpListener::bind("127.0.0.1:0").await?;
         let socks_addr = listener.local_addr()?;
         let (msg_tx, msg_rx) = mpsc::channel(256);
@@ -124,7 +136,14 @@ impl Tunnel {
             udp,
             device,
             iface,
-            sockets: SocketSet::new(Vec::new()),
+            sockets,
+            dns,
+            lookup_type: if has_ipv4 {
+                DnsQueryType::A
+            } else {
+                DnsQueryType::Aaaa
+            },
+            lookups: Vec::new(),
             conns: HashMap::new(),
             next_id: 1,
             next_port: 49_152,
@@ -175,9 +194,14 @@ fn session_index() -> u32 {
     nanos & 0x00FF_FFFF
 }
 
+enum Target {
+    Addr(SocketAddr),
+    Name(String, u16),
+}
+
 enum Msg {
     Connect {
-        target: SocketAddr,
+        target: Target,
         to_client: mpsc::Sender<Vec<u8>>,
         ready: oneshot::Sender<Result<u64, Reply>>,
     },
@@ -194,11 +218,8 @@ async fn accept_loop(listener: TcpListener, msgs: mpsc::Sender<Msg>) {
 async fn serve_client(mut stream: TcpStream, msgs: mpsc::Sender<Msg>) {
     let _ = stream.set_nodelay(true);
     let target = match socks::handshake(&mut stream).await {
-        Ok(Some(Request::Connect(addr))) => addr,
-        Ok(Some(Request::ConnectDomain(..))) => {
-            let _ = socks::reply(&mut stream, Reply::AddressTypeNotSupported).await;
-            return;
-        }
+        Ok(Some(Request::Connect(addr))) => Target::Addr(addr),
+        Ok(Some(Request::ConnectDomain(name, port))) => Target::Name(name, port),
         _ => return,
     };
 
@@ -265,12 +286,23 @@ struct Conn {
     client_closed: bool,
 }
 
+/// Ein Domainname, der gerade durch den Tunnel aufgelöst wird.
+struct Lookup {
+    query: QueryHandle,
+    port: u16,
+    to_client: mpsc::Sender<Vec<u8>>,
+    ready: oneshot::Sender<Result<u64, Reply>>,
+}
+
 struct Engine {
     tunn: Tunn,
     udp: UdpSocket,
     device: VirtualDevice,
     iface: Interface,
     sockets: SocketSet<'static>,
+    dns: Option<SocketHandle>,
+    lookup_type: DnsQueryType,
+    lookups: Vec<Lookup>,
     conns: HashMap<u64, Conn>,
     next_id: u64,
     next_port: u16,
@@ -359,33 +391,10 @@ impl Engine {
                 target,
                 to_client,
                 ready,
-            } => {
-                let mut socket = tcp::Socket::new(
-                    tcp::SocketBuffer::new(vec![0; TCP_BUFFER]),
-                    tcp::SocketBuffer::new(vec![0; TCP_BUFFER]),
-                );
-                socket.set_timeout(Some(CONNECT_TIMEOUT.into()));
-                socket.set_nagle_enabled(false);
-                let port = self.next_port;
-                self.next_port = if port == u16::MAX { 49_152 } else { port + 1 };
-                if socket.connect(self.iface.context(), target, port).is_err() {
-                    let _ = ready.send(Err(Reply::NetworkUnreachable));
-                    return;
-                }
-                let id = self.next_id;
-                self.next_id += 1;
-                let handle = self.sockets.add(socket);
-                self.conns.insert(
-                    id,
-                    Conn {
-                        handle,
-                        to_client: Some(to_client),
-                        pending: Vec::new(),
-                        ready: Some(ready),
-                        client_closed: false,
-                    },
-                );
-            }
+            } => match target {
+                Target::Addr(addr) => self.open_conn(addr, to_client, ready),
+                Target::Name(name, port) => self.start_lookup(&name, port, to_client, ready),
+            },
             Msg::Data(id, data) => {
                 if let Some(c) = self.conns.get_mut(&id) {
                     c.pending.extend_from_slice(&data);
@@ -399,10 +408,103 @@ impl Engine {
         }
     }
 
+    fn open_conn(
+        &mut self,
+        target: SocketAddr,
+        to_client: mpsc::Sender<Vec<u8>>,
+        ready: oneshot::Sender<Result<u64, Reply>>,
+    ) {
+        let mut socket = tcp::Socket::new(
+            tcp::SocketBuffer::new(vec![0; TCP_BUFFER]),
+            tcp::SocketBuffer::new(vec![0; TCP_BUFFER]),
+        );
+        socket.set_timeout(Some(CONNECT_TIMEOUT.into()));
+        socket.set_nagle_enabled(false);
+        let port = self.next_port;
+        self.next_port = if port == u16::MAX { 49_152 } else { port + 1 };
+        if socket.connect(self.iface.context(), target, port).is_err() {
+            let _ = ready.send(Err(Reply::NetworkUnreachable));
+            return;
+        }
+        let id = self.next_id;
+        self.next_id += 1;
+        let handle = self.sockets.add(socket);
+        self.conns.insert(
+            id,
+            Conn {
+                handle,
+                to_client: Some(to_client),
+                pending: Vec::new(),
+                ready: Some(ready),
+                client_closed: false,
+            },
+        );
+    }
+
+    fn start_lookup(
+        &mut self,
+        name: &str,
+        port: u16,
+        to_client: mpsc::Sender<Vec<u8>>,
+        ready: oneshot::Sender<Result<u64, Reply>>,
+    ) {
+        // IP-Adressen in Textform brauchen keine Auflösung.
+        if let Ok(ip) = name.parse::<IpAddr>() {
+            return self.open_conn(SocketAddr::new(ip, port), to_client, ready);
+        }
+        let Some(handle) = self.dns else {
+            // Ohne DNS-Server im Tunnel lieber ablehnen als am VPN vorbei auflösen.
+            let _ = ready.send(Err(Reply::AddressTypeNotSupported));
+            return;
+        };
+        let socket = self.sockets.get_mut::<dns::Socket>(handle);
+        match socket.start_query(self.iface.context(), name, self.lookup_type) {
+            Ok(query) => self.lookups.push(Lookup {
+                query,
+                port,
+                to_client,
+                ready,
+            }),
+            Err(_) => {
+                let _ = ready.send(Err(Reply::HostUnreachable));
+            }
+        }
+    }
+
+    /// Fertige DNS-Antworten in Verbindungen umwandeln.
+    fn finish_lookups(&mut self) {
+        let Some(handle) = self.dns else { return };
+        let mut done = Vec::new();
+        let mut i = 0;
+        while i < self.lookups.len() {
+            let socket = self.sockets.get_mut::<dns::Socket>(handle);
+            match socket.get_query_result(self.lookups[i].query) {
+                Err(GetQueryResultError::Pending) => i += 1,
+                result => {
+                    let lookup = self.lookups.swap_remove(i);
+                    done.push((lookup, result.ok().and_then(|a| a.first().copied())));
+                }
+            }
+        }
+        for (lookup, addr) in done {
+            match addr {
+                Some(addr) => self.open_conn(
+                    SocketAddr::new(IpAddr::from(addr), lookup.port),
+                    lookup.to_client,
+                    lookup.ready,
+                ),
+                None => {
+                    let _ = lookup.ready.send(Err(Reply::HostUnreachable));
+                }
+            }
+        }
+    }
+
     /// Lässt smoltcp arbeiten und schiebt Daten zwischen TCP-Sockets und Clients hin und her.
     fn pump(&mut self) {
         let now = self.now();
         self.iface.poll(now, &mut self.device, &mut self.sockets);
+        self.finish_lookups();
 
         let mut finished = Vec::new();
         for (&id, c) in self.conns.iter_mut() {

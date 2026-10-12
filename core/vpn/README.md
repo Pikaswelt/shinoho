@@ -18,7 +18,9 @@ let tunnel = shinoho_vpn::Tunnel::start(&config).await?;
 // WebView-Proxy auf socks5://{tunnel.socks_addr()} setzen (T-403)
 ```
 
-Noch offen: Domainnamen/DNS über den Tunnel (T-404), Anbindung an die WebViews + Kill-Switch (T-403).
+Domainnamen werden über den DNS-Server aus der Konfiguration **durch** den Tunnel aufgelöst; ohne DNS-Eintrag werden sie abgelehnt (kein DNS-Leak).
+
+Noch offen: Anbindung an die WebViews + Kill-Switch (T-403), WebRTC-Leak-Schutz und Leak-Test-Seite (T-404).
 
 ```bash
 cd core/vpn

@@ -1,7 +1,7 @@
 //! Minimaler SOCKS5-Server (RFC 1928): nur `CONNECT`, nur ohne Anmeldung.
 //!
-//! Zieladressen als Domainname werden noch abgelehnt; DNS über den Tunnel folgt
-//! in T-404, damit Namensauflösung nie am VPN vorbei läuft.
+//! Domainnamen werden an den Tunnel weitergereicht und dort über den DNS-Server
+//! der VPN-Konfiguration aufgelöst, damit Namensauflösung nie am VPN vorbei läuft.
 
 use std::io;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};
@@ -26,7 +26,7 @@ pub enum Reply {
 #[derive(Debug, PartialEq, Eq)]
 pub enum Request {
     Connect(SocketAddr),
-    /// Domainname – wird (noch) abgelehnt.
+    /// Domainname, wird im Tunnel aufgelöst.
     ConnectDomain(String, u16),
 }
 

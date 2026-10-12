@@ -11,7 +11,7 @@ use boringtun::x25519::{PublicKey, StaticSecret};
 use shinoho_vpn::{Tunnel, WgConfig};
 use smoltcp::iface::{Config, Interface, SocketSet};
 use smoltcp::phy::{Device, DeviceCapabilities, Medium, RxToken, TxToken};
-use smoltcp::socket::tcp;
+use smoltcp::socket::{tcp, udp};
 use smoltcp::time::Instant as SmolInstant;
 use smoltcp::wire::{HardwareAddress, IpAddress, IpCidr};
 use std::collections::VecDeque;
@@ -59,7 +59,20 @@ impl Device for Dev {
     }
 }
 
-/// Test-VPN-Server: WireGuard-Peer mit Adresse 10.8.0.1 und TCP-Echo auf Port 7.
+/// Beantwortet jede A-Anfrage mit 10.8.0.1.
+fn dns_answer(query: &[u8]) -> Vec<u8> {
+    let question_end = 12 + query[12..].iter().position(|&b| b == 0).unwrap() + 1 + 4;
+    let mut r = query[..question_end].to_vec();
+    r[2] = 0x81; // Antwort, Rekursion gewünscht
+    r[3] = 0x80; // Rekursion verfügbar, kein Fehler
+    r[6..8].copy_from_slice(&1u16.to_be_bytes()); // ANCOUNT = 1
+    r[8..12].fill(0);
+    r.extend_from_slice(&[0xC0, 0x0C, 0, 1, 0, 1, 0, 0, 0, 60, 0, 4, 10, 8, 0, 1]);
+    r
+}
+
+/// Test-VPN-Server: WireGuard-Peer mit Adresse 10.8.0.1, TCP-Echo auf Port 7 und
+/// DNS auf Port 53.
 async fn run_server(udp: UdpSocket, server_secret: StaticSecret, client_public: PublicKey) {
     let mut tunn = Tunn::new(server_secret, client_public, None, None, 7, None);
     let mut dev = Dev::default();
@@ -81,6 +94,12 @@ async fn run_server(udp: UdpSocket, server_secret: StaticSecret, client_public: 
         s
     };
     let handle = sockets.add(listen());
+    let mut dns = udp::Socket::new(
+        udp::PacketBuffer::new(vec![udp::PacketMetadata::EMPTY; 8], vec![0; 4096]),
+        udp::PacketBuffer::new(vec![udp::PacketMetadata::EMPTY; 8], vec![0; 4096]),
+    );
+    dns.bind(53).unwrap();
+    let dns = sockets.add(dns);
     let start = Instant::now();
     let now = || SmolInstant::from_millis(start.elapsed().as_millis() as i64);
     let mut peer: Option<SocketAddr> = None;
@@ -97,6 +116,11 @@ async fn run_server(udp: UdpSocket, server_secret: StaticSecret, client_public: 
         }
         if s.state() == tcp::State::CloseWait {
             s.close();
+        }
+        let d = sockets.get_mut::<udp::Socket>(dns);
+        if let Ok((q, meta)) = d.recv() {
+            let answer = dns_answer(q);
+            d.send_slice(&answer, meta.endpoint).unwrap();
         }
         iface.poll(now(), &mut dev, &mut sockets);
         if let Some(addr) = peer {
@@ -129,11 +153,17 @@ async fn run_server(udp: UdpSocket, server_secret: StaticSecret, client_public: 
     }
 }
 
-fn client_config(client: &StaticSecret, server: &PublicKey, endpoint: SocketAddr) -> WgConfig {
+fn client_config(
+    client: &StaticSecret,
+    server: &PublicKey,
+    endpoint: SocketAddr,
+    dns: bool,
+) -> WgConfig {
     format!(
-        "[Interface]\nPrivateKey = {}\nAddress = 10.8.0.2/32\n\n\
+        "[Interface]\nPrivateKey = {}\nAddress = 10.8.0.2/32\n{}\n\
          [Peer]\nPublicKey = {}\nAllowedIPs = 0.0.0.0/0\nEndpoint = {}\n",
         BASE64.encode(client.to_bytes()),
+        if dns { "DNS = 10.8.0.1" } else { "" },
         BASE64.encode(server.as_bytes()),
         endpoint
     )
@@ -141,14 +171,24 @@ fn client_config(client: &StaticSecret, server: &PublicKey, endpoint: SocketAddr
     .unwrap()
 }
 
-async fn socks_connect(proxy: SocketAddr, target: [u8; 4], port: u16) -> (TcpStream, u8) {
+/// `target` ist entweder eine IPv4-Adresse (4 Byte) oder ein Domainname.
+async fn socks_connect(
+    proxy: SocketAddr,
+    target: &[u8],
+    domain: bool,
+    port: u16,
+) -> (TcpStream, u8) {
     let mut s = TcpStream::connect(proxy).await.unwrap();
     s.write_all(&[5, 1, 0]).await.unwrap();
     let mut greet = [0u8; 2];
     s.read_exact(&mut greet).await.unwrap();
     assert_eq!(greet, [5, 0]);
-    let mut req = vec![5, 1, 0, 1];
-    req.extend_from_slice(&target);
+    let mut req = if domain {
+        vec![5, 1, 0, 3, target.len() as u8]
+    } else {
+        vec![5, 1, 0, 1]
+    };
+    req.extend_from_slice(target);
     req.extend_from_slice(&port.to_be_bytes());
     s.write_all(&req).await.unwrap();
     let mut rep = [0u8; 10];
@@ -156,59 +196,69 @@ async fn socks_connect(proxy: SocketAddr, target: [u8; 4], port: u16) -> (TcpStr
     (s, rep[1])
 }
 
-#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn echo_through_wireguard_tunnel() {
-    let server_secret = StaticSecret::from([7u8; 32]);
+async fn start_pair(seed: u8, dns: bool) -> Tunnel {
+    let server_secret = StaticSecret::from([seed; 32]);
     let server_public = PublicKey::from(&server_secret);
-    let client_secret = StaticSecret::from([9u8; 32]);
+    let client_secret = StaticSecret::from([seed.wrapping_add(1); 32]);
     let client_public = PublicKey::from(&client_secret);
 
     let udp = UdpSocket::bind("127.0.0.1:0").await.unwrap();
     let endpoint = udp.local_addr().unwrap();
     tokio::spawn(run_server(udp, server_secret, client_public));
 
-    let tunnel = Tunnel::start(&client_config(&client_secret, &server_public, endpoint))
-        .await
-        .unwrap();
+    let tunnel = Tunnel::start(&client_config(
+        &client_secret,
+        &server_public,
+        endpoint,
+        dns,
+    ))
+    .await
+    .unwrap();
     assert!(tunnel.socks_addr().ip().is_loopback());
+    tunnel
+}
 
+async fn assert_echo(s: &mut TcpStream) {
+    // Mehr als ein Paket, damit auch Segmentierung durch den Tunnel geprüft wird.
+    let message: Vec<u8> = (0..20_000u32).map(|i| (i % 251) as u8).collect();
+    s.write_all(&message).await.unwrap();
+    let mut echo = vec![0u8; message.len()];
+    s.read_exact(&mut echo).await.unwrap();
+    assert_eq!(echo, message);
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn echo_through_wireguard_tunnel() {
+    let tunnel = start_pair(7, false).await;
     tokio::time::timeout(Duration::from_secs(15), async {
-        let (mut s, code) = socks_connect(tunnel.socks_addr(), [10, 8, 0, 1], ECHO_PORT).await;
+        let (mut s, code) =
+            socks_connect(tunnel.socks_addr(), &[10, 8, 0, 1], false, ECHO_PORT).await;
         assert_eq!(code, 0, "SOCKS5-Verbindung durch den Tunnel fehlgeschlagen");
-
-        // Mehr als ein Paket, damit auch Segmentierung durch den Tunnel geprüft wird.
-        let message: Vec<u8> = (0..20_000u32).map(|i| (i % 251) as u8).collect();
-        s.write_all(&message).await.unwrap();
-        let mut echo = vec![0u8; message.len()];
-        s.read_exact(&mut echo).await.unwrap();
-        assert_eq!(echo, message);
+        assert_echo(&mut s).await;
     })
     .await
     .expect("Zeitüberschreitung im Tunnel-Test");
 }
 
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn domain_targets_are_refused_until_dns_is_tunneled() {
-    let server_secret = StaticSecret::from([3u8; 32]);
-    let client_secret = StaticSecret::from([4u8; 32]);
-    let endpoint: SocketAddr = "127.0.0.1:9".parse().unwrap();
-    let tunnel = Tunnel::start(&client_config(
-        &client_secret,
-        &PublicKey::from(&server_secret),
-        endpoint,
-    ))
+async fn domain_is_resolved_through_the_tunnel() {
+    let tunnel = start_pair(11, true).await;
+    tokio::time::timeout(Duration::from_secs(15), async {
+        let (mut s, code) =
+            socks_connect(tunnel.socks_addr(), b"echo.shinoho.test", true, ECHO_PORT).await;
+        assert_eq!(code, 0, "Domain wurde nicht über den Tunnel aufgelöst");
+        assert_echo(&mut s).await;
+    })
     .await
-    .unwrap();
+    .expect("Zeitüberschreitung im DNS-Test");
+}
 
-    let mut s = TcpStream::connect(tunnel.socks_addr()).await.unwrap();
-    s.write_all(&[5, 1, 0]).await.unwrap();
-    let mut greet = [0u8; 2];
-    s.read_exact(&mut greet).await.unwrap();
-    let mut req = vec![5, 1, 0, 3, 11];
-    req.extend_from_slice(b"example.com");
-    req.extend_from_slice(&80u16.to_be_bytes());
-    s.write_all(&req).await.unwrap();
-    let mut rep = [0u8; 10];
-    s.read_exact(&mut rep).await.unwrap();
-    assert_eq!(rep[1], 8, "Domainnamen müssen bis T-404 abgelehnt werden");
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn domain_is_refused_without_tunnel_dns() {
+    let tunnel = start_pair(21, false).await;
+    let (_, code) = socks_connect(tunnel.socks_addr(), b"example.com", true, 80).await;
+    assert_eq!(
+        code, 8,
+        "Ohne DNS im Tunnel dürfen Domains nicht aufgelöst werden"
+    );
 }
