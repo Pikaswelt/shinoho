@@ -26,5 +26,79 @@
     "history": "Verlauf",
     "downloads": "Downloads",
     "incognito": "Inkognito"
+  },
+  "hub": {
+    "title": "Shinoho Hub",
+    "search": {
+      "placeholder": "Suche im Web oder URL eingeben...",
+      "searchWith": "Suchen mit {engine}",
+      "open": "Öffnen"
+    },
+    "speedDial": {
+      "title": "Schnellwahl",
+      "addShortcut": "Verknüpfung hinzufügen",
+      "editShortcut": "Verknüpfung bearbeiten",
+      "deleteShortcut": "Verknüpfung löschen",
+      "pinShortcut": "Anpinnen",
+      "unpinShortcut": "Lösen",
+      "nameLabel": "Name",
+      "urlLabel": "Webadresse (URL)",
+      "categoryLabel": "Kategorie",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "deleteConfirm": "Möchtest du diese Verknüpfung wirklich entfernen?",
+      "clicks": "{count} Klicks",
+      "categories": {
+        "all": "Alle",
+        "anime": "Anime & Manga",
+        "gaming": "Gaming",
+        "dev": "Entwicklung",
+        "social": "Social Media"
+      }
+    },
+    "wallpaper": {
+      "title": "Hintergrund & Effekte",
+      "choosePreset": "Hintergrund wählen",
+      "customUrl": "Eigene Bild-URL",
+      "customUrlPlaceholder": "https://example.com/wallpaper.jpg",
+      "blur": "Unschärfe (Blur)",
+      "brightness": "Helligkeit",
+      "particles": "Partikel-Effekt aktivieren",
+      "particleDensity": "Partikeldichte",
+      "presets": {
+        "sakura": "Sakura Blossom (Anime)",
+        "sakuraDesc": "Rosa Kirschblütenblätter mit sanfter Brise",
+        "cyberpunk": "Neon Tokyo (Cyberpunk)",
+        "cyberpunkDesc": "Dunkles Neon-Raster mit pulsierendem Glow",
+        "lofi": "Lo-Fi Evening",
+        "lofiDesc": "Gemütlicher Abendhimmel mit warmem Farbverlauf",
+        "nebula": "Dark Nebula",
+        "nebulaDesc": "Tiefes Weltall mit leuchtenden Sternenpartikeln",
+        "minimal": "Shino Minimal",
+        "minimalDesc": "Schlichtes, augenschonendes Dunkelgrau"
+      }
+    },
+    "widgets": {
+      "title": "Widgets",
+      "animeCountdown": "Anime Episoden-Countdown",
+      "freeGames": "Gratis-Spiele Radar",
+      "mascot": "Shino-chan Maskottchen",
+      "nextEpIn": "Folge {ep} in {time}",
+      "claimUntil": "Kostenlos bis {date}",
+      "free": "Gratis",
+      "noEpisodes": "Keine anstehenden Episoden gefunden",
+      "noGames": "Keine aktuellen Gratis-Aktionen"
+    },
+    "mascot": {
+      "greetingMorning": "Guten Morgen, Senpai! Bereit für einen produktiven Tag? ✨",
+      "greetingAfternoon": "Konnichiwa! Welcher Anime steht heute auf deiner Liste? 🌸",
+      "greetingEvening": "Guten Abend! Zeit zum Zocken oder Entspannen! 🎮",
+      "greetingNight": "Schon so spät? Vergiss nicht, genug zu schlafen! 🌙"
+    },
+    "settings": {
+      "title": "Startseiten-Einstellungen",
+      "toggleWidgets": "Widgets anpassen",
+      "resetDefaults": "Auf Standard zurücksetzen"
+    }
   }
 }

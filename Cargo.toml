@@ -4,4 +4,6 @@ members = [
     "apps/desktop",
     "core",
     "core/storage",
+    "core/incognito",
+    "core/adblock",
 ]
