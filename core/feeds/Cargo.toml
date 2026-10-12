@@ -1,0 +1,12 @@
+[package]
+name = "shinoho-feeds"
+version = "0.1.0"
+edition = "2021"
+description = "Free-Games-Feed (Epic, Steam, GOG, Prime Gaming) für den Shinoho Hub"
+license = "MPL-2.0"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+chrono = "0.4"
