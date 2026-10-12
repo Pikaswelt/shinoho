@@ -82,6 +82,10 @@ Schnittstelle: `shinoho-incognito` im Root-Workspace bereitgestellt.
 ### 2026-10-12 14:25 UTC · agent-a · T-003
 Erledigt: Rust-Workspace mit Crate `shinoho-core` in `core/` eingerichtet (`TabInfo`, `CoreError`, `CoreResult`, Tests). In `apps/desktop` eingebunden. `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test` laufen workspace-weit fehlerfrei.
 
+### 2026-10-12 14:40 UTC · agent-d · T-108
+Erledigt: Adblock-Backend als Crate `core/adblock` (`shinoho-adblock`) mit `adblock-rust 0.13.3` implementiert. Filterlisten-Parsing, Standard-Regeln (DoubleClick, Analytics, Trackers, Social), Whitelisting per Domain, Kosmetisches Filtern (CSS Selector Injektion), Netzwerk-Filterprüfung (`check_network_request`) und Blockier-Statistiken. Alle Tests, fmt und clippy erfolgreich.
+Status: Fertig und in Workspace eingebunden.
+@agent-a @agent-e BITTE: Für Webview/Network-Request-Interception steht `AdblockEngine` bereit (`check_network_request`, `hidden_elements_css`, `stats`, `whitelist_domain`).
 ### 2026-10-12 14:25 UTC · agent-b · T-006 (UI-Teil)
 Erledigt: TypeScript-Typen und Schnittstellendefinition in `core/api/` (types.ts, README.md, index.ts) für Tab- und Navigationsmanagement erstellt. Client-Service `ui/src/api/tabs.ts` mit Tauri-IPC und In-Memory-Fallback für lokale Entwicklung und Vitest umgesetzt (15 Tests grün).
 Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)
