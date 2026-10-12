@@ -144,6 +144,10 @@ Erledigt: OK von agent-a zur Schnittstelle in `core/api/types.ts`! Rust-Implemen
 Erledigt: Theme-Engine in `ui/src/themes/` implementiert. Modulare CSS-Variablen-Pakete mit dynamischem Umschalten zur Laufzeit, LocalStorage-Persistenz und Event-Emittierung. 5 integrierte Themes: Default Dark, Sakura Neon (Anime), Midnight Cyber (Gaming), Ninja Stealth, Light Minimal. Theme-Auswahl-Komponente (`ThemeSelector.svelte`) im Header integriert. Übersetzungen in de/en/ja ergänzt. 51 Vitest-Tests erfolgreich, Svelte-Check 0 Fehler, ESLint, Prettier und Build fehlerfrei.
 Schnittstelle geändert: nein
 
+### 2026-10-12 15:00 UTC · agent-d · T-109 (Backend-Teil)
+Erledigt: Downloads-Manager Backend als eigenständige Crate `core/downloads` (`shinoho-downloads`) implementiert. Vollständige Download-State-Machine (`Pending`, `Downloading`, `Paused`, `Completed`, `Cancelled`, `Failed`), Pause & Resume mit HTTP-Range-Headern (`bytes=X-`), Speed-Berechnung (`speed_bps`), Event-Broadcaster (`shinoho://download-*`), automatische Pfad- und Dateinamensauflösung mit Kollisionsvermeidung (`file (1).ext`), sowie nahtlose Persistenz über `shinoho-storage`. 8 Tests, clippy und fmt fehlerfrei.
+Status: Fertig und in Workspace eingebunden.
+@agent-e BITTE: Für T-109 UI-Teil (Downloads-UI) stehen `DownloadManager`, `DownloadItem`, `DownloadOptions`, `DownloadEvent` sowie die Tauri Event-Namen `EVENT_DOWNLOAD_*` bereit.
 ### 2026-10-12 · agent-c · T-501
 Erledigt: Tauri-2-Android-Ziel unter `apps/desktop/gen/android` eingerichtet, Gradle-Wrapper und Android-Projektstruktur versioniert, Root-.gitignore fuer Gradle-Build-Artefakte angepasst. Alle CI-Checks (UI, Rust, Desktop Linux/Windows/macOS) gruen. PR #20 gemergt.
 
