@@ -41,6 +41,7 @@ Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri
 Erledigt: i18n-Grundgerüst implementiert (`ui/i18n/de.json`, `en.json`, `ja.json` mit `_todo_review: true`). TypeScript-Modul `ui/src/i18n/` mit Reaktivität, Fallback, Sprachumschaltung und Parameterersetzung. App- und Header-Komponenten auf i18n umgestellt. Tests für alle 3 Sprachen und Konsistenzprüfung erfolgreich.
 Schnittstelle geändert: nein
 
+<<<<<<< HEAD
 ### 2026-10-12 · agent-f · T-401
 Neu dabei: **agent-f – VPN & Performance** (Auftrag der Projektleitung: freie Aufgaben übernehmen).
 Revier: `core/vpn/`, `core/control/`, `docs/VPN.md`. Phase 2 und 4 in Aufgaben zerlegt (T-201…T-206, T-401…T-406).
@@ -78,13 +79,19 @@ Erledigt: Inkognito-Backend als Crate `core/incognito` (`shinoho-incognito`) imp
 Schnittstelle: `shinoho-incognito` im Root-Workspace bereitgestellt.
 @agent-e BITTE: Für T-107 (Inkognito-UI) stehen `IncognitoManager`, `IncognitoConfig`, `IncognitoTheme` (Dark Purple / Ninja Shino-chan) und Session-Lifecycle-Events zur Verfügung.
 
-
-
 ### 2026-10-12 14:25 UTC · agent-a · T-003
 Erledigt: Rust-Workspace mit Crate `shinoho-core` in `core/` eingerichtet (`TabInfo`, `CoreError`, `CoreResult`, Tests). In `apps/desktop` eingebunden. `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test` laufen workspace-weit fehlerfrei.
 
 ### 2026-10-12 · agent-c · T-501
 Erledigt: Tauri-Android-Projekt unter `apps/desktop/gen/android` initialisiert (Gradle, Kotlin MainActivity, AndroidManifest.xml, Debug-Build-Setup). Root-.gitignore angepasst, um Android-Projektdateien zu erfassen und temporaere Gradle-Build-Artefakte zu ignorieren.
+### 2026-10-12 14:40 UTC · agent-d · T-108
+Erledigt: Adblock-Backend als Crate `core/adblock` (`shinoho-adblock`) mit `adblock-rust 0.13.3` implementiert. Filterlisten-Parsing, Standard-Regeln (DoubleClick, Analytics, Trackers, Social), Whitelisting per Domain, Kosmetisches Filtern (CSS Selector Injektion), Netzwerk-Filterprüfung (`check_network_request`) und Blockier-Statistiken. Alle Tests, fmt und clippy erfolgreich.
+Status: Fertig und in Workspace eingebunden.
+@agent-a @agent-e BITTE: Für Webview/Network-Request-Interception steht `AdblockEngine` bereit (`check_network_request`, `hidden_elements_css`, `stats`, `whitelist_domain`).
+### 2026-10-12 14:25 UTC · agent-b · T-006 (UI-Teil)
+Erledigt: TypeScript-Typen und Schnittstellendefinition in `core/api/` (types.ts, README.md, index.ts) für Tab- und Navigationsmanagement erstellt. Client-Service `ui/src/api/tabs.ts` mit Tauri-IPC und In-Memory-Fallback für lokale Entwicklung und Vitest umgesetzt (15 Tests grün).
+Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)
+@agent-a BITTE: Prüfe die Schnittstelle in `core/api/README.md` und `core/api/types.ts` für die Rust-Implementierung von T-006/T-101 (Commands `create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs` und Events `shinoho://tab-*`). Bitte um kurzes "OK von agent-a" im LOG.
 ### 2026-10-12 14:30 UTC · agent-e · T-110
 Erledigt: Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper, Widgets) vollständig umgesetzt:
 - Live-Wallpaper (`Wallpaper.svelte`): Partikelanimationen für Sakura, Cyberpunk, Lo-Fi, Nebula und Minimal; Blur- und Helligkeitsregler.
@@ -96,4 +103,13 @@ Erledigt: Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper, Widgets) vollstä
 - Vollständige Mehrsprachigkeit (de, en, ja) in `ui/i18n/`.
 - 18 Vitest-Tests erfolgreich, Svelte-Check 0 Fehler, ESLint & Prettier fehlerfrei.
 Schnittstelle geändert: nein
+
+### 2026-10-12 14:25 UTC · agent-b · T-006 (UI-Teil)
+Erledigt: TypeScript-Typen und Schnittstellendefinition in `core/api/` (types.ts, README.md, index.ts) für Tab- und Navigationsmanagement erstellt. Client-Service `ui/src/api/tabs.ts` mit Tauri-IPC und In-Memory-Fallback für lokale Entwicklung und Vitest umgesetzt (15 Tests grün).
+Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)
+@agent-a BITTE: Prüfe die Schnittstelle in `core/api/README.md` und `core/api/types.ts` für die Rust-Implementierung von T-006/T-101 (Commands `create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs` und Events `shinoho://tab-*`). Bitte um kurzes "OK von agent-a" im LOG.
+
+### 2026-10-12 14:35 UTC · agent-a · T-006 (Kern-Teil)
+Erledigt: OK von agent-a zur Schnittstelle in `core/api/types.ts`! Rust-Implementierung in `shinoho-core` (`core/src/api/mod.rs`, `core/src/tabs/mod.rs`) umgesetzt mit allen Commands (`create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs`), Event-Emittierung (`shinoho://tab-*`) und `TabManagerState`. In `apps/desktop` eingebunden. Alle Rust- und UI-Tests laufen grün.
+
 
