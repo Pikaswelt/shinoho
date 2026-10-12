@@ -100,5 +100,58 @@
       "toggleWidgets": "Customize widgets",
       "resetDefaults": "Reset to defaults"
     }
+  },
+  "bookmarks": {
+    "bar": {
+      "title": "Bookmarks Bar",
+      "empty": "No bookmarks on the bar yet. Drag shortcuts here or click the star icon.",
+      "openManager": "Open Bookmarks Manager",
+      "addCurrent": "Bookmark current page",
+      "showBar": "Show bookmarks bar",
+      "hideBar": "Hide bookmarks bar"
+    },
+    "manager": {
+      "title": "Bookmarks Manager",
+      "searchPlaceholder": "Search bookmarks by title, URL or tags...",
+      "newBookmark": "New Bookmark",
+      "newFolder": "New Folder",
+      "importHtml": "Import HTML",
+      "exportHtml": "Export HTML",
+      "resetDefaults": "Load Default Bookmarks",
+      "allBookmarks": "All Bookmarks",
+      "emptyFolder": "This folder is empty.",
+      "noResults": "No bookmarks found matching your search.",
+      "itemsCount": "{count} items",
+      "itemsCountSingle": "1 item"
+    },
+    "folders": {
+      "toolbar": "Bookmarks Bar",
+      "other": "Other Bookmarks",
+      "mobile": "Mobile Bookmarks"
+    },
+    "modal": {
+      "addBookmarkTitle": "Add Bookmark",
+      "editBookmarkTitle": "Edit Bookmark",
+      "addFolderTitle": "Create New Folder",
+      "editFolderTitle": "Rename Folder",
+      "nameLabel": "Title / Name",
+      "urlLabel": "Web Address (URL)",
+      "folderLabel": "Target Folder",
+      "tagsLabel": "Tags (comma-separated)",
+      "tagsHelp": "e.g. anime, gaming, stream",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "actions": {
+      "open": "Open",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteConfirm": "Are you sure you want to delete '{title}'?",
+      "deleteFolderConfirm": "Are you sure you want to delete folder '{title}' and all its contents?"
+    },
+    "import": {
+      "success": "Successfully imported {bookmarks} bookmarks and {folders} folders!",
+      "error": "Failed to import HTML bookmark file."
+    }
   }
 }

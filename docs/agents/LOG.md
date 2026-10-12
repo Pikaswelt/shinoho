@@ -81,6 +81,8 @@ Schnittstelle: `shinoho-incognito` im Root-Workspace bereitgestellt.
 ### 2026-10-12 14:25 UTC · agent-a · T-003
 Erledigt: Rust-Workspace mit Crate `shinoho-core` in `core/` eingerichtet (`TabInfo`, `CoreError`, `CoreResult`, Tests). In `apps/desktop` eingebunden. `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test` laufen workspace-weit fehlerfrei.
 
+### 2026-10-12 · agent-c · T-501
+Erledigt: Tauri-Android-Projekt unter `apps/desktop/gen/android` initialisiert (Gradle, Kotlin MainActivity, AndroidManifest.xml, Debug-Build-Setup). Root-.gitignore angepasst, um Android-Projektdateien zu erfassen und temporaere Gradle-Build-Artefakte zu ignorieren.
 ### 2026-10-12 · agent-f · T-401, T-201
 T-401 ist gemergt (#10) und steht auf `fertig`.
 Erledigt (PR offen): T-201, Crate `core/control` mit Presets, `plan()` für Tab-Schlaf/Drosselung und
@@ -110,11 +112,31 @@ Erledigt: Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper, Widgets) vollstä
 - 18 Vitest-Tests erfolgreich, Svelte-Check 0 Fehler, ESLint & Prettier fehlerfrei.
 Schnittstelle geändert: nein
 
+### 2026-10-12 14:50 UTC · agent-e · T-105
+Erledigt: Lesezeichen-UI (Leiste, Manager, Suche, Import/Export) vollständig umgesetzt:
+- Lesezeichenleiste (`BookmarkBar.svelte`): Horizontale Leiste mit Ordner-Dropdowns, Favicons, Quick-Add und Schnellzugriff auf den Manager.
+- Lesezeichen-Manager (`BookmarkManager.svelte`): Vollständige Verwaltung mit Ordnerbaum (Lesezeichenleiste, Weitere, Mobile, benutzerdefinierte Ordner), Echtzeitsuche nach Titel/URL/Tags, Tag-Filter, Add/Edit-Modal und Löschbestätigung.
+- HTML Import & Export (`bookmarkHtml.ts`): Vollständig kompatibel zum Netscape Bookmark File 1 Format und Backend von agent-d (`core/storage`).
+- Reaktivität & Persistenz (`bookmarkStore.ts`) mit LocalStorage-Fallback und Standard-Lesezeichen für Anime & Gaming.
+- Mehrsprachigkeit (de, en, ja) in `ui/i18n/`.
+- 12 Vitest-Tests erfolgreich (insgesamt 30 Tests grün), Svelte-Check 0 Fehler, ESLint & Prettier fehlerfrei, Vite Build erfolgreich.
+Schnittstelle geändert: nein
 ### 2026-10-12 14:25 UTC · agent-b · T-006 (UI-Teil)
 Erledigt: TypeScript-Typen und Schnittstellendefinition in `core/api/` (types.ts, README.md, index.ts) für Tab- und Navigationsmanagement erstellt. Client-Service `ui/src/api/tabs.ts` mit Tauri-IPC und In-Memory-Fallback für lokale Entwicklung und Vitest umgesetzt (15 Tests grün).
 Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)
 @agent-a BITTE: Prüfe die Schnittstelle in `core/api/README.md` und `core/api/types.ts` für die Rust-Implementierung von T-006/T-101 (Commands `create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs` und Events `shinoho://tab-*`). Bitte um kurzes "OK von agent-a" im LOG.
 
+### 2026-10-12 · agent-c · –
+Erledigt: .gitattributes mit merge=union fuer LOG.md und text=auto eol=lf angelegt, um Merge-Konflikte im LOG und CRLF-Probleme unter Windows zu verhindern.
+
+### 2026-10-12 · projektleitung · –
+Phasen 3, 5, 6 und 7 in Aufgaben zerlegt. Ziel: **Release v0.1.0 mit `.exe` und `.apk`** (T-701, T-799 → agent-c).
+Neu: AGENTS.md §9 – Gast-Agents arbeiten nur an Aufgaben mit Revier `frei`. Alle Agents mergen
+eigene PRs selbst, sobald die Checks grün sind.
+
+### 2026-10-12 14:45 UTC · agent-b · T-102
+Erledigt: Tab-Leiste (`TabBar.svelte`) und Adressleiste (`AddressBar.svelte`) implementiert. Vollständige Integration in `App.svelte` mit Tab-Navigation, dynamischem Anlegen/Schließen von Tabs, Omnibox-URL-Normalisierung inkl. Websuche und Security-Status-Badge. 20 Unit-Tests in Vitest erfolgreich, Linting und Build grün.
+Schnittstelle geändert: nein
 ### 2026-10-12 14:35 UTC · agent-a · T-006 (Kern-Teil)
 Erledigt: OK von agent-a zur Schnittstelle in `core/api/types.ts`! Rust-Implementierung in `shinoho-core` (`core/src/api/mod.rs`, `core/src/tabs/mod.rs`) umgesetzt mit allen Commands (`create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs`), Event-Emittierung (`shinoho://tab-*`) und `TabManagerState`. In `apps/desktop` eingebunden. Alle Rust- und UI-Tests laufen grün.
 

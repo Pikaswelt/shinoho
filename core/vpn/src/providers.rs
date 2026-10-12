@@ -20,6 +20,8 @@ pub const SCHEMA_VERSION: u32 = 1;
 pub enum SetupKind {
     /// Nutzer lädt eine WireGuard-`.conf` beim Anbieter herunter und importiert sie.
     WireguardConfig,
+    /// Nur über die eigene App des Anbieters nutzbar, nicht in Shinoho importierbar.
+    AppOnly,
     /// Noch nicht geklärt, wie der Anbieter eingebunden wird.
     Unknown,
 }
@@ -41,6 +43,16 @@ pub struct Provider {
     pub limits: Vec<String>,
     /// Konditionen noch nicht bestätigt; die UI zeigt einen Hinweis an.
     pub needs_review: bool,
+    /// Belege für die Angaben (nur `https://`).
+    #[serde(default)]
+    pub sources: Vec<String>,
+}
+
+impl Provider {
+    /// Lässt sich eine Konfiguration dieses Anbieters in Shinoho importieren?
+    pub fn importable(&self) -> bool {
+        self.setup == SetupKind::WireguardConfig
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -65,6 +77,11 @@ impl ProviderList {
         list
     }
 
+    /// Anbieter, deren Konfiguration Shinoho direkt importieren kann (für den Assistenten).
+    pub fn importable(&self) -> impl Iterator<Item = &Provider> {
+        self.providers.iter().filter(|p| p.importable())
+    }
+
     pub fn get(&self, id: &str) -> Option<&Provider> {
         self.providers.iter().find(|p| p.id == id)
     }
@@ -82,6 +99,8 @@ pub enum ProviderError {
     InvalidId(String),
     #[error("Anbieter {0:?}: Website muss mit https:// beginnen")]
     InsecureWebsite(String),
+    #[error("Anbieter {0:?}: Quellen müssen mit https:// beginnen")]
+    InsecureSource(String),
     #[error("Anbieter {0:?}: Name fehlt")]
     MissingName(String),
 }
@@ -109,6 +128,9 @@ pub fn parse_providers(json: &str) -> Result<ProviderList, ProviderError> {
         }
         if !p.website.starts_with("https://") {
             return Err(ProviderError::InsecureWebsite(p.id.clone()));
+        }
+        if p.sources.iter().any(|s| !s.starts_with("https://")) {
+            return Err(ProviderError::InsecureSource(p.id.clone()));
         }
     }
     Ok(list)
@@ -145,6 +167,20 @@ mod tests {
         );
     }
 
+    #[test]
+    fn bundled_list_has_sources_and_import_targets() {
+        let list = load_bundled_providers();
+        for p in &list.providers {
+            assert!(!p.sources.is_empty(), "{} hat keine Quelle", p.id);
+        }
+        let ids: Vec<&str> = list.importable().map(|p| p.id.as_str()).collect();
+        assert_eq!(ids, vec!["proton-free"]);
+        assert_eq!(
+            list.get("windscribe-free").unwrap().setup,
+            SetupKind::AppOnly
+        );
+    }
+
     fn one(id: &str, website: &str) -> String {
         format!(
             r#"{{"schemaVersion":1,"lastReviewed":"2026-10-12","providers":[{{
@@ -164,6 +200,14 @@ mod tests {
         assert!(matches!(
             parse_providers(&one("x", "http://a.example")),
             Err(ProviderError::InsecureWebsite(_))
+        ));
+        let bad_source = one("x", "https://a.example").replace(
+            "\"needsReview\":true",
+            "\"needsReview\":true,\"sources\":[\"http://a.example\"]",
+        );
+        assert!(matches!(
+            parse_providers(&bad_source),
+            Err(ProviderError::InsecureSource(_))
         ));
         assert!(matches!(
             parse_providers(&one("x", "javascript:alert(1)")),

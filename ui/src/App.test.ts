@@ -2,21 +2,50 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { mount, unmount, tick } from 'svelte';
 import App from './App.svelte';
 import { setLocale, DEFAULT_LOCALE } from './i18n';
+import { tabService } from './api/tabs';
 
 describe('App component', () => {
   beforeEach(() => {
     setLocale(DEFAULT_LOCALE);
+    tabService.resetMock();
   });
 
-  it('renders header, welcome card and language selector in default German', () => {
+  it('renders header, TabBar, AddressBar, Hub view and language selector in default German', async () => {
     const target = document.createElement('div');
     document.body.appendChild(target);
 
     const app = mount(App, { target });
+    await tick();
+
     expect(target.querySelector('[data-testid="app-header"]')).not.toBeNull();
+    expect(target.querySelector('[data-testid="tab-bar"]')).not.toBeNull();
+    expect(target.querySelector('[data-testid="address-bar"]')).not.toBeNull();
+    expect(target.querySelector('[data-testid="hub-view"]')).not.toBeNull();
     expect(target.textContent).toContain('Shinoho');
     expect(target.textContent).toContain('Shinoho Browser UI bereit');
     expect(target.querySelector('[data-testid="language-selector"]')).not.toBeNull();
+
+    unmount(app);
+    document.body.removeChild(target);
+  });
+
+  it('adds a new tab when clicking new tab button in TabBar', async () => {
+    const target = document.createElement('div');
+    document.body.appendChild(target);
+
+    const app = mount(App, { target });
+    await tick();
+
+    const newTabBtn = target.querySelector<HTMLButtonElement>('[data-testid="new-tab-btn"]');
+    expect(newTabBtn).not.toBeNull();
+
+    newTabBtn?.click();
+    await tick();
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    await tick();
+
+    const tabs = target.querySelectorAll('[role="tab"]');
+    expect(tabs.length).toBeGreaterThanOrEqual(2);
 
     unmount(app);
     document.body.removeChild(target);
@@ -27,6 +56,8 @@ describe('App component', () => {
     document.body.appendChild(target);
 
     const app = mount(App, { target });
+    await tick();
+
     const enBtn = target.querySelector<HTMLButtonElement>('[data-testid="lang-btn-en"]');
     expect(enBtn).not.toBeNull();
 
