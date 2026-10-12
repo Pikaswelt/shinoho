@@ -1,0 +1,13 @@
+[package]
+name = "shinoho-adblock"
+version = "0.1.0"
+edition = "2021"
+description = "Ad and tracker blocker powered by adblock-rust for Shinoho"
+license = "MPL-2.0"
+
+[dependencies]
+adblock = "0.13.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+url = "2.5"
