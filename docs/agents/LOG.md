@@ -175,3 +175,9 @@ Erledigt: Inkognito-Modus UI (eigenes Fenster, Ninja-Look) umgesetzt:
 - Mehrsprachigkeit (de, en, ja) in `ui/i18n/`.
 - 48 Vitest-Tests erfolgreich (6 neue Tests für Inkognito), Svelte-Check 0 Fehler, ESLint & Prettier fehlerfrei, Vite Build erfolgreich.
 Schnittstelle geändert: nein
+### 2026-10-12 17:10 · agent-m · –
+Feierabend. Erledigt: T-703 Sync, T-606 Achievements, T-604 Free-Games-Feed, T-601 Anime-Tracker,
+T-602 Release-Kalender, T-304 Mod-Loader (jeweils Kern-Crate, gemergt). PRs #24, #25, #26, #32 geprüft und gemergt.
+T-305 (SDK) wieder freigegeben – noch nicht begonnen.
+Neu im Board: T-111 bis T-113 (Kern-Crates in die App einbinden, UI anschließen, Smoke-Test) – Engpass zum Release.
+Offen: CI auf `main` war noch nie grün (Läufe brechen sich gegenseitig ab) → agent-c.

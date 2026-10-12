@@ -13,9 +13,9 @@ noch `offen` stehen (jeder Agent claimt nur eine Aufgabe gleichzeitig):
 
 | Rolle | Reserviert (in dieser Reihenfolge) |
 |---|---|
-| agent-a – Kern | T-002, T-003, T-006 (Kern-Teil), T-101 |
-| agent-b – UI | T-004, T-007, T-006 (UI-Teil), T-102 |
-| agent-c – Infra/Repo | T-001, Rollen-PR für AGENTS.md, T-005, T-501, T-503, T-701, T-799 (Release) |
+| agent-a – Kern | T-002, T-003, T-006 (Kern-Teil), T-101, **T-111** |
+| agent-b – UI | T-004, T-007, T-006 (UI-Teil), T-102, **T-112** |
+| agent-c – Infra/Repo | T-001, Rollen-PR für AGENTS.md, T-005, **T-113**, T-501, T-503, T-701, T-799 (Release) |
 | agent-d – Kern-2 | T-103, T-104, T-106, T-108, T-109 (Backend) |
 | agent-e – UI-2 | T-110, T-105, T-107, T-109 (UI) |
 | agent-f – VPN & Performance | Phase 2 (Kern-Teil) und Phase 4 (Kern-Teil), siehe unten |
@@ -47,8 +47,11 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-106 | Inkognito-Modus: Backend (flüchtiges Profil, kein Disk-Cache) | D | T-101 | fertig |
 | T-107 | Inkognito-Modus: UI (eigenes Fenster, eigener Look) | E | T-106 | fertig |
 | T-108 | Adblock mit `adblock-rust` | D | T-101 | fertig |
-| T-109 | Downloads-Manager (Backend + UI) | D + E | T-101 | in Arbeit (agent-d: Backend) |
+| T-109 | Downloads-Manager (Backend + UI) | D + E | T-101 | Backend fertig (agent-d), UI offen (agent-e) |
 | T-110 | Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper) | E | T-102 | fertig |
+| T-111 | **Integration Kern:** `apps/desktop` bindet storage, bookmarks, history, incognito, adblock, downloads als Tauri-Commands/Events ein (`core/api` erweitern, abwärtskompatibel) | A | T-101, T-108, T-109 | offen |
+| T-112 | **Integration UI:** Tab-Leiste, Adressleiste, Lesezeichen, Hub, Inkognito, Downloads an die echten Tauri-Commands anbinden (keine Mock-Daten mehr) | B | T-111 | offen |
+| T-113 | **Smoke-Test:** App startet, Tab öffnen, Seite laden, Lesezeichen anlegen, Inkognito-Fenster, Download – als automatischer Test in der CI (Windows + Linux) | C | T-112, T-005 | offen |
 
 ## Phase 2 – Shinoho Control (Performance)
 
@@ -80,7 +83,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-302 | Wallpaper- und Soundpacks (Startseite, UI-Sounds) | frei | T-301, T-110 | offen |
 | T-303 | Seiten-CSS (Userstyles pro Domain) im Kern injizieren | frei | T-101 | in Arbeit (agent-a) |
 | T-304 | Mod-Loader + Sandbox (Manifest, Rechte, Laden/Entladen) | frei | T-006 | fertig |
-| T-305 | SDK `sdk/` + Beispiel-Mod + `docs/MODDING.md` aktualisieren | frei | T-304 | in Arbeit (agent-m) |
+| T-305 | SDK `sdk/` + Beispiel-Mod + `docs/MODDING.md` aktualisieren | frei | T-304 | offen |
 
 ## Phase 5 – Mobile (Android)
 
@@ -100,7 +103,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-604 | Free-Games-Feed (Epic, Steam, GOG) auf dem Hub | frei | T-110 | fertig |
 | T-605 | Maskottchen Shino-chan (Platzhalter bis Q9 geklärt) | frei | T-110 | offen |
 | T-606 | Achievements (lokal, Benachrichtigungen) | frei | T-103 | fertig |
-| T-607 | Free-Games-Widget im Hub (nutzt `core/feeds`, Tauri-Command + UI) | frei | T-604, T-110 | offen |
+| T-607 | Free-Games-Widget im Hub (nutzt `core/feeds`, Tauri-Command + UI) | frei | T-604, T-110 | in Arbeit (agent-d) |
 | T-608 | Anime-Tracker-UI (Watchlist im Hub, Folge +1, AniList-Login-Tab) | frei | T-601, T-110 | offen |
 
 ## Phase 7 – Sync, Store & Release
@@ -111,4 +114,4 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-702 | Auto-Updates (`tauri-plugin-updater`, Update-Feed aus GitHub-Releases) | frei | T-701 | offen |
 | T-703 | Sync ohne Server (verschlüsselter Export/Import von Lesezeichen + Einstellungen) | frei | T-104 | fertig |
 | T-704 | Mod-Store (Index aus einem Git-Repo, Installieren/Entfernen) | frei | T-304 | offen |
-| T-799 | **Release v0.1.0** mit `.exe` und `.apk` veröffentlichen | C | Phase 1, T-701 | offen |
+| T-799 | **Release v0.1.0** mit `.exe` und `.apk` veröffentlichen | C | Phase 1, T-113, T-701 | offen |
