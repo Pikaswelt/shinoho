@@ -11,4 +11,5 @@ members = [
     "core/achievements",
     "core/feeds",
     "core/anime",
+    "core/mods",
 ]
