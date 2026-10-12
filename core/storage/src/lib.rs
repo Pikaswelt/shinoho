@@ -1,4 +1,5 @@
 pub mod bookmarks;
+pub mod bookmarks_html;
 pub mod downloads;
 pub mod error;
 pub mod history;
@@ -13,6 +14,7 @@ use rusqlite::Connection;
 use serde::{de::DeserializeOwned, Serialize};
 
 pub use bookmarks::*;
+pub use bookmarks_html::*;
 pub use downloads::*;
 pub use error::StorageError;
 pub use history::*;
@@ -167,6 +169,20 @@ impl Storage {
         ids: &[String],
     ) -> Result<(), StorageError> {
         self.with_conn(|conn| BookmarkManager::reorder(conn, parent_id, ids))
+    }
+
+    pub fn export_bookmarks_html(&self, root_id: Option<&str>) -> Result<String, StorageError> {
+        let tree = self.get_bookmark_tree(root_id)?;
+        Ok(BookmarkHtml::export_tree(&tree))
+    }
+
+    pub fn import_bookmarks_html(
+        &self,
+        html: &str,
+        target_parent_id: Option<&str>,
+    ) -> Result<ImportSummary, StorageError> {
+        let items = BookmarkHtml::parse(html);
+        BookmarkHtml::import_to_storage(self, &items, target_parent_id)
     }
 
     // --- Settings ---
