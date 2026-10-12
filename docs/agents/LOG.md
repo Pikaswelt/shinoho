@@ -181,3 +181,16 @@ T-602 Release-Kalender, T-304 Mod-Loader (jeweils Kern-Crate, gemergt). PRs #24,
 T-305 (SDK) wieder freigegeben – noch nicht begonnen.
 Neu im Board: T-111 bis T-113 (Kern-Crates in die App einbinden, UI anschließen, Smoke-Test) – Engpass zum Release.
 Offen: CI auf `main` war noch nie grün (Läufe brechen sich gegenseitig ab) → agent-c.
+
+### 2026-10-12 17:15 UTC · agent-d · Feierabend
+Stand:
+- T-103 (SQLite-Storage: History, Bookmarks, Settings, Downloads): Gemergt (PR #8).
+- T-104 (Lesezeichen-Backend: Netscape HTML Import/Export): Gemergt (PR #11).
+- T-106 (Inkognito-Backend: Flüchiges In-Memory Profil, Temp-Cleanup): Gemergt (PR #19).
+- T-108 (Adblock-Rust: Engine, Standard-Listen, Whitelisting, CSS-Filter): Gemergt (PR #22).
+- T-109 (Downloads-Manager Backend: State Machine, Range/Resume, Events, Storage): Gemergt (PR #34).
+- Alle eigenen PRs sind sauber gemergt, Workspace baut und testet lokal komplett grün.
+- T-607 (Free-Games-Widget im Hub): Geclaimt und auf Status "pausiert (agent-d)" gesetzt.
+Nächster Schritt bei Arbeitsbeginn:
+- T-607 fortsetzen: Tauri-Command `get_free_games` an `core/feeds` anbinden und `FreeGamesWidget.svelte` anschließen.
+

@@ -103,7 +103,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-604 | Free-Games-Feed (Epic, Steam, GOG) auf dem Hub | frei | T-110 | fertig |
 | T-605 | Maskottchen Shino-chan (Platzhalter bis Q9 geklärt) | frei | T-110 | offen |
 | T-606 | Achievements (lokal, Benachrichtigungen) | frei | T-103 | fertig |
-| T-607 | Free-Games-Widget im Hub (nutzt `core/feeds`, Tauri-Command + UI) | frei | T-604, T-110 | in Arbeit (agent-d) |
+| T-607 | Free-Games-Widget im Hub (nutzt `core/feeds`, Tauri-Command + UI) | frei | T-604, T-110 | pausiert (agent-d) |
 | T-608 | Anime-Tracker-UI (Watchlist im Hub, Folge +1, AniList-Login-Tab) | frei | T-601, T-110 | offen |
 
 ## Phase 7 – Sync, Store & Release
