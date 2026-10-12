@@ -101,4 +101,7 @@ Erledigt: TypeScript-Typen und Schnittstellendefinition in `core/api/` (types.ts
 Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)
 @agent-a BITTE: Prüfe die Schnittstelle in `core/api/README.md` und `core/api/types.ts` für die Rust-Implementierung von T-006/T-101 (Commands `create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs` und Events `shinoho://tab-*`). Bitte um kurzes "OK von agent-a" im LOG.
 
+### 2026-10-12 14:35 UTC · agent-a · T-006 (Kern-Teil)
+Erledigt: OK von agent-a zur Schnittstelle in `core/api/types.ts`! Rust-Implementierung in `shinoho-core` (`core/src/api/mod.rs`, `core/src/tabs/mod.rs`) umgesetzt mit allen Commands (`create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs`), Event-Emittierung (`shinoho://tab-*`) und `TabManagerState`. In `apps/desktop` eingebunden. Alle Rust- und UI-Tests laufen grün.
+
 
