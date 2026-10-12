@@ -5,6 +5,12 @@ use crate::tabs::{
     NavigateTabRequest, ReloadTabRequest, SetMutedRequest, SetPinnedRequest, TabActionRequest,
     TabEvent, TabGroup, TabInfo, TabManager, UpdateTabGroupRequest,
 };
+use crate::userstyles::{
+    AddUserStyleRequest, GetStylesForUrlRequest, InjectStylesRequest, InjectionResult,
+    RemoveUserStyleRequest, SiteStylesResponse, ToggleUserStyleRequest, UpdateUserStyleRequest,
+    UserStyleRule, UserStylesState,
+};
+use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
 use tauri::{AppHandle, Emitter, State};
 
@@ -15,6 +21,25 @@ pub const EVENT_TAB_ACTIVATED: &str = "shinoho://tab-activated";
 pub const EVENT_TAB_MOVED: &str = "shinoho://tab-moved";
 pub const EVENT_TAB_GROUP_CREATED: &str = "shinoho://tab-group-created";
 pub const EVENT_TAB_GROUP_UPDATED: &str = "shinoho://tab-group-updated";
+
+pub const EVENT_STYLES_INJECTED: &str = "shinoho://styles-injected";
+pub const EVENT_USERSTYLE_ADDED: &str = "shinoho://userstyle-added";
+pub const EVENT_USERSTYLE_UPDATED: &str = "shinoho://userstyle-updated";
+pub const EVENT_USERSTYLE_REMOVED: &str = "shinoho://userstyle-removed";
+
+/// Events fuer Userstyles und CSS-Injektion.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(tag = "type", content = "payload")]
+pub enum StyleEvent {
+    #[serde(rename_all = "camelCase")]
+    StylesInjected { injection: InjectionResult },
+    #[serde(rename_all = "camelCase")]
+    UserStyleAdded { rule: UserStyleRule },
+    #[serde(rename_all = "camelCase")]
+    UserStyleUpdated { rule: UserStyleRule },
+    #[serde(rename_all = "camelCase")]
+    UserStyleRemoved { id: String },
+}
 
 /// Verwalteter Zustand des TabManagers fuer Tauri.
 #[derive(Debug, Default)]
@@ -344,4 +369,132 @@ pub fn update_tab_group(
         },
     );
     Ok(group)
+}
+
+// --- Seiten-CSS / Userstyles Commands (T-303) ---
+
+/// Registriert einen neuen Userstyle.
+#[tauri::command]
+pub fn add_userstyle(
+    app: AppHandle,
+    state: State<'_, UserStylesState>,
+    request: AddUserStyleRequest,
+) -> Result<UserStyleRule, String> {
+    let mut mgr = state.0.lock().map_err(|e| format!("Lock-Fehler: {e}"))?;
+    let rule = mgr.add_rule(request);
+
+    let _ = app.emit(
+        EVENT_USERSTYLE_ADDED,
+        StyleEvent::UserStyleAdded { rule: rule.clone() },
+    );
+    Ok(rule)
+}
+
+/// Aktualisiert eine bestehende Userstyle-Regel.
+#[tauri::command]
+pub fn update_userstyle(
+    app: AppHandle,
+    state: State<'_, UserStylesState>,
+    request: UpdateUserStyleRequest,
+) -> Result<UserStyleRule, String> {
+    let mut mgr = state.0.lock().map_err(|e| format!("Lock-Fehler: {e}"))?;
+    let rule = mgr.update_rule(request).map_err(|e| e.to_string())?;
+
+    let _ = app.emit(
+        EVENT_USERSTYLE_UPDATED,
+        StyleEvent::UserStyleUpdated { rule: rule.clone() },
+    );
+    Ok(rule)
+}
+
+/// Schaltet eine Userstyle-Regel ein oder aus.
+#[tauri::command]
+pub fn toggle_userstyle(
+    app: AppHandle,
+    state: State<'_, UserStylesState>,
+    request: ToggleUserStyleRequest,
+) -> Result<UserStyleRule, String> {
+    let mut mgr = state.0.lock().map_err(|e| format!("Lock-Fehler: {e}"))?;
+    let rule = mgr
+        .toggle_rule(&request.id, request.enabled)
+        .map_err(|e| e.to_string())?;
+
+    let _ = app.emit(
+        EVENT_USERSTYLE_UPDATED,
+        StyleEvent::UserStyleUpdated { rule: rule.clone() },
+    );
+    Ok(rule)
+}
+
+/// Loescht eine Userstyle-Regel.
+#[tauri::command]
+pub fn remove_userstyle(
+    app: AppHandle,
+    state: State<'_, UserStylesState>,
+    request: RemoveUserStyleRequest,
+) -> Result<bool, String> {
+    let mut mgr = state.0.lock().map_err(|e| format!("Lock-Fehler: {e}"))?;
+    let removed = mgr.remove_rule(&request.id);
+
+    if removed {
+        let _ = app.emit(
+            EVENT_USERSTYLE_REMOVED,
+            StyleEvent::UserStyleRemoved { id: request.id },
+        );
+    }
+    Ok(removed)
+}
+
+/// Liefert alle registrierten Userstyles.
+#[tauri::command]
+pub fn get_userstyles(state: State<'_, UserStylesState>) -> Result<Vec<UserStyleRule>, String> {
+    let mgr = state.0.lock().map_err(|e| format!("Lock-Fehler: {e}"))?;
+    Ok(mgr.get_rules())
+}
+
+/// Ermittelt alle passenden Styles und das Injektionsskript fuer eine gegebene URL.
+#[tauri::command]
+pub fn get_styles_for_url(
+    state: State<'_, UserStylesState>,
+    request: GetStylesForUrlRequest,
+) -> Result<SiteStylesResponse, String> {
+    let mgr = state.0.lock().map_err(|e| format!("Lock-Fehler: {e}"))?;
+    Ok(mgr.query_styles_for_url(&request.url))
+}
+
+/// Injiziert Userstyles fuer den angegebenen Tab.
+#[tauri::command]
+pub fn inject_styles_for_tab(
+    app: AppHandle,
+    tab_state: State<'_, TabManagerState>,
+    style_state: State<'_, UserStylesState>,
+    request: InjectStylesRequest,
+) -> Result<InjectionResult, String> {
+    let url = if let Some(u) = request.url {
+        u
+    } else {
+        let tab_mgr = tab_state
+            .0
+            .lock()
+            .map_err(|e| format!("Lock-Fehler: {e}"))?;
+        let tab = tab_mgr
+            .get_tab(&request.tab_id)
+            .ok_or_else(|| format!("Tab {} nicht gefunden", request.tab_id))?;
+        tab.url
+    };
+
+    let style_mgr = style_state
+        .0
+        .lock()
+        .map_err(|e| format!("Lock-Fehler: {e}"))?;
+    let result = style_mgr.evaluate_injection(&request.tab_id, &url);
+
+    let _ = app.emit(
+        EVENT_STYLES_INJECTED,
+        StyleEvent::StylesInjected {
+            injection: result.clone(),
+        },
+    );
+
+    Ok(result)
 }
