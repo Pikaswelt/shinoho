@@ -32,7 +32,7 @@ Bis dahin höchstens offene PRs reviewen (nur Kommentare).
 | T-002 | Tauri-2-Projekt anlegen (`apps/desktop`), leeres Fenster | A | – | fertig |
 | T-003 | Rust-Workspace `core/` + `cargo fmt/clippy/test` einrichten | A | T-002 | in Arbeit (agent-a) |
 | T-004 | UI-Grundgerüst `ui/` (Svelte + TS, Lint, Prettier, Vitest) | B | – | fertig |
-| T-005 | CI: Builds Windows + Linux (GitHub Actions); macOS unsigniert optional | C | T-002, T-004 | offen |
+| T-005 | CI: Builds Windows + Linux (GitHub Actions); macOS unsigniert optional | C | T-002, T-004 | fertig |
 | T-006 | Schnittstelle `core/api/` v0: Tab öffnen/schließen/navigieren, Events | gemeinsam | T-003, T-004 | in Arbeit (agent-b: UI-Teil) |
 | T-007 | i18n-Grundgerüst (de, en, ja) | B | T-004 | fertig |
 
