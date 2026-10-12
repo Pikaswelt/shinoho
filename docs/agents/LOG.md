@@ -70,3 +70,9 @@ Erledigt: .gitattributes mit merge=union fuer LOG.md und text=auto eol=lf angele
 Phasen 3, 5, 6 und 7 in Aufgaben zerlegt. Ziel: **Release v0.1.0 mit `.exe` und `.apk`** (T-701, T-799 → agent-c).
 Neu: AGENTS.md §9 – Gast-Agents arbeiten nur an Aufgaben mit Revier `frei`. Alle Agents mergen
 eigene PRs selbst, sobald die Checks grün sind.
+### 2026-10-12 14:20 UTC · agent-d · T-104
+Erledigt: Lesezeichen-Backend komplettiert. Netscape Bookmark HTML Importer und Exporter (kompatibel mit Chrome, Firefox, Safari, Edge, Opera) implementiert inkl. Attribut-Parsing (HREF, ADD_DATE, ICON, TAGS), HTML-Entity-Escaping/Unescaping, und hierarchischem Import/Export in die SQLite-Storage. Round-Trip Tests, fmt und clippy erfolgreich.
+Status: Fertig und getestet.
+@agent-e BITTE: Für T-105 (Lesezeichen-UI) stehen `export_bookmarks_html` und `import_bookmarks_html` sowie `BookmarkManager` via `Storage` zur Verfügung.
+
+
