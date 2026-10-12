@@ -3,12 +3,21 @@
   import Header from './components/Header.svelte';
   import TabBar from './components/TabBar.svelte';
   import AddressBar from './components/AddressBar.svelte';
+  import { BookmarkBar, BookmarkManager } from './components/bookmarks';
+  import { IncognitoStartPage, incognitoStore } from './components/incognito';
   import { tabService, type TabInfo, type TabId } from './api/tabs';
   import { t, getLocale, setLocale, SUPPORTED_LOCALES, type SupportedLocale } from './i18n';
 
   let currentLang = $state<SupportedLocale>(getLocale());
   let tabs = $state<TabInfo[]>([]);
   let activeTabId = $state<TabId | null>(null);
+  let incognitoState = $state(incognitoStore.getState());
+
+  $effect(() => {
+    return incognitoStore.subscribe((s) => {
+      incognitoState = s;
+    });
+  });
 
   const activeTab = $derived(tabs.find((item) => item.id === activeTabId) ?? tabs[0]);
 
@@ -39,7 +48,8 @@
   }
 
   async function handleNewTab() {
-    await tabService.createTab();
+    const defaultUrl = incognitoState.isIncognito ? 'shinoho://incognito' : 'shinoho://hub';
+    await tabService.createTab({ url: defaultUrl });
     await refreshTabs();
   }
 
@@ -73,9 +83,14 @@
 
   async function handleHome() {
     if (activeTabId) {
-      await tabService.navigateTab(activeTabId, 'shinoho://hub');
+      const homeUrl = incognitoState.isIncognito ? 'shinoho://incognito' : 'shinoho://hub';
+      await tabService.navigateTab(activeTabId, homeUrl);
       await refreshTabs();
     }
+  }
+
+  function handleOpenIncognitoWindow() {
+    incognitoStore.openIncognitoWindow();
   }
 
   function changeLanguage(lang: SupportedLocale) {
@@ -84,8 +99,17 @@
   }
 </script>
 
-<div class="shinoho-app" data-testid="shinoho-app">
-  <Header title={tr('app.title')} />
+<div
+  class="shinoho-app"
+  class:theme-incognito={incognitoState.isIncognito}
+  data-testid="shinoho-app"
+>
+  <Header
+    title={incognitoState.isIncognito
+      ? `${tr('app.title')} (${tr('incognito.badge')})`
+      : tr('app.title')}
+    onOpenIncognito={handleOpenIncognitoWindow}
+  />
   <TabBar
     {tabs}
     {activeTabId}
@@ -94,7 +118,7 @@
     onNewTab={handleNewTab}
   />
   <AddressBar
-    url={activeTab?.url ?? 'shinoho://hub'}
+    url={activeTab?.url ?? (incognitoState.isIncognito ? 'shinoho://incognito' : 'shinoho://hub')}
     canGoBack={activeTab?.canGoBack ?? false}
     canGoForward={activeTab?.canGoForward ?? false}
     isLoading={activeTab?.isLoading ?? false}
@@ -105,8 +129,13 @@
     onHome={handleHome}
   />
 
+  <BookmarkBar onNavigate={handleNavigate} />
+  <BookmarkManager onNavigate={handleNavigate} />
+
   <main class="content-viewport" data-testid="content-viewport">
-    {#if !activeTab || activeTab.url === 'shinoho://hub'}
+    {#if incognitoState.isIncognito && (!activeTab || activeTab.url === 'shinoho://incognito' || activeTab.url === 'shinoho://hub')}
+      <IncognitoStartPage onNavigate={handleNavigate} />
+    {:else if !activeTab || activeTab.url === 'shinoho://hub'}
       <div class="hub-view" data-testid="hub-view">
         <div class="welcome-card">
           <h1>{tr('app.title')}</h1>
@@ -155,6 +184,8 @@
           </div>
         </div>
       </div>
+    {:else if activeTab.url === 'shinoho://incognito'}
+      <IncognitoStartPage onNavigate={handleNavigate} />
     {:else}
       <div class="webview-container" data-testid="webview-container">
         <div class="webview-placeholder">
@@ -175,11 +206,20 @@
     background-color: var(--color-bg-base);
   }
 
+  /* Incognito Look */
+  .shinoho-app.theme-incognito {
+    --color-bg-base: #150d24;
+    --color-bg-surface: #1f1435;
+    --color-border: rgba(157, 78, 221, 0.25);
+    --color-accent: #9d4edd;
+    background-color: #150d24;
+  }
+
   .content-viewport {
     flex: 1;
     display: flex;
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
   }
 
   .hub-view {
@@ -188,40 +228,47 @@
     align-items: center;
     justify-content: center;
     padding: 24px;
+    background: radial-gradient(ellipse at top, rgba(255, 94, 154, 0.08) 0%, transparent 70%);
   }
 
   .welcome-card {
     text-align: center;
-    padding: 32px 48px;
+    padding: 40px 56px;
     background: var(--color-bg-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    max-width: 560px;
+    width: 100%;
   }
 
   .welcome-card h1 {
     font-size: 32px;
-    margin-bottom: 8px;
+    margin: 0 0 8px 0;
     color: var(--color-accent);
-    letter-spacing: 1px;
+    font-weight: 700;
   }
 
   .tagline {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--color-text-muted);
-    margin-bottom: 6px;
+    margin: 0 0 12px 0;
   }
 
   .status {
     color: var(--color-text-main);
-    font-size: 14px;
-    margin-bottom: 20px;
+    font-size: 13px;
+    margin: 0 0 24px 0;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-sm);
+    display: inline-block;
   }
 
   .quick-links {
     display: flex;
-    gap: 16px;
     justify-content: center;
+    gap: 12px;
     margin-bottom: 24px;
   }
 
@@ -230,20 +277,23 @@
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    padding: 12px 16px;
-    background: var(--color-bg-elevated);
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    transition: all 0.2s ease;
+    color: var(--color-text-main);
+    cursor: pointer;
+    transition: all 0.15s ease;
   }
 
   .quick-link-item:hover {
+    background: rgba(255, 94, 154, 0.12);
     border-color: var(--color-accent);
     transform: translateY(-2px);
   }
 
   .ql-icon {
-    font-size: 20px;
+    font-size: 24px;
   }
 
   .ql-title {

@@ -154,5 +154,39 @@
       "success": "{bookmarks}件のブックマークと{folders}件のフォルダーを正常にインポートしました！",
       "error": "HTMLファイルのインポートに失敗しました。"
     }
+  },
+  "incognito": {
+    "title": "シークレットモード（忍者ルック）",
+    "tagline": "足跡を残さないブラウジング – 忍者シノちゃんがあなたの活動を霧に隠します。",
+    "badge": "忍者シークレット",
+    "status": "プライベートウィンドウ有効",
+    "features": {
+      "noHistoryTitle": "閲覧履歴なし",
+      "noHistoryDesc": "訪問したウェブサイトや履歴は一切保存されません。",
+      "noCookiesTitle": "一時的なCookieとストレージ",
+      "noCookiesDesc": "ウィンドウを閉じると、サイトデータとログイン情報は完全に消去されます。",
+      "noCacheTitle": "ディスクキャッシュなし",
+      "noCacheDesc": "画像やファイルはディスクに保存されません。",
+      "autoVpnTitle": "忍者VPNトンネル",
+      "autoVpnDesc": "トラフィックを暗号化された安全なトンネル経由でルーティングします。"
+    },
+    "visibility": {
+      "title": "外部に表示される可能性のある情報",
+      "notice": "以下の第三者にはアクティビティが引き続き表示される場合があります：",
+      "itemIsp": "ご利用のインターネットプロバイダー（ISP）",
+      "itemEmployer": "職場や学校のネットワーク管理者",
+      "itemWebsites": "手動でログインしたウェブサイト"
+    },
+    "mascot": {
+      "greeting": "先輩！忍者モードならあなたの足跡は煙のように消え去ります！🥷💨",
+      "stealthMode": "ステルスモード: 100%"
+    },
+    "actions": {
+      "newWindow": "新しいシークレットウィンドウ",
+      "closeSession": "シークレットセッションを終了",
+      "openNormal": "通常のウィンドウを開く",
+      "vpnToggle": "自動VPNを有効化",
+      "searchPlaceholder": "DuckDuckGoでプライベート検索..."
+    }
   }
 }

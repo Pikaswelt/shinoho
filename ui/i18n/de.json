@@ -153,5 +153,39 @@
       "success": "{bookmarks} Lesezeichen und {folders} Ordner erfolgreich importiert!",
       "error": "Fehler beim Importieren der HTML-Datei."
     }
+  },
+  "incognito": {
+    "title": "Inkognito-Modus (Ninja-Look)",
+    "tagline": "Spurloses Surfen – Ninja-Shino hüllt deine Aktivitäten in Nebel.",
+    "badge": "Ninja-Inkognito",
+    "status": "Privates Fenster aktiv",
+    "features": {
+      "noHistoryTitle": "Kein Verlauf",
+      "noHistoryDesc": "Besuchte Seiten und Chronik-Einträge werden niemals gespeichert.",
+      "noCookiesTitle": "Flüchtige Cookies & Speicher",
+      "noCookiesDesc": "Webseiten-Daten und Anmeldungen verpuffen beim Schließen des Fensters.",
+      "noCacheTitle": "Kein Disk-Cache",
+      "noCacheDesc": "Bilder und Dateien werden nicht auf deiner Festplatte abgelegt.",
+      "autoVpnTitle": "Ninja-VPN Tunnel",
+      "autoVpnDesc": "Leitet deinen Datenverkehr verschlüsselt durch den Tunnel."
+    },
+    "visibility": {
+      "title": "Was dennoch sichtbar bleibt",
+      "notice": "Deine Aktivitäten sind möglicherweise noch sichtbar für:",
+      "itemIsp": "Deinen Internetanbieter (ISP)",
+      "itemEmployer": "Deinen Arbeitgeber oder deine Schule/Universität",
+      "itemWebsites": "Websites, auf denen du dich manuell einloggst"
+    },
+    "mascot": {
+      "greeting": "Senpai! Im Ninja-Modus verwehen deine Spuren wie Rauch im Wind! 🥷💨",
+      "stealthMode": "Tarnung aktiv: 100%"
+    },
+    "actions": {
+      "newWindow": "Neues Inkognito-Fenster",
+      "closeSession": "Inkognito-Sitzung beenden",
+      "openNormal": "Normales Fenster öffnen",
+      "vpnToggle": "Auto-VPN aktivieren",
+      "searchPlaceholder": "Privat suchen mit DuckDuckGo..."
+    }
   }
 }
