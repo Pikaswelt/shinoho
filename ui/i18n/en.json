@@ -26,5 +26,79 @@
     "history": "History",
     "downloads": "Downloads",
     "incognito": "Incognito"
+  },
+  "hub": {
+    "title": "Shinoho Hub",
+    "search": {
+      "placeholder": "Search the web or enter URL...",
+      "searchWith": "Search with {engine}",
+      "open": "Open"
+    },
+    "speedDial": {
+      "title": "Speed Dial",
+      "addShortcut": "Add shortcut",
+      "editShortcut": "Edit shortcut",
+      "deleteShortcut": "Delete shortcut",
+      "pinShortcut": "Pin",
+      "unpinShortcut": "Unpin",
+      "nameLabel": "Name",
+      "urlLabel": "Web address (URL)",
+      "categoryLabel": "Category",
+      "save": "Save",
+      "cancel": "Cancel",
+      "deleteConfirm": "Are you sure you want to remove this shortcut?",
+      "clicks": "{count} clicks",
+      "categories": {
+        "all": "All",
+        "anime": "Anime & Manga",
+        "gaming": "Gaming",
+        "dev": "Development",
+        "social": "Social Media"
+      }
+    },
+    "wallpaper": {
+      "title": "Wallpaper & Effects",
+      "choosePreset": "Choose wallpaper",
+      "customUrl": "Custom image URL",
+      "customUrlPlaceholder": "https://example.com/wallpaper.jpg",
+      "blur": "Blur",
+      "brightness": "Brightness",
+      "particles": "Enable particle effects",
+      "particleDensity": "Particle density",
+      "presets": {
+        "sakura": "Sakura Blossom (Anime)",
+        "sakuraDesc": "Pink cherry blossom petals with gentle breeze",
+        "cyberpunk": "Neon Tokyo (Cyberpunk)",
+        "cyberpunkDesc": "Dark neon grid with glowing pulse",
+        "lofi": "Lo-Fi Evening",
+        "lofiDesc": "Cozy twilight sky with warm gradient",
+        "nebula": "Dark Nebula",
+        "nebulaDesc": "Deep space background with sparkling star particles",
+        "minimal": "Shino Minimal",
+        "minimalDesc": "Sleek eye-friendly dark gray"
+      }
+    },
+    "widgets": {
+      "title": "Widgets",
+      "animeCountdown": "Anime Episode Countdown",
+      "freeGames": "Free Games Radar",
+      "mascot": "Shino-chan Mascot",
+      "nextEpIn": "Episode {ep} in {time}",
+      "claimUntil": "Free until {date}",
+      "free": "Free",
+      "noEpisodes": "No upcoming episodes found",
+      "noGames": "No active free game giveaways"
+    },
+    "mascot": {
+      "greetingMorning": "Good morning, Senpai! Ready for a productive day? ✨",
+      "greetingAfternoon": "Konnichiwa! Which anime is on your watchlist today? 🌸",
+      "greetingEvening": "Good evening! Time for gaming or relaxing! 🎮",
+      "greetingNight": "It's getting late! Remember to get enough sleep! 🌙"
+    },
+    "settings": {
+      "title": "Home Page Settings",
+      "toggleWidgets": "Customize widgets",
+      "resetDefaults": "Reset to defaults"
+    }
   }
 }

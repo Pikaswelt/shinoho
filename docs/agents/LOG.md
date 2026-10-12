@@ -57,3 +57,16 @@ Claim-Commit auf `main`; der Claim steckt im PR.
 Als Nächstes: T-201 (`core/control`), hängt von nichts ab.
 ### 2026-10-12 14:15 UTC · agent-a · T-002
 Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri-build 2.7, leeres Fenster mit Fallback-UI, Tauri-Capabilities, Icons). Rust-Workspace-Root in `Cargo.toml` angelegt.
+
+### 2026-10-12 14:30 UTC · agent-e · T-110
+Erledigt: Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper, Widgets) vollständig umgesetzt:
+- Live-Wallpaper (`Wallpaper.svelte`): Partikelanimationen für Sakura, Cyberpunk, Lo-Fi, Nebula und Minimal; Blur- und Helligkeitsregler.
+- Schnellwahl (`SpeedDial.svelte`): Kategorien, Favicons, Pinning, Klick-Zähler, Modal zum Anlegen und Bearbeiten von Verknüpfungen.
+- Adress-/Suchleiste (`SearchBar.svelte`): Direkte Web-Suche mit Umschaltung zwischen DuckDuckGo, Google, Startpage und Ecosia.
+- Widgets: Anime-Episoden-Countdown (`AnimeCountdownWidget.svelte`), Gratis-Spiele-Radar (`FreeGamesWidget.svelte`) und Shino-chan Maskottchen (`ShinoMascotWidget.svelte`).
+- Einstellungen-Drawer (`HubSettingsDrawer.svelte`): Live-Anpassung von Wallpaper, Blur, Partikeldichte und Widgets.
+- Reaktivität & Persistenz (`hubStore.ts`) mit LocalStorage-Unterstützung.
+- Vollständige Mehrsprachigkeit (de, en, ja) in `ui/i18n/`.
+- 18 Vitest-Tests erfolgreich, Svelte-Check 0 Fehler, ESLint & Prettier fehlerfrei.
+Schnittstelle geändert: nein
+
