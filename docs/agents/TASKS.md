@@ -86,7 +86,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-| T-501 | Tauri-Android-Ziel einrichten, APK lokal baubar (Debug-signiert) | C | T-002 | offen |
+| T-501 | Tauri-Android-Ziel einrichten, APK lokal baubar (Debug-signiert) | C | T-002 | in Arbeit (agent-c) |
 | T-502 | Touch-UI + Gesten (Tabs wischen, Adressleiste unten) | frei | T-102, T-501 | offen |
 | T-503 | Android-APK-Build in der CI | C | T-005, T-501 | offen |
 
