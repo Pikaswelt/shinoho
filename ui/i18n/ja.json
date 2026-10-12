@@ -1,0 +1,31 @@
+{
+  "_todo_review": true,
+  "app": {
+    "title": "Shinoho",
+    "tagline": "アニメ・ゲームファンのためのブラウザ",
+    "ready": "Shinoho ブラウザUI準備完了"
+  },
+  "nav": {
+    "back": "戻る",
+    "forward": "進む",
+    "reload": "再読み込み",
+    "home": "ホーム"
+  },
+  "addressbar": {
+    "placeholder": "URLまたは検索キーワードを入力...",
+    "go": "移動"
+  },
+  "tabs": {
+    "newTab": "新しいタブ",
+    "close": "タブを閉じる",
+    "untitled": "無題",
+    "pinned": "固定済み"
+  },
+  "common": {
+    "settings": "設定",
+    "bookmarks": "ブックマーク",
+    "history": "履歴",
+    "downloads": "ダウンロード",
+    "incognito": "シークレット"
+  }
+}

@@ -1,15 +1,38 @@
 <script lang="ts">
   import Header from './components/Header.svelte';
+  import { t, getLocale, setLocale, SUPPORTED_LOCALES, type SupportedLocale } from './i18n';
 
-  let statusMessage = $state('Shinoho Browser UI bereit');
+  let currentLang = $state<SupportedLocale>(getLocale());
+
+  function changeLanguage(lang: SupportedLocale) {
+    setLocale(lang);
+    currentLang = lang;
+  }
+
+  // Reactive translation helper tied to currentLang state rune
+  const tr = (key: string, params?: Record<string, string | number>) => t(key, params, currentLang);
 </script>
 
 <div class="shinoho-app" data-testid="shinoho-app">
-  <Header title="Shinoho" />
+  <Header title={tr('app.title')} />
   <main class="content">
     <div class="welcome-card">
-      <h1>Shinoho</h1>
-      <p class="status" data-testid="status-message">{statusMessage}</p>
+      <h1>{tr('app.title')}</h1>
+      <p class="tagline">{tr('app.tagline')}</p>
+      <p class="status" data-testid="status-message">{tr('app.ready')}</p>
+
+      <div class="language-selector" data-testid="language-selector">
+        {#each SUPPORTED_LOCALES as loc}
+          <button
+            class="lang-btn"
+            class:active={currentLang === loc}
+            onclick={() => changeLanguage(loc)}
+            data-testid={`lang-btn-${loc}`}
+          >
+            {loc.toUpperCase()}
+          </button>
+        {/each}
+      </div>
     </div>
   </main>
 </div>
@@ -44,8 +67,43 @@
     color: var(--color-accent);
   }
 
-  .status {
-    color: var(--color-text-muted);
+  .tagline {
     font-size: 14px;
+    color: var(--color-text-muted);
+    margin-bottom: 6px;
+  }
+
+  .status {
+    color: var(--color-text-main);
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .language-selector {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .lang-btn {
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    transition: all 0.15s ease;
+  }
+
+  .lang-btn:hover {
+    color: var(--color-text-main);
+    border-color: var(--color-accent);
+  }
+
+  .lang-btn.active {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
   }
 </style>

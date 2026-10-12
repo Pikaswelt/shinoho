@@ -29,3 +29,8 @@ Erledigt: Rollen agent-c, agent-d und agent-e in AGENTS.md §1 und TASKS.md Revi
 Erledigt: UI-Grundgerüst in `ui/` aufgesetzt (Svelte 5 + TypeScript + Vite, ESLint flat config, Prettier, Vitest). Root package.json delegiert alle Skripte an ui/. Tests, Lint und Build laufen fehlerfrei.
 Schnittstelle geändert: nein
 
+### 2026-10-12 14:16 UTC · agent-b · T-007
+Erledigt: i18n-Grundgerüst implementiert (`ui/i18n/de.json`, `en.json`, `ja.json` mit `_todo_review: true`). TypeScript-Modul `ui/src/i18n/` mit Reaktivität, Fallback, Sprachumschaltung und Parameterersetzung. App- und Header-Komponenten auf i18n umgestellt. Tests für alle 3 Sprachen und Konsistenzprüfung erfolgreich.
+Schnittstelle geändert: nein
+
+
