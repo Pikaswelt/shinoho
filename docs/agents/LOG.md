@@ -17,9 +17,6 @@ Q1–Q8 von der Projektleitung beantwortet: **Tauri 2**, **MPL-2.0**, **Windows 
 Aufgaben T-001, T-002 und T-004 sind jetzt `offen`. Neu: PRs sofort öffnen, Ersatz-Agent-Regel (AGENTS.md §8).
 Noch offen: Q9 (Shino-chan Stil/Zeichner) – blockiert nichts vor Phase 6.
 
-### 2026-10-12 14:06 UTC · agent-b · T-004
-Erledigt: UI-Grundgerüst in `ui/` aufgesetzt (Svelte 5 + TypeScript + Vite, ESLint flat config, Prettier, Vitest). Root package.json delegiert alle Skripte an ui/. Tests, Lint und Build laufen fehlerfrei.
-Schnittstelle geändert: nein
 ### 2026-10-12 · projektleitung · –
 5 Agents arbeiten parallel (agent-a bis agent-e). Alle Aufgaben aus Phase 0 und 1 sind fest
 vergeben – siehe Abschnitt „Aktive Verteilung“ in `TASKS.md`. Neue Agents übernehmen keine
@@ -27,9 +24,22 @@ davon, ihre Rolle steht im Auftrag.
 
 ### 2026-10-12 · agent-c · T-001
 Erledigt: LICENSE (MPL-2.0), .gitignore fuer Rust/Node/Tauri, .editorconfig angelegt. PR #3 eroeffnet.
-Status: Warte auf Review und Merge durch Projektleitung.
+Status: Gemergt.
+
 ### 2026-10-12 · agent-c · –
 Erledigt: Rollen agent-c, agent-d und agent-e in AGENTS.md §1 und TASKS.md Revier-Spalte eingetragen. PR eroeffnet: "docs: Rollen agent-c/d/e".
+Status: Gemergt.
+
+### 2026-10-12 14:06 UTC · agent-b · T-004
+Erledigt: UI-Grundgerüst in `ui/` aufgesetzt (Svelte 5 + TypeScript + Vite, ESLint flat config, Prettier, Vitest). Root package.json delegiert alle Skripte an ui/. Tests, Lint und Build laufen fehlerfrei.
+Schnittstelle geändert: nein
+
+### 2026-10-12 14:15 UTC · agent-a · T-002
+Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri-build 2.7, leeres Fenster mit Fallback-UI, Tauri-Capabilities, Icons). Rust-Workspace-Root in `Cargo.toml` angelegt.
+
+### 2026-10-12 14:16 UTC · agent-b · T-007
+Erledigt: i18n-Grundgerüst implementiert (`ui/i18n/de.json`, `en.json`, `ja.json` mit `_todo_review: true`). TypeScript-Modul `ui/src/i18n/` mit Reaktivität, Fallback, Sprachumschaltung und Parameterersetzung. App- und Header-Komponenten auf i18n umgestellt. Tests für alle 3 Sprachen und Konsistenzprüfung erfolgreich.
+Schnittstelle geändert: nein
 
 ### 2026-10-12 · agent-f · T-401
 Neu dabei: **agent-f – VPN & Performance** (Auftrag der Projektleitung: freie Aufgaben übernehmen).
@@ -43,6 +53,30 @@ Claim-Commit auf `main`; der Claim steckt im PR.
 Als Nächstes: T-201 (`core/control`), hängt von nichts ab.
 ### 2026-10-12 14:15 UTC · agent-a · T-002
 Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri-build 2.7, leeres Fenster mit Fallback-UI, Tauri-Capabilities, Icons). Rust-Workspace-Root in `Cargo.toml` angelegt.
+
+### 2026-10-12 14:10 UTC · agent-d · T-103
+Erledigt: Eigenständige Crate `core/storage` mit SQLite-Backend (rusqlite bundled), Schema-Migrationen, Verlauf (History Visits & Top Sites), Lesezeichen (Baumstruktur & CRUD), Einstellungen (KV & JSON) und Downloads implementiert. Tests, clippy und fmt erfolgreich.
+Status: Fertig und in Root-Workspace eingebunden.
+
+### 2026-10-12 · agent-c · T-005
+Erledigt: GitHub Actions CI-Workflow (.github/workflows/ci.yml) für UI, Rust und Desktop-Builds (Linux, Windows, macOS) eingerichtet.
+Abhängigkeiten T-002 und T-004 gemergt, main in Branch integriert. PR #9 fertiggestellt.
+
+
+### 2026-10-12 · agent-c · –
+Erledigt: .gitattributes mit merge=union fuer LOG.md und text=auto eol=lf angelegt, um Merge-Konflikte im LOG und CRLF-Probleme unter Windows zu verhindern.
+### 2026-10-12 · projektleitung · –
+Phasen 3, 5, 6 und 7 in Aufgaben zerlegt. Ziel: **Release v0.1.0 mit `.exe` und `.apk`** (T-701, T-799 → agent-c).
+Neu: AGENTS.md §9 – Gast-Agents arbeiten nur an Aufgaben mit Revier `frei`. Alle Agents mergen
+eigene PRs selbst, sobald die Checks grün sind.
+### 2026-10-12 14:20 UTC · agent-d · T-104
+Erledigt: Lesezeichen-Backend komplettiert. Netscape Bookmark HTML Importer und Exporter (kompatibel mit Chrome, Firefox, Safari, Edge, Opera) implementiert inkl. Attribut-Parsing (HREF, ADD_DATE, ICON, TAGS), HTML-Entity-Escaping/Unescaping, und hierarchischem Import/Export in die SQLite-Storage. Round-Trip Tests, fmt und clippy erfolgreich.
+Status: Fertig und getestet.
+@agent-e BITTE: Für T-105 (Lesezeichen-UI) stehen `export_bookmarks_html` und `import_bookmarks_html` sowie `BookmarkManager` via `Storage` zur Verfügung.
+
+
+### 2026-10-12 14:25 UTC · agent-a · T-003
+Erledigt: Rust-Workspace mit Crate `shinoho-core` in `core/` eingerichtet (`TabInfo`, `CoreError`, `CoreResult`, Tests). In `apps/desktop` eingebunden. `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test` laufen workspace-weit fehlerfrei.
 
 ### 2026-10-12 · agent-f · T-401, T-201
 T-401 ist gemergt (#10) und steht auf `fertig`.
