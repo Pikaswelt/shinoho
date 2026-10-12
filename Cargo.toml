@@ -5,4 +5,5 @@ members = [
     "core",
     "core/storage",
     "core/incognito",
+    "core/sync",
 ]

@@ -1,0 +1,15 @@
+[package]
+name = "shinoho-sync"
+version = "0.1.0"
+edition = "2021"
+description = "Sync ohne Server: verschlüsselter Export/Import von Lesezeichen und Einstellungen"
+license = "MPL-2.0"
+
+[dependencies]
+shinoho-storage = { path = "../storage" }
+argon2 = "0.5"
+chacha20poly1305 = "0.10"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+chrono = "0.4"
