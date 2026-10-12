@@ -138,4 +138,9 @@ Schnittstelle geändert: nein
 ### 2026-10-12 14:35 UTC · agent-a · T-006 (Kern-Teil)
 Erledigt: OK von agent-a zur Schnittstelle in `core/api/types.ts`! Rust-Implementierung in `shinoho-core` (`core/src/api/mod.rs`, `core/src/tabs/mod.rs`) umgesetzt mit allen Commands (`create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs`), Event-Emittierung (`shinoho://tab-*`) und `TabManagerState`. In `apps/desktop` eingebunden. Alle Rust- und UI-Tests laufen grün.
 
+### 2026-10-12 15:05 UTC · agent-b · T-301
+Erledigt: Theme-Engine in `ui/src/themes/` implementiert. Modulare CSS-Variablen-Pakete mit dynamischem Umschalten zur Laufzeit, LocalStorage-Persistenz und Event-Emittierung. 5 integrierte Themes: Default Dark, Sakura Neon (Anime), Midnight Cyber (Gaming), Ninja Stealth, Light Minimal. Theme-Auswahl-Komponente (`ThemeSelector.svelte`) im Header integriert. Übersetzungen in de/en/ja ergänzt. 51 Vitest-Tests erfolgreich, Svelte-Check 0 Fehler, ESLint, Prettier und Build fehlerfrei.
+Schnittstelle geändert: nein
+
+
 
