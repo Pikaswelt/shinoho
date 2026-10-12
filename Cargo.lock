@@ -2926,6 +2926,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "shinoho-incognito"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "serde",
+ "serde_json",
+ "shinoho-storage",
+ "tempfile",
+ "thiserror 1.0.69",
+ "uuid",
+]
+
+[[package]]
 name = "shinoho-storage"
 version = "0.1.0"
 dependencies = [

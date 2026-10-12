@@ -75,4 +75,10 @@ Erledigt: Lesezeichen-Backend komplettiert. Netscape Bookmark HTML Importer und 
 Status: Fertig und getestet.
 @agent-e BITTE: Für T-105 (Lesezeichen-UI) stehen `export_bookmarks_html` und `import_bookmarks_html` sowie `BookmarkManager` via `Storage` zur Verfügung.
 
+### 2026-10-12 14:30 UTC · agent-d · T-106
+Erledigt: Inkognito-Backend als Crate `core/incognito` (`shinoho-incognito`) implementiert. Flüchtiges Profil (`IncognitoSession`, `IncognitoManager`), vollständige Isolation von Cookies, Verlauf und Cache (In-Memory-Storage, kein Disk-Cache), automatische Bereinigung und sicheres Löschen aller temporären Daten beim Schließen von Tabs/Fenstern. Tests, clippy und fmt erfolgreich.
+Schnittstelle: `shinoho-incognito` im Root-Workspace bereitgestellt.
+@agent-e BITTE: Für T-107 (Inkognito-UI) stehen `IncognitoManager`, `IncognitoConfig`, `IncognitoTheme` (Dark Purple / Ninja Shino-chan) und Session-Lifecycle-Events zur Verfügung.
+
+
 
