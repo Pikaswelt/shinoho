@@ -81,6 +81,8 @@ Schnittstelle: `shinoho-incognito` im Root-Workspace bereitgestellt.
 ### 2026-10-12 14:25 UTC · agent-a · T-003
 Erledigt: Rust-Workspace mit Crate `shinoho-core` in `core/` eingerichtet (`TabInfo`, `CoreError`, `CoreResult`, Tests). In `apps/desktop` eingebunden. `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test` laufen workspace-weit fehlerfrei.
 
+### 2026-10-12 · agent-c · T-501
+Erledigt: Tauri-Android-Projekt unter `apps/desktop/gen/android` initialisiert (Gradle, Kotlin MainActivity, AndroidManifest.xml, Debug-Build-Setup). Root-.gitignore angepasst, um Android-Projektdateien zu erfassen und temporaere Gradle-Build-Artefakte zu ignorieren.
 ### 2026-10-12 · agent-f · T-401, T-201
 T-401 ist gemergt (#10) und steht auf `fertig`.
 Erledigt (PR offen): T-201, Crate `core/control` mit Presets, `plan()` für Tab-Schlaf/Drosselung und
@@ -142,5 +144,21 @@ Erledigt: OK von agent-a zur Schnittstelle in `core/api/types.ts`! Rust-Implemen
 Erledigt: Theme-Engine in `ui/src/themes/` implementiert. Modulare CSS-Variablen-Pakete mit dynamischem Umschalten zur Laufzeit, LocalStorage-Persistenz und Event-Emittierung. 5 integrierte Themes: Default Dark, Sakura Neon (Anime), Midnight Cyber (Gaming), Ninja Stealth, Light Minimal. Theme-Auswahl-Komponente (`ThemeSelector.svelte`) im Header integriert. Übersetzungen in de/en/ja ergänzt. 51 Vitest-Tests erfolgreich, Svelte-Check 0 Fehler, ESLint, Prettier und Build fehlerfrei.
 Schnittstelle geändert: nein
 
+### 2026-10-12 · agent-c · T-501
+Erledigt: Tauri-2-Android-Ziel unter `apps/desktop/gen/android` eingerichtet, Gradle-Wrapper und Android-Projektstruktur versioniert, Root-.gitignore fuer Gradle-Build-Artefakte angepasst. Alle CI-Checks (UI, Rust, Desktop Linux/Windows/macOS) gruen. PR #20 gemergt.
+
+### 2026-10-12 · agent-c · T-503
+In Arbeit: Android-APK-Build-Job in CI (.github/workflows/ci.yml) mit Java/Android-SDK-Setup und Tauri/Gradle APK-Erzeugung.
+
+### 2026-10-12 15:05 UTC · agent-a · T-101
+Erledigt: Tab-Manager im Kern (T-101) vollständig umgesetzt.
+- Lebenszyklusverwaltung in `shinoho-core` (`core/src/tabs/manager.rs`, `models.rs`, `webview.rs`).
+- Unterstützung für Multi-WebView Koordination, Navigation-History (Zurück/Vorwärts), Pinning, Stummschalten, Tab-Duplizierung, Schließen anderer/rechtsseitiger Tabs.
+- Tab-Gruppen (`TabGroup`) mit Farb- und Titelattributen, Zuweisung und Einklappen.
+- Neue Tauri-Commands registriert (`get_active_tab`, `move_tab`, `set_pinned`, `set_muted`, `duplicate_tab`, `close_other_tabs`, `create_tab_group`, `get_tab_groups`, `assign_tab_to_group`, `update_tab_group`).
+- Tests für Lifecycle und Tab-Gruppen in `core/tests/core_tests.rs`.
+- `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test --workspace` und `npm test` laufen fehlerfrei.
+Schnittstelle geändert: ja (erweiterte Tab-Management-Commands und -Events)
+@agent-b @agent-e BITTE: Die erweiterten Tab-Commands (`move_tab`, `set_pinned`, `set_muted`, `duplicate_tab`, `close_other_tabs`, `create_tab_group`, `get_tab_groups`, `assign_tab_to_group`, `update_tab_group`) stehen ab sofort im Tauri-Backend bereit.
 
 

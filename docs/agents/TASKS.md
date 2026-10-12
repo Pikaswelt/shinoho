@@ -39,7 +39,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-| T-101 | Tab-Manager im Kern (mehrere WebViews, Lebenszyklus) | A | T-006 | in Arbeit (agent-a) |
+| T-101 | Tab-Manager im Kern (mehrere WebViews, Lebenszyklus) | A | T-006 | fertig |
 | T-102 | Tab-Leiste + Adressleiste UI | B | T-006 | fertig |
 | T-103 | SQLite-Storage (Verlauf, Lesezeichen, Einstellungen) | D | T-003 | fertig |
 | T-104 | Lesezeichen: Backend (CRUD, Ordner, Import/Export HTML) | D | T-103 | fertig |
@@ -54,11 +54,11 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-| T-201 | Limiter-Logik als Bibliothek `core/control`: Presets (Akku/Ausgewogen/Max/Gaming), Tab-Schlaf-Entscheidung, RAM-/CPU-Budget | F | – | review (agent-f) |
+| T-201 | Limiter-Logik als Bibliothek `core/control`: Presets (Akku/Ausgewogen/Max/Gaming), Tab-Schlaf-Entscheidung, RAM-/CPU-Budget | F | – | fertig |
 | T-202 | Messung RAM/CPU pro Tab bzw. WebView-Prozess | F | T-101 | offen |
 | T-203 | Tab-Schlaf an Tab-Manager anbinden (einfrieren/aufwecken) | F | T-101, T-201 | offen |
 | T-204 | Netzwerk-Limiter (Bandbreite pro Tab/gesamt) | F | T-101 | offen |
-| T-205 | Gaming-Modus: laufende Spiele / Vollbild-Apps erkennen | F | T-201 | offen |
+| T-205 | Gaming-Modus: laufende Spiele / Vollbild-Apps erkennen | F | T-201 | fertig |
 | T-206 | UI „Shinoho Control“ (Regler, Presets, Hot-Tabs-Killer) | UI (Rolle offen) | T-202, T-006 | offen |
 
 ## Phase 4 – VPN
@@ -66,10 +66,10 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
 | T-401 | `core/vpn`: WireGuard-`.conf`-Parser + Anbieterliste `providers.json` | F | – | fertig |
-| T-402 | WireGuard-Tunnel (boringtun) + lokaler SOCKS5-Proxy | F | T-401 | offen |
+| T-402 | WireGuard-Tunnel (boringtun) + lokaler SOCKS5-Proxy | F | T-401 | fertig |
 | T-403 | Proxy an WebViews anbinden + Kill-Switch | F | T-101, T-402 | offen |
 | T-404 | DNS über Tunnel, WebRTC-Leak-Schutz, Leak-Test-Seite `shinoho://vpn-test` | F | T-403 | offen |
-| T-405 | Anbieter-Konditionen prüfen, `providers.json` + `docs/VPN.md` aktualisieren | F | T-401 | offen |
+| T-405 | Anbieter-Konditionen prüfen, `providers.json` + `docs/VPN.md` aktualisieren | F | T-401 | fertig |
 | T-406 | VPN-UI (Badge, Anbieter-Assistent, Config-Import) | UI (Rolle offen) | T-403, T-006 | offen |
 
 ## Phase 3 – Mods v1
@@ -78,29 +78,30 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 |---|---|---|---|---|
 | T-301 | Theme-Engine: Themes als CSS-Variablen-Pakete, Umschalten zur Laufzeit | frei | T-004 | in Arbeit (agent-b) |
 | T-302 | Wallpaper- und Soundpacks (Startseite, UI-Sounds) | frei | T-301, T-110 | offen |
-| T-303 | Seiten-CSS (Userstyles pro Domain) im Kern injizieren | frei | T-101 | offen |
-| T-304 | Mod-Loader + Sandbox (Manifest, Rechte, Laden/Entladen) | frei | T-006 | offen |
+| T-303 | Seiten-CSS (Userstyles pro Domain) im Kern injizieren | frei | T-101 | in Arbeit (agent-a) |
+| T-304 | Mod-Loader + Sandbox (Manifest, Rechte, Laden/Entladen) | frei | T-006 | in Arbeit (agent-m) |
 | T-305 | SDK `sdk/` + Beispiel-Mod + `docs/MODDING.md` aktualisieren | frei | T-304 | offen |
 
 ## Phase 5 – Mobile (Android)
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-| T-501 | Tauri-Android-Ziel einrichten, APK lokal baubar (Debug-signiert) | C | T-002 | in Arbeit (agent-c) |
+| T-501 | Tauri-Android-Ziel einrichten, APK lokal baubar (Debug-signiert) | C | T-002 | fertig |
 | T-502 | Touch-UI + Gesten (Tabs wischen, Adressleiste unten) | frei | T-102, T-501 | offen |
-| T-503 | Android-APK-Build in der CI | C | T-005, T-501 | offen |
+| T-503 | Android-APK-Build in der CI | C | T-005, T-501 | in Arbeit (agent-c) |
 
 ## Phase 6 – Anime & Gaming
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-| T-601 | Anime-Tracker (AniList-Login, Liste, Folgen-Fortschritt) | frei | T-006 | in Arbeit (agent-m) |
-| T-602 | Release-Kalender (neue Folgen/Spiele der Woche) | frei | T-601 | offen |
-| T-603 | Gaming-Modus-UI (Overlay, Performance-Preset) | frei | T-205 | offen |
+| T-601 | Anime-Tracker (AniList-Login, Liste, Folgen-Fortschritt) | frei | T-006 | fertig |
+| T-602 | Release-Kalender (neue Folgen/Spiele der Woche) | frei | T-601 | fertig |
+| T-603 | Gaming-Modus-UI (Overlay, Performance-Preset) | frei | T-205 | in Arbeit (agent-f) |
 | T-604 | Free-Games-Feed (Epic, Steam, GOG) auf dem Hub | frei | T-110 | fertig |
 | T-605 | Maskottchen Shino-chan (Platzhalter bis Q9 geklärt) | frei | T-110 | offen |
 | T-606 | Achievements (lokal, Benachrichtigungen) | frei | T-103 | fertig |
 | T-607 | Free-Games-Widget im Hub (nutzt `core/feeds`, Tauri-Command + UI) | frei | T-604, T-110 | offen |
+| T-608 | Anime-Tracker-UI (Watchlist im Hub, Folge +1, AniList-Login-Tab) | frei | T-601, T-110 | offen |
 
 ## Phase 7 – Sync, Store & Release
 
