@@ -13,6 +13,16 @@ pub fn run() {
             shinoho_core::api::go_forward,
             shinoho_core::api::reload_tab,
             shinoho_core::api::get_tabs,
+            shinoho_core::api::get_active_tab,
+            shinoho_core::api::move_tab,
+            shinoho_core::api::set_pinned,
+            shinoho_core::api::set_muted,
+            shinoho_core::api::duplicate_tab,
+            shinoho_core::api::close_other_tabs,
+            shinoho_core::api::create_tab_group,
+            shinoho_core::api::get_tab_groups,
+            shinoho_core::api::assign_tab_to_group,
+            shinoho_core::api::update_tab_group,
         ])
         .setup(|app| {
             if cfg!(debug_assertions) {
