@@ -3,20 +3,20 @@
 Regeln zum Beanspruchen: [`AGENTS.md`](../../AGENTS.md) §2.
 Status: `offen` · `in Arbeit (agent-x)` · `blockiert` · `review` · `fertig`
 
-> ⛔ **Alle Aufgaben sind blockiert, bis Q1–Q3 in [`OPEN-QUESTIONS.md`](../OPEN-QUESTIONS.md)
-> beantwortet sind.**
+> ✅ Q1–Q8 sind beantwortet (Tauri 2, MPL-2.0, Windows + Linux zuerst …) – siehe
+> [`OPEN-QUESTIONS.md`](../OPEN-QUESTIONS.md). Es kann losgehen!
 
 ## Phase 0 – Fundament
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-| T-001 | Lizenzdatei + `.gitignore` + `.editorconfig` anlegen | gemeinsam | Q2 | blockiert |
-| T-002 | Tauri-2-Projekt anlegen (`apps/desktop`), leeres Fenster | A | Q1 | blockiert |
+| T-001 | Lizenzdatei (MPL-2.0) + `.gitignore` + `.editorconfig` anlegen | A | – | offen |
+| T-002 | Tauri-2-Projekt anlegen (`apps/desktop`), leeres Fenster | A | – | offen |
 | T-003 | Rust-Workspace `core/` + `cargo fmt/clippy/test` einrichten | A | T-002 | offen |
-| T-004 | UI-Grundgerüst `ui/` (Svelte + TS, Lint, Prettier, Vitest) | B | Q1 | blockiert |
-| T-005 | CI: Builds Windows/Linux/macOS (GitHub Actions) | A | T-002, T-004 | offen |
+| T-004 | UI-Grundgerüst `ui/` (Svelte + TS, Lint, Prettier, Vitest) | B | – | offen |
+| T-005 | CI: Builds Windows + Linux (GitHub Actions); macOS unsigniert optional | A | T-002, T-004 | offen |
 | T-006 | Schnittstelle `core/api/` v0: Tab öffnen/schließen/navigieren, Events | gemeinsam | T-003, T-004 | offen |
-| T-007 | i18n-Grundgerüst (de, en) | B | T-004 | offen |
+| T-007 | i18n-Grundgerüst (de, en, ja) | B | T-004 | offen |
 
 ## Phase 1 – MVP-Browser
 
