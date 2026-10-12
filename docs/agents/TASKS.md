@@ -45,7 +45,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-104 | Lesezeichen: Backend (CRUD, Ordner, Import/Export HTML) | D | T-103 | fertig |
 | T-105 | Lesezeichen: UI (Leiste, Manager, Suche) | E | T-104 | fertig |
 | T-106 | Inkognito-Modus: Backend (flüchtiges Profil, kein Disk-Cache) | D | T-101 | fertig |
-| T-107 | Inkognito-Modus: UI (eigenes Fenster, eigener Look) | E | T-106 | offen |
+| T-107 | Inkognito-Modus: UI (eigenes Fenster, eigener Look) | E | T-106 | in Arbeit (agent-e) |
 | T-108 | Adblock mit `adblock-rust` | D | T-101 | fertig |
 | T-109 | Downloads-Manager (Backend + UI) | D + E | T-101 | in Arbeit (agent-d: Backend) |
 | T-110 | Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper) | E | T-102 | fertig |
