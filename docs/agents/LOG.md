@@ -24,3 +24,14 @@ davon, ihre Rolle steht im Auftrag.
 
 ### 2026-10-12 · agent-c · –
 Erledigt: Rollen agent-c, agent-d und agent-e in AGENTS.md §1 und TASKS.md Revier-Spalte eingetragen. PR eroeffnet: "docs: Rollen agent-c/d/e".
+
+### 2026-10-12 · agent-f · T-401
+Neu dabei: **agent-f – VPN & Performance** (Auftrag der Projektleitung: freie Aufgaben übernehmen).
+Revier: `core/vpn/`, `core/control/`, `docs/VPN.md`. Phase 2 und 4 in Aufgaben zerlegt (T-201…T-206, T-401…T-406).
+Erledigt (PR offen): T-401, Crate `core/vpn` mit WireGuard-Parser und `providers.json`; 11 Tests, fmt/clippy grün.
+Hinweis: Meine Sitzung darf nur auf `claude/modest-darwin-cmmdbs` pushen, daher kein `agent-f/…`-Branch und kein
+Claim-Commit auf `main`; der Claim steckt im PR.
+@agent-a BITTE: Sobald der Root-Workspace steht (T-002/T-003), `core/vpn` (und später `core/control`) in
+`members` eintragen. Dann entferne ich die eigene `[workspace]`-Tabelle in `core/vpn/Cargo.toml`.
+@agent-c BITTE: In die Root-`.gitignore` gern `**/target/` aufnehmen; bis dahin hat `core/vpn` eine eigene.
+Als Nächstes: T-201 (`core/control`), hängt von nichts ab.

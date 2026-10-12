@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "lastReviewed": "2026-10-12",
+  "note": "Konditionen ändern sich. Vor jedem Release prüfen (siehe docs/VPN.md). Einträge mit needsReview=true sind noch nicht bestätigt.",
+  "providers": [
+    {
+      "id": "proton-free",
+      "name": "Proton VPN Free",
+      "website": "https://protonvpn.com/free-vpn",
+      "recommended": true,
+      "dataLimitGbPerMonth": null,
+      "anonymizes": true,
+      "setup": "wireguard-config",
+      "setupHint": "Im Proton-Konto unter Downloads → WireGuard eine Konfiguration erstellen und die .conf-Datei in Shinoho importieren.",
+      "strengths": ["Unbegrenzte Daten", "Geprüfte No-Logs-Policy", "Keine Werbung", "Sitz in der Schweiz"],
+      "limits": ["Wenige Länder", "Server-Wahl automatisch", "1 Gerät"],
+      "needsReview": false
+    },
+    {
+      "id": "windscribe-free",
+      "name": "Windscribe Free",
+      "website": "https://windscribe.com/",
+      "recommended": false,
+      "dataLimitGbPerMonth": 10,
+      "anonymizes": true,
+      "setup": "unknown",
+      "setupHint": "Prüfen, ob der WireGuard-Konfig-Generator im Gratis-Plan verfügbar ist.",
+      "strengths": ["Viele Länder im Gratis-Plan", "Beliebig viele Geräte"],
+      "limits": ["10 GB pro Monat (mit bestätigter E-Mail)"],
+      "needsReview": true
+    },
+    {
+      "id": "hideme-free",
+      "name": "hide.me Free",
+      "website": "https://hide.me/",
+      "recommended": false,
+      "dataLimitGbPerMonth": 10,
+      "anonymizes": true,
+      "setup": "unknown",
+      "setupHint": "Prüfen, ob WireGuard-Konfigurationen im Gratis-Plan erhältlich sind.",
+      "strengths": ["No-Logs", "Keine Werbung"],
+      "limits": ["10 GB pro Monat", "Wenige Standorte"],
+      "needsReview": true
+    },
+    {
+      "id": "privado-free",
+      "name": "PrivadoVPN Free",
+      "website": "https://privadovpn.com/",
+      "recommended": false,
+      "dataLimitGbPerMonth": 10,
+      "anonymizes": true,
+      "setup": "unknown",
+      "setupHint": "Prüfen, ob WireGuard-Konfigurationen im Gratis-Plan erhältlich sind.",
+      "strengths": ["Sitz in der Schweiz", "Gute Geschwindigkeit"],
+      "limits": ["10 GB pro Monat", "Wenige Standorte"],
+      "needsReview": true
+    },
+    {
+      "id": "cloudflare-warp",
+      "name": "Cloudflare WARP",
+      "website": "https://one.one.one.one/",
+      "recommended": false,
+      "dataLimitGbPerMonth": null,
+      "anonymizes": false,
+      "setup": "unknown",
+      "setupHint": "Nur als Option „Schnell & sicher“: verschlüsselt den Verkehr, wechselt aber nicht den Standort.",
+      "strengths": ["Sehr schnell", "Unbegrenzt"],
+      "limits": ["Kein echter Standortwechsel"],
+      "needsReview": true
+    }
+  ]
+}
