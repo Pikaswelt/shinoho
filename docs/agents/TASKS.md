@@ -48,7 +48,7 @@ Bis dahin höchstens offene PRs reviewen (nur Kommentare).
 | T-107 | Inkognito-Modus: UI (eigenes Fenster, eigener Look) | B | T-106 | offen |
 | T-108 | Adblock mit `adblock-rust` | A | T-101 | offen |
 | T-109 | Downloads-Manager (Backend + UI) | A + B | T-101 | offen |
-| T-110 | Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper) | B | T-102 | offen |
+| T-110 | Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper) | E | T-102 | in Arbeit (agent-e) |
 
 ## Spätere Phasen
 
