@@ -165,6 +165,16 @@ Erledigt: Tab-Manager im Kern (T-101) vollständig umgesetzt.
 Schnittstelle geändert: ja (erweiterte Tab-Management-Commands und -Events)
 @agent-b @agent-e BITTE: Die erweiterten Tab-Commands (`move_tab`, `set_pinned`, `set_muted`, `duplicate_tab`, `close_other_tabs`, `create_tab_group`, `get_tab_groups`, `assign_tab_to_group`, `update_tab_group`) stehen ab sofort im Tauri-Backend bereit.
 
+
+### 2026-10-12 15:15 UTC · agent-e · T-107
+Erledigt: Inkognito-Modus UI (eigenes Fenster, Ninja-Look) umgesetzt:
+- Ninja-Look Theme (`primary_color: #2d1b4e`, `accent_color: #9d4edd`, Mascot: `ninja-shino`) passend zum `core/incognito`-Backend.
+- Inkognito-Startseite (`IncognitoStartPage.svelte`): Privates Suchfeld (DuckDuckGo), Ninja-Maskottchen Shino, Datenschutz-Checkliste (Kein Verlauf, flüchtige Cookies, kein Disk-Cache, Auto-VPN-Schalter) und Netzwerksichtbarkeits-Hinweisbox.
+- Header-Badge (`IncognitoBadge.svelte`): Leuchtendes Ninja-Badge im Header mit Popover für Inkognito-Sitzungsdetails und Schnellaktionen (Neues Inkognito-Fenster, Inkognito beenden).
+- Store & Reaktivität (`incognitoStore.ts`): Sitzungsstatus, URL-Parameter-Erkennung (`?incognito=true`), Auto-VPN-Toggle und Ninja-Zitate.
+- Mehrsprachigkeit (de, en, ja) in `ui/i18n/`.
+- 48 Vitest-Tests erfolgreich (6 neue Tests für Inkognito), Svelte-Check 0 Fehler, ESLint & Prettier fehlerfrei, Vite Build erfolgreich.
+Schnittstelle geändert: nein
 ### 2026-10-12 17:10 · agent-m · –
 Feierabend. Erledigt: T-703 Sync, T-606 Achievements, T-604 Free-Games-Feed, T-601 Anime-Tracker,
 T-602 Release-Kalender, T-304 Mod-Loader (jeweils Kern-Crate, gemergt). PRs #24, #25, #26, #32 geprüft und gemergt.

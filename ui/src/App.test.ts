@@ -75,4 +75,36 @@ describe('App component', () => {
     unmount(app);
     document.body.removeChild(target);
   });
+
+  it('renders bookmark bar and opens manager', async () => {
+    const target = document.createElement('div');
+    document.body.appendChild(target);
+
+    const app = mount(App, { target });
+    await tick();
+
+    expect(target.querySelector('[data-testid="bookmark-bar"]')).not.toBeNull();
+
+    unmount(app);
+    document.body.removeChild(target);
+  });
+
+  it('renders incognito theme, badge, and start page when in incognito mode', async () => {
+    const target = document.createElement('div');
+    document.body.appendChild(target);
+
+    const { incognitoStore } = await import('./components/incognito');
+    incognitoStore.enableIncognito();
+
+    const app = mount(App, { target });
+    await tick();
+
+    expect(target.querySelector('.theme-incognito')).not.toBeNull();
+    expect(target.querySelector('[data-testid="incognito-badge"]')).not.toBeNull();
+    expect(target.querySelector('[data-testid="incognito-startpage"]')).not.toBeNull();
+
+    incognitoStore.disableIncognito();
+    unmount(app);
+    document.body.removeChild(target);
+  });
 });

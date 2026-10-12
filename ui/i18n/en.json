@@ -162,5 +162,39 @@
       "success": "Successfully imported {bookmarks} bookmarks and {folders} folders!",
       "error": "Failed to import HTML bookmark file."
     }
+  },
+  "incognito": {
+    "title": "Incognito Mode (Ninja Look)",
+    "tagline": "Browsing without traces – Ninja Shino conceals your activities in mist.",
+    "badge": "Ninja Incognito",
+    "status": "Private window active",
+    "features": {
+      "noHistoryTitle": "No History",
+      "noHistoryDesc": "Visited websites and browsing history are never saved.",
+      "noCookiesTitle": "Ephemeral Cookies & Storage",
+      "noCookiesDesc": "Site data and logins vanish completely when the window is closed.",
+      "noCacheTitle": "No Disk Cache",
+      "noCacheDesc": "Images and cached files are never written to your disk.",
+      "autoVpnTitle": "Ninja VPN Tunnel",
+      "autoVpnDesc": "Routes your traffic encrypted through the secure tunnel."
+    },
+    "visibility": {
+      "title": "What may still be visible",
+      "notice": "Your activity might still be visible to:",
+      "itemIsp": "Your internet service provider (ISP)",
+      "itemEmployer": "Your employer or school/university network",
+      "itemWebsites": "Websites you manually log into"
+    },
+    "mascot": {
+      "greeting": "Senpai! In Ninja mode your traces vanish like smoke in the wind! 🥷💨",
+      "stealthMode": "Stealth Mode: 100%"
+    },
+    "actions": {
+      "newWindow": "New Incognito Window",
+      "closeSession": "Close Incognito Session",
+      "openNormal": "Open Normal Window",
+      "vpnToggle": "Enable Auto-VPN",
+      "searchPlaceholder": "Search privately with DuckDuckGo..."
+    }
   }
 }
