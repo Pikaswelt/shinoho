@@ -6,4 +6,5 @@ members = [
     "core/storage",
     "core/incognito",
     "core/adblock",
+    "core/sync",
 ]
