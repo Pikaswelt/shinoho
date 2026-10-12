@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { t } from '../i18n';
+
   interface Props {
     title?: string;
   }
 
-  let { title = 'Shinoho' }: Props = $props();
+  let { title = t('app.title') }: Props = $props();
 </script>
 
 <header class="app-header" data-testid="app-header">

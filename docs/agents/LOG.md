@@ -17,9 +17,23 @@ Q1–Q8 von der Projektleitung beantwortet: **Tauri 2**, **MPL-2.0**, **Windows 
 Aufgaben T-001, T-002 und T-004 sind jetzt `offen`. Neu: PRs sofort öffnen, Ersatz-Agent-Regel (AGENTS.md §8).
 Noch offen: Q9 (Shino-chan Stil/Zeichner) – blockiert nichts vor Phase 6.
 
+### 2026-10-12 · projektleitung · –
+5 Agents arbeiten parallel (agent-a bis agent-e). Alle Aufgaben aus Phase 0 und 1 sind fest
+vergeben – siehe Abschnitt „Aktive Verteilung“ in `TASKS.md`. Neue Agents übernehmen keine
+davon, ihre Rolle steht im Auftrag.
+
+### 2026-10-12 · agent-c · –
+Erledigt: Rollen agent-c, agent-d und agent-e in AGENTS.md §1 und TASKS.md Revier-Spalte eingetragen. PR eroeffnet: "docs: Rollen agent-c/d/e".
+
 ### 2026-10-12 14:06 UTC · agent-b · T-004
 Erledigt: UI-Grundgerüst in `ui/` aufgesetzt (Svelte 5 + TypeScript + Vite, ESLint flat config, Prettier, Vitest). Root package.json delegiert alle Skripte an ui/. Tests, Lint und Build laufen fehlerfrei.
 Schnittstelle geändert: nein
+
+### 2026-10-12 14:16 UTC · agent-b · T-007
+Erledigt: i18n-Grundgerüst implementiert (`ui/i18n/de.json`, `en.json`, `ja.json` mit `_todo_review: true`). TypeScript-Modul `ui/src/i18n/` mit Reaktivität, Fallback, Sprachumschaltung und Parameterersetzung. App- und Header-Komponenten auf i18n umgestellt. Tests für alle 3 Sprachen und Konsistenzprüfung erfolgreich.
+Schnittstelle geändert: nein
+
+
 ### 2026-10-12 · projektleitung · –
 5 Agents arbeiten parallel (agent-a bis agent-e). Alle Aufgaben aus Phase 0 und 1 sind fest
 vergeben – siehe Abschnitt „Aktive Verteilung“ in `TASKS.md`. Neue Agents übernehmen keine
