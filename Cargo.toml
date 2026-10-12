@@ -9,4 +9,5 @@ members = [
     "core/sync",
     "core/achievements",
     "core/feeds",
+    "core/anime",
 ]
