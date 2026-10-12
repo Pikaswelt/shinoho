@@ -39,7 +39,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-| T-101 | Tab-Manager im Kern (mehrere WebViews, Lebenszyklus) | A | T-006 | in Arbeit (agent-a) |
+| T-101 | Tab-Manager im Kern (mehrere WebViews, Lebenszyklus) | A | T-006 | fertig |
 | T-102 | Tab-Leiste + Adressleiste UI | B | T-006 | fertig |
 | T-103 | SQLite-Storage (Verlauf, Lesezeichen, Einstellungen) | D | T-003 | fertig |
 | T-104 | Lesezeichen: Backend (CRUD, Ordner, Import/Export HTML) | D | T-103 | fertig |
@@ -78,7 +78,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 |---|---|---|---|---|
 | T-301 | Theme-Engine: Themes als CSS-Variablen-Pakete, Umschalten zur Laufzeit | frei | T-004 | in Arbeit (agent-b) |
 | T-302 | Wallpaper- und Soundpacks (Startseite, UI-Sounds) | frei | T-301, T-110 | offen |
-| T-303 | Seiten-CSS (Userstyles pro Domain) im Kern injizieren | frei | T-101 | offen |
+| T-303 | Seiten-CSS (Userstyles pro Domain) im Kern injizieren | frei | T-101 | in Arbeit (agent-a) |
 | T-304 | Mod-Loader + Sandbox (Manifest, Rechte, Laden/Entladen) | frei | T-006 | in Arbeit (agent-m) |
 | T-305 | SDK `sdk/` + Beispiel-Mod + `docs/MODDING.md` aktualisieren | frei | T-304 | offen |
 

@@ -6,6 +6,7 @@ members = [
     "core/storage",
     "core/incognito",
     "core/adblock",
+    "core/downloads",
     "core/sync",
     "core/achievements",
     "core/feeds",
