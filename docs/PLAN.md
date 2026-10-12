@@ -24,9 +24,9 @@ komplett umbaubar – und trotzdem privat und sicher.
 
 ---
 
-## 2. Technische Architektur (Vorschlag ❓)
+## 2. Technische Architektur (✅ entschieden: Tauri 2)
 
-### 2.1 Empfehlung: Tauri 2 + Rust-Kern + Web-UI
+### 2.1 Basis: Tauri 2 + Rust-Kern + Web-UI
 
 | Schicht | Technologie | Warum |
 |---|---|---|
@@ -41,11 +41,11 @@ komplett umbaubar – und trotzdem privat und sicher.
 **Wichtig:** Apple erlaubt auf iOS nur WebKit als Engine (Ausnahme: EU mit Sondergenehmigung).
 Mit Tauri ist das automatisch erfüllt.
 
-### 2.2 Alternativen (zur Entscheidung)
+### 2.2 Verworfene Alternativen (zur Info)
 
 | Option | Vorteile | Nachteile |
 |---|---|---|
-| **A) Tauri 2** (empfohlen) | Alle 5 Plattformen, kleines Team machbar, sehr leicht | Engine je nach OS unterschiedlich, Chrome-Erweiterungen nicht direkt nutzbar |
+| **A) Tauri 2** ✅ gewählt | Alle 5 Plattformen, kleines Team machbar, sehr leicht | Engine je nach OS unterschiedlich, Chrome-Erweiterungen nicht direkt nutzbar |
 | B) Chromium-Fork (wie Opera GX/Brave) | Beste Kompatibilität, Chrome-Extensions | Riesiger Aufwand, Build-Server nötig, iOS trotzdem WebKit |
 | C) Electron (Desktop) + eigene Android/iOS-Apps | Einheitliches Chromium auf Desktop | Hoher RAM-Verbrauch (passt nicht zu „beste Performance“), 3 Codebasen |
 
@@ -119,7 +119,8 @@ Ziele (Messung per Benchmark in der CI):
 Siehe [`FEATURES-ANIME-GAMING.md`](FEATURES-ANIME-GAMING.md).
 
 ### 3.6 Sync & Datenschutz
-- Optional: Ende-zu-Ende verschlüsselter Sync (Lesezeichen, Einstellungen, Mods) zwischen Geräten ❓
+- Sync zwischen Geräten (Lesezeichen, Einstellungen, Mods), Ende-zu-Ende verschlüsselt:
+  zuerst **ohne Server** (Export/Import-Datei, WebDAV), später eigener Shinoho-Sync-Server
 - Keine Telemetrie ohne ausdrückliche Zustimmung
 - Export aller Daten jederzeit
 
@@ -127,13 +128,13 @@ Siehe [`FEATURES-ANIME-GAMING.md`](FEATURES-ANIME-GAMING.md).
 
 ## 4. Plattformen
 
-| Plattform | Paket | Engine | Hinweise |
+| Reihenfolge / Plattform | Paket | Engine | Hinweise |
 |---|---|---|---|
-| Windows 10/11 | `.msi` / `.exe` | WebView2 (Chromium) | WebView2 ist auf Win 11 vorinstalliert |
-| Linux | `.AppImage`, `.deb`, `.rpm`, Flatpak | WebKitGTK | |
-| macOS | `.dmg` | WKWebView | Signierung braucht Apple-Developer-Konto (99 $/Jahr) ❓ |
-| Android | **`.apk`** (+ später Play Store `.aab`) | Android System WebView | Sideload-APK über GitHub Releases |
-| iOS/iPadOS | `.ipa` (App Store/TestFlight) | WKWebView (Pflicht) | Braucht Apple-Developer-Konto; VPN auf iOS nur über NetworkExtension ❓ |
+| **1.** Windows 10/11 | `.msi` / `.exe` | WebView2 (Chromium) | WebView2 ist auf Win 11 vorinstalliert |
+| **1.** Linux | `.AppImage`, `.deb`, `.rpm`, Flatpak | WebKitGTK | |
+| **3.** macOS | `.dmg` | WKWebView | Unsignierte Builds; Signierung später (Apple-Developer-Konto kommt später) |
+| **2.** Android | **`.apk`** (+ später Play Store `.aab`) | Android System WebView | Sideload-APK über GitHub Releases |
+| **3.** iOS/iPadOS | `.ipa` (App Store/TestFlight) | WKWebView (Pflicht) | Erst wenn Apple-Developer-Konto da ist (später); VPN auf iOS nur über NetworkExtension |
 
 ---
 
@@ -146,7 +147,7 @@ Siehe [`FEATURES-ANIME-GAMING.md`](FEATURES-ANIME-GAMING.md).
 | **2 – Shinoho Control** | RAM/CPU/Netz-Limiter, Tab-Schlaf, Presets, Hot-Tabs-Killer | Performance-Features |
 | **3 – Mods v1** | Theme-Engine, Soundpacks, Wallpaper, Seiten-CSS, Mod-Loader + Sandbox, SDK + Doku | Erste Community-Mods möglich |
 | **4 – VPN** | WireGuard-Proxy, Anbieter-Assistent, Kill-Switch, Leak-Test | Eingebautes VPN |
-| **5 – Mobile** | Android-APK, iOS-Build, Touch-UI, Gesten | Läuft auf Handy |
+| **5 – Mobile** | Android-APK, Touch-UI, Gesten (iOS/macOS-Signierung erst mit Apple-Konto) | Läuft auf Android |
 | **6 – Anime & Gaming** | Anime-Tracker, Release-Kalender, Gaming-Modus, Free-Games-Feed, Maskottchen, Achievements | Die „coolen Extras“ |
 | **7 – Sync & Store** | E2E-Sync, Mod-Store, Auto-Updates | Version 1.0 |
 
@@ -169,6 +170,8 @@ Damit sich zwei Agents nicht in die Quere kommen, bekommt jeder ein **eigenes Re
 
 ## 7. Qualität & Sicherheit
 - Jede Änderung per Pull Request, CI muss grün sein
+- Lizenz: **MPL-2.0** (Mods dürfen eine eigene Lizenz haben)
+- Oberfläche in **Deutsch, Englisch und Japanisch** ab Phase 0
 - Rust: `cargo fmt`, `cargo clippy`, Tests · UI: `prettier`, `eslint`, `vitest`
 - Mods laufen in einer Sandbox mit Berechtigungen (wie Browser-Extensions)
 - Updates signiert (Tauri Updater)

@@ -13,8 +13,8 @@ die Quere zu kommen.
 
 | Agent | Name im Projekt | Revier (darf frei ändern) |
 |---|---|---|
-| **Agent A** | `agent-a` – „Kern“ | `core/`, `apps/`, `.github/workflows/`, `Cargo.toml`, Build-Skripte |
-| **Agent B** | `agent-b` – „Oberfläche“ | `ui/`, `mods/`, `sdk/`, `docs/MODDING.md`, `package.json` |
+| **Agent A** (Claude) | `agent-a` – „Kern“ | `core/`, `apps/`, `.github/workflows/`, `Cargo.toml`, Build-Skripte |
+| **Agent B** (Claude) | `agent-b` – „Oberfläche“ | `ui/`, `mods/`, `sdk/`, `docs/MODDING.md`, `package.json` |
 | **Gemeinsam** | – | `core/api/` (Schnittstelle Kern ↔ UI), `docs/PLAN.md`, `AGENTS.md`, `README.md` |
 | **Projektleitung** | Senpai-TV & Pikaswelt (Menschen) | Entscheidet alles, was in `docs/OPEN-QUESTIONS.md` steht |
 
@@ -38,7 +38,8 @@ Kommt ein dritter Agent dazu, wird hier eine neue Zeile ergänzt (per PR).
    - Das ist der **einzige** direkte Commit auf `main`. Alles andere läuft über PRs.
 4. **Branch anlegen:** `agent-a/T-012-kurzer-name` bzw. `agent-b/T-012-kurzer-name`
 5. **Arbeiten** – kleine, thematische Commits (siehe §4).
-6. **Pull Request** gegen `main` öffnen. Titel: `T-012: <Beschreibung>`.
+6. **Pull Request sofort** gegen `main` öffnen – direkt nach dem ersten Push, nicht erst am Ende
+   (bei unfertiger Arbeit als Draft). Titel: `T-012: <Beschreibung>`.
    Im PR-Text: was, warum, wie getestet, betroffene Schnittstellen.
 7. **CI muss grün sein.** Der andere Agent darf reviewen (Kommentar), die Projektleitung
    mergt bzw. gibt Merge frei.
@@ -107,7 +108,9 @@ vermerken, dann darf eine zweite begonnen werden).
 
 - Neue Funktionen bekommen Tests.
 - Performance ist Kernversprechen: keine schweren Abhängigkeiten ohne Begründung im PR.
-- UI-Texte über i18n-Dateien (`ui/i18n/de.json`, `en.json`), nie fest im Code.
+- UI-Texte über i18n-Dateien (`ui/i18n/de.json`, `en.json`, `ja.json`), nie fest im Code.
+  Neue Texte immer in **allen drei** Sprachen anlegen (Japanisch darf vorläufig maschinell
+  übersetzt sein, dann mit `"_todo_review": true` markieren).
 
 ---
 
@@ -118,3 +121,21 @@ vermerken, dann darf eine zweite begonnen werden).
   nichts, bis `main` wieder grün ist.
 - **Unklarheit / Widerspruch im Plan:** stoppen, `@projektleitung FRAGE:` ins LOG und in
   `OPEN-QUESTIONS.md`, an anderer Aufgabe weiterarbeiten.
+
+---
+
+## 8. Ersatz-Agent (wenn ein Limit leer ist)
+
+Ist bei einem Agent das Nutzungslimit erreicht, kann ein **anderer Agent** (z. B. Codex,
+Gemini, Copilot) dessen Rolle übernehmen:
+
+1. Der Ersatz übernimmt die Rolle **komplett** (`agent-a` oder `agent-b`) – gleiches Revier,
+   gleiche Branch-Präfixe. Er bekommt die Rolle von der Projektleitung im Auftrag genannt.
+2. Zuerst lesen: diese Datei, `TASKS.md`, die letzten LOG-Einträge der Rolle und den offenen PR
+   der laufenden Aufgabe.
+3. Eine Aufgabe `in Arbeit (agent-x)` wird auf **demselben Branch** weitergeführt
+   (kein neuer Branch, kein Force-Push).
+4. LOG-Eintrag bei Übernahme und bei Rückgabe: `agent-a (Ersatz: <Name>) übernimmt` /
+   `gibt zurück`.
+5. Kommt der ursprüngliche Agent zurück, liest er die LOG-Einträge des Ersatzes, bevor er
+   weiterarbeitet.
