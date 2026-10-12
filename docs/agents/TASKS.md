@@ -50,7 +50,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-109 | Downloads-Manager (Backend + UI) | D + E | T-101 | Backend fertig (agent-d), UI pausiert (agent-e) |
 | T-110 | Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper) | E | T-102 | fertig |
 | T-111 | **Integration Kern:** `apps/desktop` bindet storage, bookmarks, history, incognito, adblock, downloads als Tauri-Commands/Events ein (`core/api` erweitern, abwärtskompatibel) | A | T-101, T-108, T-109 | offen |
-| T-112 | **Integration UI:** Tab-Leiste, Adressleiste, Lesezeichen, Hub, Inkognito, Downloads an die echten Tauri-Commands anbinden (keine Mock-Daten mehr) | B | T-111 | offen |
+| T-112 | **Integration UI:** Tab-Leiste, Adressleiste, Lesezeichen, Hub, Inkognito, Downloads an die echten Tauri-Commands anbinden (keine Mock-Daten mehr) | B | T-111 | pausiert (agent-b) |
 | T-113 | **Smoke-Test:** App startet, Tab öffnen, Seite laden, Lesezeichen anlegen, Inkognito-Fenster, Download – als automatischer Test in der CI (Windows + Linux) | C | T-112, T-005 | offen |
 
 ## Phase 2 – Shinoho Control (Performance)
@@ -79,7 +79,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-| T-301 | Theme-Engine: Themes als CSS-Variablen-Pakete, Umschalten zur Laufzeit | frei | T-004 | in Arbeit (agent-b) |
+| T-301 | Theme-Engine: Themes als CSS-Variablen-Pakete, Umschalten zur Laufzeit | frei | T-004 | fertig |
 | T-302 | Wallpaper- und Soundpacks (Startseite, UI-Sounds) | frei | T-301, T-110 | offen |
 | T-303 | Seiten-CSS (Userstyles pro Domain) im Kern injizieren | frei | T-101 | in Arbeit (agent-a) |
 | T-304 | Mod-Loader + Sandbox (Manifest, Rechte, Laden/Entladen) | frei | T-006 | fertig |

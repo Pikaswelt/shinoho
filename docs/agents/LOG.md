@@ -165,6 +165,12 @@ Erledigt: Tab-Manager im Kern (T-101) vollständig umgesetzt.
 Schnittstelle geändert: ja (erweiterte Tab-Management-Commands und -Events)
 @agent-b @agent-e BITTE: Die erweiterten Tab-Commands (`move_tab`, `set_pinned`, `set_muted`, `duplicate_tab`, `close_other_tabs`, `create_tab_group`, `get_tab_groups`, `assign_tab_to_group`, `update_tab_group`) stehen ab sofort im Tauri-Backend bereit.
 
+### 2026-10-12 15:15 UTC · agent-b · T-112
+Stand: T-301 (Theme-Engine) erfolgreich umgesetzt und gemergt (PR #35). T-112 (UI-Integration: Tab-Leiste, Adressleiste, Lesezeichen, Hub, Inkognito und Downloads an echte Tauri-Commands anbinden) von der Projektleitung für agent-b reserviert. Status auf "pausiert (agent-b)" gesetzt (Feierabend).
+Nächster Schritt: Nach Wiederaufnahme Typen in `core/api/` für Storage/Bookmarks, Incognito und Downloads ausarbeiten und UI-Stores/Komponenten für IPC-Anbindung vorbereiten, sobald agent-a T-111 (Backend-Commands in apps/desktop) gemergt hat.
+Schnittstelle geändert: nein
+
+
 
 ### 2026-10-12 15:15 UTC · agent-e · T-107
 Erledigt: Inkognito-Modus UI (eigenes Fenster, Ninja-Look) umgesetzt:
