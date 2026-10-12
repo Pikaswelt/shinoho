@@ -1,0 +1,236 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ui:
+    name: UI (Lint, Format, Test, Build)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for package.json
+        id: check-ui
+        run: |
+          if [ -f "package.json" ]; then
+            echo "has_ui=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_ui=false" >> "$GITHUB_OUTPUT"
+            echo "No package.json found. Skipping UI steps."
+          fi
+
+      - name: Setup Node.js
+        if: steps.check-ui.outputs.has_ui == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package.json
+
+      - name: Install npm dependencies
+        if: steps.check-ui.outputs.has_ui == 'true'
+        run: npm ci || npm install
+
+      - name: Run lint
+        if: steps.check-ui.outputs.has_ui == 'true'
+        run: npm run lint --if-present
+
+      - name: Run format check
+        if: steps.check-ui.outputs.has_ui == 'true'
+        run: npm run format:check --if-present
+
+      - name: Run tests
+        if: steps.check-ui.outputs.has_ui == 'true'
+        run: npm test --if-present
+
+      - name: Build frontend
+        if: steps.check-ui.outputs.has_ui == 'true'
+        run: npm run build --if-present
+
+      - name: Upload frontend dist artifact
+        if: steps.check-ui.outputs.has_ui == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-dist
+          path: ui/dist
+          if-no-files-found: ignore
+
+  rust:
+    name: Rust (Format, Clippy, Test)
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for Cargo.toml
+        id: check-rust
+        run: |
+          if [ -f "Cargo.toml" ]; then
+            echo "has_rust=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_rust=false" >> "$GITHUB_OUTPUT"
+            echo "No Cargo.toml found. Skipping Rust steps."
+          fi
+
+      - name: Install Linux system dependencies for Tauri
+        if: steps.check-rust.outputs.has_rust == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            libssl-dev \
+            libxdo-dev \
+            build-essential \
+            curl \
+            wget \
+            file
+
+      - name: Setup Rust toolchain
+        if: steps.check-rust.outputs.has_rust == 'true'
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Rust Cache
+        if: steps.check-rust.outputs.has_rust == 'true'
+        uses: swatinem/rust-cache@v2
+
+      - name: Run cargo fmt check
+        if: steps.check-rust.outputs.has_rust == 'true'
+        run: cargo fmt --all -- --check
+
+      - name: Run cargo clippy
+        if: steps.check-rust.outputs.has_rust == 'true'
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Run cargo test
+        if: steps.check-rust.outputs.has_rust == 'true'
+        run: cargo test --all
+
+  build-desktop:
+    name: Build Desktop (${{ matrix.name }})
+    needs: [ui, rust]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            name: Linux
+            target: x86_64-unknown-linux-gnu
+          - os: windows-latest
+            name: Windows
+            target: x86_64-pc-windows-msvc
+          - os: macos-latest
+            name: macOS
+            target: x86_64-apple-darwin
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for Cargo.toml
+        id: check-build
+        shell: bash
+        run: |
+          if [ -f "Cargo.toml" ]; then
+            echo "has_rust=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_rust=false" >> "$GITHUB_OUTPUT"
+            echo "No Cargo.toml found. Skipping desktop build."
+          fi
+
+      - name: Install Linux system dependencies for Tauri
+        if: matrix.os == 'ubuntu-22.04' && steps.check-build.outputs.has_rust == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            libssl-dev \
+            libxdo-dev \
+            build-essential \
+            curl \
+            wget \
+            file
+
+      - name: Setup Node.js
+        if: steps.check-build.outputs.has_rust == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Rust toolchain
+        if: steps.check-build.outputs.has_rust == 'true'
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Rust Cache
+        if: steps.check-build.outputs.has_rust == 'true'
+        uses: swatinem/rust-cache@v2
+
+      - name: Build UI assets (if package.json exists)
+        if: steps.check-build.outputs.has_rust == 'true'
+        shell: bash
+        run: |
+          if [ -f "package.json" ]; then
+            npm ci || npm install
+            npm run build --if-present
+          fi
+
+      - name: Build Rust Desktop binary
+        if: steps.check-build.outputs.has_rust == 'true'
+        shell: bash
+        run: |
+          if cargo pkgid -p shinoho-desktop > /dev/null 2>&1; then
+            cargo build --release --target ${{ matrix.target }} -p shinoho-desktop
+          else
+            cargo build --release --target ${{ matrix.target }} --workspace
+          fi
+
+      - name: Upload build artifact (Linux)
+        if: matrix.os == 'ubuntu-22.04' && steps.check-build.outputs.has_rust == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: shinoho-desktop-linux
+          path: |
+            target/${{ matrix.target }}/release/shinoho*
+            target/release/shinoho*
+          if-no-files-found: ignore
+
+      - name: Upload build artifact (Windows)
+        if: matrix.os == 'windows-latest' && steps.check-build.outputs.has_rust == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: shinoho-desktop-windows
+          path: |
+            target/${{ matrix.target }}/release/shinoho*.exe
+            target/release/shinoho*.exe
+          if-no-files-found: ignore
+
+      - name: Upload build artifact (macOS)
+        if: matrix.os == 'macos-latest' && steps.check-build.outputs.has_rust == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: shinoho-desktop-macos
+          path: |
+            target/${{ matrix.target }}/release/shinoho*
+            target/release/shinoho*
+          if-no-files-found: ignore

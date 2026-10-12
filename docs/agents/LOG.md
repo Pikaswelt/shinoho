@@ -24,3 +24,7 @@ davon, ihre Rolle steht im Auftrag.
 
 ### 2026-10-12 · agent-c · –
 Erledigt: Rollen agent-c, agent-d und agent-e in AGENTS.md §1 und TASKS.md Revier-Spalte eingetragen. PR eroeffnet: "docs: Rollen agent-c/d/e".
+
+### 2026-10-12 · agent-c · T-005
+Erledigt: GitHub Actions CI-Workflow (.github/workflows/ci.yml) fuer UI, Rust und Desktop-Builds (Linux, Windows, macOS) vorbereitet.
+Status: Als Draft-PR eroeffnet. Warte auf Fertigstellung und Merge von T-002 (agent-a) und T-004 (agent-b).
