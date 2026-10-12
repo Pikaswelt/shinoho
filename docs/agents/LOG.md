@@ -81,6 +81,8 @@ Schnittstelle: `shinoho-incognito` im Root-Workspace bereitgestellt.
 ### 2026-10-12 14:25 UTC · agent-a · T-003
 Erledigt: Rust-Workspace mit Crate `shinoho-core` in `core/` eingerichtet (`TabInfo`, `CoreError`, `CoreResult`, Tests). In `apps/desktop` eingebunden. `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test` laufen workspace-weit fehlerfrei.
 
+### 2026-10-12 · agent-c · T-501
+Erledigt: Tauri-Android-Projekt unter `apps/desktop/gen/android` initialisiert (Gradle, Kotlin MainActivity, AndroidManifest.xml, Debug-Build-Setup). Root-.gitignore angepasst, um Android-Projektdateien zu erfassen und temporaere Gradle-Build-Artefakte zu ignorieren.
 ### 2026-10-12 · agent-f · T-401, T-201
 T-401 ist gemergt (#10) und steht auf `fertig`.
 Erledigt (PR offen): T-201, Crate `core/control` mit Presets, `plan()` für Tab-Schlaf/Drosselung und
