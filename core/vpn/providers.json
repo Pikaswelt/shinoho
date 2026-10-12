@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "lastReviewed": "2026-10-12",
-  "note": "Konditionen ändern sich. Vor jedem Release prüfen (siehe docs/VPN.md). Einträge mit needsReview=true sind noch nicht bestätigt.",
+  "note": "Konditionen ändern sich. Vor jedem Release prüfen (docs/VPN.md). Quellen je Anbieter in 'sources'. needsReview=true heißt: nicht aus einer offiziellen Quelle bestätigt.",
   "providers": [
     {
       "id": "proton-free",
@@ -11,10 +11,22 @@
       "dataLimitGbPerMonth": null,
       "anonymizes": true,
       "setup": "wireguard-config",
-      "setupHint": "Im Proton-Konto unter Downloads → WireGuard eine Konfiguration erstellen und die .conf-Datei in Shinoho importieren.",
-      "strengths": ["Unbegrenzte Daten", "Geprüfte No-Logs-Policy", "Keine Werbung", "Sitz in der Schweiz"],
-      "limits": ["Wenige Länder", "Server-Wahl automatisch", "1 Gerät"],
-      "needsReview": false
+      "setupHint": "Auf account.protonvpn.com anmelden → Downloads → WireGuard-Konfiguration: Plattform und Server wählen, .conf herunterladen und in Shinoho importieren.",
+      "strengths": [
+        "Unbegrenzte Daten",
+        "Unabhängig geprüfte No-Logs-Policy",
+        "Keine Werbung",
+        "Sitz in der Schweiz"
+      ],
+      "limits": [
+        "1 Gerät gleichzeitig",
+        "Server in rund 10 Ländern, Standort wird zugewiesen (nicht wählbar)"
+      ],
+      "needsReview": false,
+      "sources": [
+        "https://protonvpn.com/support/wireguard-configurations/",
+        "https://www.security.org/vpn/protonvpn/review/"
+      ]
     },
     {
       "id": "windscribe-free",
@@ -23,11 +35,20 @@
       "recommended": false,
       "dataLimitGbPerMonth": 10,
       "anonymizes": true,
-      "setup": "unknown",
-      "setupHint": "Prüfen, ob der WireGuard-Konfig-Generator im Gratis-Plan verfügbar ist.",
-      "strengths": ["Viele Länder im Gratis-Plan", "Beliebig viele Geräte"],
-      "limits": ["10 GB pro Monat (mit bestätigter E-Mail)"],
-      "needsReview": true
+      "setup": "app-only",
+      "setupHint": "Im Gratis-Plan keine WireGuard-Datei: nur mit der Windscribe-App nutzbar, nicht in Shinoho importierbar.",
+      "strengths": [
+        "Server in 10 Ländern im Gratis-Plan"
+      ],
+      "limits": [
+        "10 GB pro Monat nur mit bestätigter E-Mail, sonst 2 GB",
+        "WireGuard-Konfigurationen nur für zahlende Kunden"
+      ],
+      "needsReview": false,
+      "sources": [
+        "https://windscribe.com/knowledge-base/articles/where-do-i-access-my-wireguard-configs",
+        "https://windscribe.com/knowledge-base/articles/how-much-does-it-cost-to-use-windscribe"
+      ]
     },
     {
       "id": "hideme-free",
@@ -36,11 +57,23 @@
       "recommended": false,
       "dataLimitGbPerMonth": 10,
       "anonymizes": true,
-      "setup": "unknown",
-      "setupHint": "Prüfen, ob WireGuard-Konfigurationen im Gratis-Plan erhältlich sind.",
-      "strengths": ["No-Logs", "Keine Werbung"],
-      "limits": ["10 GB pro Monat", "Wenige Standorte"],
-      "needsReview": true
+      "setup": "app-only",
+      "setupHint": "Im Gratis-Plan vermutlich keine WireGuard-Datei: nur mit der hide.me-App nutzbar. Noch offiziell zu bestätigen.",
+      "strengths": [
+        "Keine Werbung",
+        "No-Logs-Versprechen"
+      ],
+      "limits": [
+        "10 GB pro Monat",
+        "1 Gerät",
+        "Wenige Standorte",
+        "Laut Test keine manuellen Konfigurationsdateien im Gratis-Plan"
+      ],
+      "needsReview": true,
+      "sources": [
+        "https://www.techradar.com/reviews/hideme-free-vpn",
+        "https://www.androidcentral.com/free-hideme-vpn-data-limit-increased-2gb-10gb"
+      ]
     },
     {
       "id": "privado-free",
@@ -50,10 +83,21 @@
       "dataLimitGbPerMonth": 10,
       "anonymizes": true,
       "setup": "unknown",
-      "setupHint": "Prüfen, ob WireGuard-Konfigurationen im Gratis-Plan erhältlich sind.",
-      "strengths": ["Sitz in der Schweiz", "Gute Geschwindigkeit"],
-      "limits": ["10 GB pro Monat", "Wenige Standorte"],
-      "needsReview": true
+      "setupHint": "Im Privado-Kontrollzentrum unter „Manual Configuration“ → WireGuard eine .conf herunterladen (laut Router-Anleitung). Ob das mit Gratis-Konto geht, ist unbestätigt.",
+      "strengths": [
+        "Sitz in der Schweiz",
+        "13 Standorte im Gratis-Plan"
+      ],
+      "limits": [
+        "10 GB alle 30 Tage, danach gedrosselt oder Notfall-Server (Angaben widersprüchlich)",
+        "Keine veröffentlichte unabhängige Prüfung",
+        "Heruntergeladene WireGuard-Dateien gelten 30 Tage"
+      ],
+      "needsReview": true,
+      "sources": [
+        "https://www.tp-link.com/en/support/faq/4466/",
+        "https://www.security.org/vpn/privado"
+      ]
     },
     {
       "id": "cloudflare-warp",
@@ -62,11 +106,20 @@
       "recommended": false,
       "dataLimitGbPerMonth": null,
       "anonymizes": false,
-      "setup": "unknown",
-      "setupHint": "Nur als Option „Schnell & sicher“: verschlüsselt den Verkehr, wechselt aber nicht den Standort.",
-      "strengths": ["Sehr schnell", "Unbegrenzt"],
-      "limits": ["Kein echter Standortwechsel"],
-      "needsReview": true
+      "setup": "app-only",
+      "setupHint": "Nur über die offizielle 1.1.1.1-App. Shinoho bindet WARP nicht ein und empfiehlt keine inoffiziellen Werkzeuge.",
+      "strengths": [
+        "Sehr schnell",
+        "Unbegrenzt"
+      ],
+      "limits": [
+        "Kein echter Standortwechsel",
+        "Keine offizielle WireGuard-Datei; Drittanbieter-Werkzeuge (wgcf) bewegen sich in einer Grauzone der Nutzungsbedingungen"
+      ],
+      "needsReview": true,
+      "sources": [
+        "https://one.one.one.one/"
+      ]
     }
   ]
 }
