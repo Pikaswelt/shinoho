@@ -58,7 +58,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-202 | Messung RAM/CPU pro Tab bzw. WebView-Prozess | F | T-101 | offen |
 | T-203 | Tab-Schlaf an Tab-Manager anbinden (einfrieren/aufwecken) | F | T-101, T-201 | offen |
 | T-204 | Netzwerk-Limiter (Bandbreite pro Tab/gesamt) | F | T-101 | offen |
-| T-205 | Gaming-Modus: laufende Spiele / Vollbild-Apps erkennen | F | T-201 | review (agent-f) |
+| T-205 | Gaming-Modus: laufende Spiele / Vollbild-Apps erkennen | F | T-201 | fertig |
 | T-206 | UI „Shinoho Control“ (Regler, Presets, Hot-Tabs-Killer) | UI (Rolle offen) | T-202, T-006 | offen |
 
 ## Phase 4 – VPN
@@ -66,7 +66,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
 | T-401 | `core/vpn`: WireGuard-`.conf`-Parser + Anbieterliste `providers.json` | F | – | fertig |
-| T-402 | WireGuard-Tunnel (boringtun) + lokaler SOCKS5-Proxy | F | T-401 | review (agent-f) |
+| T-402 | WireGuard-Tunnel (boringtun) + lokaler SOCKS5-Proxy | F | T-401 | fertig |
 | T-403 | Proxy an WebViews anbinden + Kill-Switch | F | T-101, T-402 | offen |
 | T-404 | DNS über Tunnel, WebRTC-Leak-Schutz, Leak-Test-Seite `shinoho://vpn-test` | F | T-403 | offen |
 | T-405 | Anbieter-Konditionen prüfen, `providers.json` + `docs/VPN.md` aktualisieren | F | T-401 | fertig |
@@ -95,7 +95,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
 | T-601 | Anime-Tracker (AniList-Login, Liste, Folgen-Fortschritt) | frei | T-006 | fertig |
-| T-602 | Release-Kalender (neue Folgen/Spiele der Woche) | frei | T-601 | in Arbeit (agent-m) |
+| T-602 | Release-Kalender (neue Folgen/Spiele der Woche) | frei | T-601 | fertig |
 | T-603 | Gaming-Modus-UI (Overlay, Performance-Preset) | frei | T-205 | in Arbeit (agent-f) |
 | T-604 | Free-Games-Feed (Epic, Steam, GOG) auf dem Hub | frei | T-110 | fertig |
 | T-605 | Maskottchen Shino-chan (Platzhalter bis Q9 geklärt) | frei | T-110 | offen |
