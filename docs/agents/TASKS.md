@@ -40,7 +40,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
 | T-101 | Tab-Manager im Kern (mehrere WebViews, Lebenszyklus) | A | T-006 | in Arbeit (agent-a) |
-| T-102 | Tab-Leiste + Adressleiste UI | B | T-006 | in Arbeit (agent-b) |
+| T-102 | Tab-Leiste + Adressleiste UI | B | T-006 | fertig |
 | T-103 | SQLite-Storage (Verlauf, Lesezeichen, Einstellungen) | D | T-003 | fertig |
 | T-104 | Lesezeichen: Backend (CRUD, Ordner, Import/Export HTML) | D | T-103 | fertig |
 | T-105 | Lesezeichen: UI (Leiste, Manager, Suche) | E | T-104 | fertig |
@@ -76,7 +76,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-| T-301 | Theme-Engine: Themes als CSS-Variablen-Pakete, Umschalten zur Laufzeit | frei | T-004 | offen |
+| T-301 | Theme-Engine: Themes als CSS-Variablen-Pakete, Umschalten zur Laufzeit | frei | T-004 | in Arbeit (agent-b) |
 | T-302 | Wallpaper- und Soundpacks (Startseite, UI-Sounds) | frei | T-301, T-110 | offen |
 | T-303 | Seiten-CSS (Userstyles pro Domain) im Kern injizieren | frei | T-101 | offen |
 | T-304 | Mod-Loader + Sandbox (Manifest, Rechte, Laden/Entladen) | frei | T-006 | offen |
@@ -86,11 +86,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-<<<<<<< HEAD
-| T-501 | Tauri-Android-Ziel einrichten, APK lokal baubar (Debug-signiert) | C | T-002 | offen |
-=======
 | T-501 | Tauri-Android-Ziel einrichten, APK lokal baubar (Debug-signiert) | C | T-002 | in Arbeit (agent-c) |
->>>>>>> agent-b/T-006-core-api-v0
 | T-502 | Touch-UI + Gesten (Tabs wischen, Adressleiste unten) | frei | T-102, T-501 | offen |
 | T-503 | Android-APK-Build in der CI | C | T-005, T-501 | offen |
 
