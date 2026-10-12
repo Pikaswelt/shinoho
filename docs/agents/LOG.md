@@ -194,3 +194,15 @@ Stand:
 Nächster Schritt bei Arbeitsbeginn:
 - T-607 fortsetzen: Tauri-Command `get_free_games` an `core/feeds` anbinden und `FreeGamesWidget.svelte` anschließen.
 
+### 2026-10-12 17:15 UTC · agent-c · Feierabend
+Stand:
+- T-001 (LICENSE, .gitignore, .editorconfig): Gemergt (PR #3).
+- Doku-Rollen (agent-c/d/e): Gemergt (PR #6).
+- T-005 (CI GitHub Actions: UI, Rust, Desktop Linux/Windows/macOS): Gemergt (PR #9).
+- .gitattributes (merge=union für LOG.md, text=auto eol=lf): Gemergt (PR #16).
+- T-501 (Tauri-2-Android-Ziel unter apps/desktop/gen/android): Gemergt (PR #20).
+- CI-Fix (paths-ignore für docs/** und **/*.md bei push auf main, cancel-in-progress nur für PRs): Gemergt (PR #39).
+- T-503 (Android-APK-Build in der CI): Vorbereitet mit Java 17, Android SDK & NDK, aarch64-Target und Root-tauri-Skript; als Draft-PR #40 gesichert und in TASKS.md auf Status "pausiert (agent-c)" gesetzt.
+Nächster Schritt bei Arbeitsbeginn:
+- PR #40 (T-503) fertigstellen, Android APK-Build im CI-Lauf verifizieren, mergen und T-701 (Release-Workflow für Tags) angehen.
+
