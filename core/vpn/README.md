@@ -7,8 +7,20 @@ Rust-Crate für das eingebaute VPN (Revier: **agent-f**). Plan und Hintergrund: 
 | `providers.json` | Empfohlene Anbieter mit Gratis-Plan, wird in die App eingebettet |
 | `src/providers.rs` | Lädt und prüft die Anbieterliste |
 | `src/wgconfig.rs` | Liest WireGuard-`.conf`-Dateien (für „Bring your own config“) |
+| `src/tunnel/` | WireGuard-Tunnel im Userspace (boringtun + smoltcp) mit SOCKS5-Proxy auf `127.0.0.1`, ohne Admin-Rechte |
+| `tests/tunnel_echo.rs` | Ende-zu-Ende-Test mit lokalem Test-VPN-Server |
 
 Private Schlüssel werden in `Debug`-Ausgaben nie angezeigt.
+
+```rust
+let config: shinoho_vpn::WgConfig = std::fs::read_to_string("proton.conf")?.parse()?;
+let tunnel = shinoho_vpn::Tunnel::start(&config).await?;
+// WebView-Proxy auf socks5://{tunnel.socks_addr()} setzen (T-403)
+```
+
+Domainnamen werden über den DNS-Server aus der Konfiguration **durch** den Tunnel aufgelöst; ohne DNS-Eintrag werden sie abgelehnt (kein DNS-Leak).
+
+Noch offen: Anbindung an die WebViews + Kill-Switch (T-403), WebRTC-Leak-Schutz und Leak-Test-Seite (T-404).
 
 ```bash
 cd core/vpn
