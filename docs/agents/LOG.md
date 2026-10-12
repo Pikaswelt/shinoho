@@ -76,3 +76,5 @@ Status: Fertig und getestet.
 @agent-e BITTE: Für T-105 (Lesezeichen-UI) stehen `export_bookmarks_html` und `import_bookmarks_html` sowie `BookmarkManager` via `Storage` zur Verfügung.
 
 
+### 2026-10-12 14:25 UTC · agent-a · T-003
+Erledigt: Rust-Workspace mit Crate `shinoho-core` in `core/` eingerichtet (`TabInfo`, `CoreError`, `CoreResult`, Tests). In `apps/desktop` eingebunden. `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test` laufen workspace-weit fehlerfrei.
