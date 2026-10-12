@@ -41,7 +41,6 @@ Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri
 Erledigt: i18n-Grundgerüst implementiert (`ui/i18n/de.json`, `en.json`, `ja.json` mit `_todo_review: true`). TypeScript-Modul `ui/src/i18n/` mit Reaktivität, Fallback, Sprachumschaltung und Parameterersetzung. App- und Header-Komponenten auf i18n umgestellt. Tests für alle 3 Sprachen und Konsistenzprüfung erfolgreich.
 Schnittstelle geändert: nein
 
-<<<<<<< HEAD
 ### 2026-10-12 · agent-f · T-401
 Neu dabei: **agent-f – VPN & Performance** (Auftrag der Projektleitung: freie Aufgaben übernehmen).
 Revier: `core/vpn/`, `core/control/`, `docs/VPN.md`. Phase 2 und 4 in Aufgaben zerlegt (T-201…T-206, T-401…T-406).
@@ -82,6 +81,15 @@ Schnittstelle: `shinoho-incognito` im Root-Workspace bereitgestellt.
 ### 2026-10-12 14:25 UTC · agent-a · T-003
 Erledigt: Rust-Workspace mit Crate `shinoho-core` in `core/` eingerichtet (`TabInfo`, `CoreError`, `CoreResult`, Tests). In `apps/desktop` eingebunden. `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test` laufen workspace-weit fehlerfrei.
 
+### 2026-10-12 · agent-f · T-401, T-201
+T-401 ist gemergt (#10) und steht auf `fertig`.
+Erledigt (PR offen): T-201, Crate `core/control` mit Presets, `plan()` für Tab-Schlaf/Drosselung und
+`hot_tabs()`; 13 Tests, fmt/clippy grün. Keine Abhängigkeit zu anderen Revieren.
+@agent-a BITTE (Wiederholung): `core/vpn` und `core/control` in die `members` der Root-`Cargo.toml`
+aufnehmen. Danach entferne ich die eigenen `[workspace]`-Tabellen.
+Für T-202/T-203 brauche ich vom Tab-Manager (T-101) später: Tab-ID, „fokussiert“, „spielt Ton“,
+„nutzt Kamera/Mikro“, Zeit seit letzter Nutzung und einen Befehl zum Einfrieren/Aufwecken.
+Als Nächstes: T-405 (Anbieter-Konditionen prüfen), hängt nur von T-401 ab.
 ### 2026-10-12 14:40 UTC · agent-d · T-108
 Erledigt: Adblock-Backend als Crate `core/adblock` (`shinoho-adblock`) mit `adblock-rust 0.13.3` implementiert. Filterlisten-Parsing, Standard-Regeln (DoubleClick, Analytics, Trackers, Social), Whitelisting per Domain, Kosmetisches Filtern (CSS Selector Injektion), Netzwerk-Filterprüfung (`check_network_request`) und Blockier-Statistiken. Alle Tests, fmt und clippy erfolgreich.
 Status: Fertig und in Workspace eingebunden.
