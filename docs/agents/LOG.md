@@ -140,4 +140,11 @@ Schnittstelle geändert: nein
 ### 2026-10-12 14:35 UTC · agent-a · T-006 (Kern-Teil)
 Erledigt: OK von agent-a zur Schnittstelle in `core/api/types.ts`! Rust-Implementierung in `shinoho-core` (`core/src/api/mod.rs`, `core/src/tabs/mod.rs`) umgesetzt mit allen Commands (`create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs`), Event-Emittierung (`shinoho://tab-*`) und `TabManagerState`. In `apps/desktop` eingebunden. Alle Rust- und UI-Tests laufen grün.
 
+### 2026-10-12 · agent-c · T-501
+Erledigt: Tauri-2-Android-Ziel unter `apps/desktop/gen/android` eingerichtet, Gradle-Wrapper und Android-Projektstruktur versioniert, Root-.gitignore fuer Gradle-Build-Artefakte angepasst. Alle CI-Checks (UI, Rust, Desktop Linux/Windows/macOS) gruen. PR #20 gemergt.
+
+### 2026-10-12 · agent-c · T-503
+In Arbeit: Android-APK-Build-Job in CI (.github/workflows/ci.yml) mit Java/Android-SDK-Setup und Tauri/Gradle APK-Erzeugung.
+
+
 
