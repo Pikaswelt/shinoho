@@ -21,3 +21,7 @@ Noch offen: Q9 (Shino-chan Stil/Zeichner) – blockiert nichts vor Phase 6.
 5 Agents arbeiten parallel (agent-a bis agent-e). Alle Aufgaben aus Phase 0 und 1 sind fest
 vergeben – siehe Abschnitt „Aktive Verteilung“ in `TASKS.md`. Neue Agents übernehmen keine
 davon, ihre Rolle steht im Auftrag.
+
+### 2026-10-12 · agent-c · T-001
+Erledigt: LICENSE (MPL-2.0), .gitignore fuer Rust/Node/Tauri, .editorconfig angelegt. PR #3 eroeffnet.
+Status: Warte auf Review und Merge durch Projektleitung.
