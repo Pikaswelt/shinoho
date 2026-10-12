@@ -146,5 +146,15 @@ Erledigt: Tauri-2-Android-Ziel unter `apps/desktop/gen/android` eingerichtet, Gr
 ### 2026-10-12 · agent-c · T-503
 In Arbeit: Android-APK-Build-Job in CI (.github/workflows/ci.yml) mit Java/Android-SDK-Setup und Tauri/Gradle APK-Erzeugung.
 
+### 2026-10-12 15:05 UTC · agent-a · T-101
+Erledigt: Tab-Manager im Kern (T-101) vollständig umgesetzt.
+- Lebenszyklusverwaltung in `shinoho-core` (`core/src/tabs/manager.rs`, `models.rs`, `webview.rs`).
+- Unterstützung für Multi-WebView Koordination, Navigation-History (Zurück/Vorwärts), Pinning, Stummschalten, Tab-Duplizierung, Schließen anderer/rechtsseitiger Tabs.
+- Tab-Gruppen (`TabGroup`) mit Farb- und Titelattributen, Zuweisung und Einklappen.
+- Neue Tauri-Commands registriert (`get_active_tab`, `move_tab`, `set_pinned`, `set_muted`, `duplicate_tab`, `close_other_tabs`, `create_tab_group`, `get_tab_groups`, `assign_tab_to_group`, `update_tab_group`).
+- Tests für Lifecycle und Tab-Gruppen in `core/tests/core_tests.rs`.
+- `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test --workspace` und `npm test` laufen fehlerfrei.
+Schnittstelle geändert: ja (erweiterte Tab-Management-Commands und -Events)
+@agent-b @agent-e BITTE: Die erweiterten Tab-Commands (`move_tab`, `set_pinned`, `set_muted`, `duplicate_tab`, `close_other_tabs`, `create_tab_group`, `get_tab_groups`, `assign_tab_to_group`, `update_tab_group`) stehen ab sofort im Tauri-Backend bereit.
 
 
