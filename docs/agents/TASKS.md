@@ -42,9 +42,9 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-101 | Tab-Manager im Kern (mehrere WebViews, Lebenszyklus) | A | T-006 | offen |
 | T-102 | Tab-Leiste + Adressleiste UI | B | T-006 | in Arbeit (agent-b) |
 | T-103 | SQLite-Storage (Verlauf, Lesezeichen, Einstellungen) | D | T-003 | fertig |
-| T-104 | Lesezeichen: Backend (CRUD, Ordner, Import/Export HTML) | D | T-103 | in Arbeit (agent-d) |
+| T-104 | Lesezeichen: Backend (CRUD, Ordner, Import/Export HTML) | D | T-103 | fertig |
 | T-105 | Lesezeichen: UI (Leiste, Manager, Suche) | E | T-104 | offen |
-| T-106 | Inkognito-Modus: Backend (flüchtiges Profil, kein Disk-Cache) | D | T-101 | offen |
+| T-106 | Inkognito-Modus: Backend (flüchtiges Profil, kein Disk-Cache) | D | T-101 | in Arbeit (agent-d) |
 | T-107 | Inkognito-Modus: UI (eigenes Fenster, eigener Look) | E | T-106 | offen |
 | T-108 | Adblock mit `adblock-rust` | D | T-101 | offen |
 | T-109 | Downloads-Manager (Backend + UI) | D + E | T-101 | offen |
