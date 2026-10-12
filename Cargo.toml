@@ -7,4 +7,7 @@ members = [
     "core/incognito",
     "core/adblock",
     "core/sync",
+    "core/achievements",
+    "core/feeds",
+    "core/anime",
 ]

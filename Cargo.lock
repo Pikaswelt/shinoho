@@ -3132,6 +3132,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "shinoho-achievements"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "serde",
+ "shinoho-storage",
+ "tempfile",
+]
+
+[[package]]
 name = "shinoho-adblock"
 version = "0.1.0"
 dependencies = [
@@ -3140,6 +3150,15 @@ dependencies = [
  "serde_json",
  "thiserror 1.0.69",
  "url",
+]
+
+[[package]]
+name = "shinoho-anime"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "thiserror 1.0.69",
 ]
 
 [[package]]
@@ -3164,6 +3183,16 @@ dependencies = [
  "tauri",
  "tauri-build",
  "tauri-plugin-log",
+]
+
+[[package]]
+name = "shinoho-feeds"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "serde",
+ "serde_json",
+ "thiserror 1.0.69",
 ]
 
 [[package]]

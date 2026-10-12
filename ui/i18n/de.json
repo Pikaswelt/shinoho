@@ -100,5 +100,58 @@
       "toggleWidgets": "Widgets anpassen",
       "resetDefaults": "Auf Standard zurücksetzen"
     }
+  },
+  "bookmarks": {
+    "bar": {
+      "title": "Lesezeichenleiste",
+      "empty": "Noch keine Lesezeichen auf der Leiste. Ziehe Verknüpfungen hierher oder klicke auf das Sternchen.",
+      "openManager": "Lesezeichen-Manager öffnen",
+      "addCurrent": "Aktuelle Seite als Lesezeichen speichern",
+      "showBar": "Lesezeichenleiste anzeigen",
+      "hideBar": "Lesezeichenleiste ausblenden"
+    },
+    "manager": {
+      "title": "Lesezeichen-Verwaltung",
+      "searchPlaceholder": "Lesezeichen nach Titel, URL oder Tags durchsuchen...",
+      "newBookmark": "Neues Lesezeichen",
+      "newFolder": "Neuer Ordner",
+      "importHtml": "HTML importieren",
+      "exportHtml": "HTML exportieren",
+      "resetDefaults": "Standard-Lesezeichen laden",
+      "allBookmarks": "Alle Lesezeichen",
+      "emptyFolder": "Dieser Ordner ist leer.",
+      "noResults": "Keine Lesezeichen für deine Suche gefunden.",
+      "itemsCount": "{count} Einträge",
+      "itemsCountSingle": "1 Eintrag"
+    },
+    "folders": {
+      "toolbar": "Lesezeichenleiste",
+      "other": "Weitere Lesezeichen",
+      "mobile": "Mobile Lesezeichen"
+    },
+    "modal": {
+      "addBookmarkTitle": "Lesezeichen hinzufügen",
+      "editBookmarkTitle": "Lesezeichen bearbeiten",
+      "addFolderTitle": "Neuen Ordner erstellen",
+      "editFolderTitle": "Ordner umbenennen",
+      "nameLabel": "Titel / Name",
+      "urlLabel": "Webadresse (URL)",
+      "folderLabel": "Zielordner",
+      "tagsLabel": "Tags (kommagetrennt)",
+      "tagsHelp": "z.B. anime, gaming, stream",
+      "save": "Speichern",
+      "cancel": "Abbrechen"
+    },
+    "actions": {
+      "open": "Öffnen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "deleteConfirm": "Möchtest du '{title}' wirklich löschen?",
+      "deleteFolderConfirm": "Möchtest du den Ordner '{title}' und alle enthaltenen Einträge wirklich löschen?"
+    },
+    "import": {
+      "success": "{bookmarks} Lesezeichen und {folders} Ordner erfolgreich importiert!",
+      "error": "Fehler beim Importieren der HTML-Datei."
+    }
   }
 }
