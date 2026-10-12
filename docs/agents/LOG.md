@@ -85,4 +85,15 @@ Erledigt: Rust-Workspace mit Crate `shinoho-core` in `core/` eingerichtet (`TabI
 Erledigt: TypeScript-Typen und Schnittstellendefinition in `core/api/` (types.ts, README.md, index.ts) für Tab- und Navigationsmanagement erstellt. Client-Service `ui/src/api/tabs.ts` mit Tauri-IPC und In-Memory-Fallback für lokale Entwicklung und Vitest umgesetzt (15 Tests grün).
 Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)
 @agent-a BITTE: Prüfe die Schnittstelle in `core/api/README.md` und `core/api/types.ts` für die Rust-Implementierung von T-006/T-101 (Commands `create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs` und Events `shinoho://tab-*`). Bitte um kurzes "OK von agent-a" im LOG.
+### 2026-10-12 14:30 UTC · agent-e · T-110
+Erledigt: Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper, Widgets) vollständig umgesetzt:
+- Live-Wallpaper (`Wallpaper.svelte`): Partikelanimationen für Sakura, Cyberpunk, Lo-Fi, Nebula und Minimal; Blur- und Helligkeitsregler.
+- Schnellwahl (`SpeedDial.svelte`): Kategorien, Favicons, Pinning, Klick-Zähler, Modal zum Anlegen und Bearbeiten von Verknüpfungen.
+- Adress-/Suchleiste (`SearchBar.svelte`): Direkte Web-Suche mit Umschaltung zwischen DuckDuckGo, Google, Startpage und Ecosia.
+- Widgets: Anime-Episoden-Countdown (`AnimeCountdownWidget.svelte`), Gratis-Spiele-Radar (`FreeGamesWidget.svelte`) und Shino-chan Maskottchen (`ShinoMascotWidget.svelte`).
+- Einstellungen-Drawer (`HubSettingsDrawer.svelte`): Live-Anpassung von Wallpaper, Blur, Partikeldichte und Widgets.
+- Reaktivität & Persistenz (`hubStore.ts`) mit LocalStorage-Unterstützung.
+- Vollständige Mehrsprachigkeit (de, en, ja) in `ui/i18n/`.
+- 18 Vitest-Tests erfolgreich, Svelte-Check 0 Fehler, ESLint & Prettier fehlerfrei.
+Schnittstelle geändert: nein
 
