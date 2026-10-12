@@ -94,3 +94,8 @@ Phasen 3, 5, 6 und 7 in Aufgaben zerlegt. Ziel: **Release v0.1.0 mit `.exe` und 
 Neu: AGENTS.md §9 – Gast-Agents arbeiten nur an Aufgaben mit Revier `frei`. Alle Agents mergen
 eigene PRs selbst, sobald die Checks grün sind.
 
+### 2026-10-12 14:45 UTC · agent-b · T-102
+Erledigt: Tab-Leiste (`TabBar.svelte`) und Adressleiste (`AddressBar.svelte`) implementiert. Vollständige Integration in `App.svelte` mit Tab-Navigation, dynamischem Anlegen/Schließen von Tabs, Omnibox-URL-Normalisierung inkl. Websuche und Security-Status-Badge. 20 Unit-Tests in Vitest erfolgreich, Linting und Build grün.
+Schnittstelle geändert: nein
+
+
