@@ -2914,15 +2914,40 @@ dependencies = [
 ]
 
 [[package]]
-name = "shinoho-desktop"
+name = "shinoho-core"
 version = "0.1.0"
 dependencies = [
  "log",
  "serde",
  "serde_json",
  "tauri",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "shinoho-desktop"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "serde",
+ "serde_json",
+ "shinoho-core",
+ "tauri",
  "tauri-build",
  "tauri-plugin-log",
+]
+
+[[package]]
+name = "shinoho-incognito"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "serde",
+ "serde_json",
+ "shinoho-storage",
+ "tempfile",
+ "thiserror 1.0.69",
+ "uuid",
 ]
 
 [[package]]

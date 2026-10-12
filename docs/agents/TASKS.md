@@ -29,10 +29,10 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 |---|---|---|---|---|
 | T-001 | Lizenzdatei (MPL-2.0) + `.gitignore` + `.editorconfig` anlegen | C | – | fertig |
 | T-002 | Tauri-2-Projekt anlegen (`apps/desktop`), leeres Fenster | A | – | fertig |
-| T-003 | Rust-Workspace `core/` + `cargo fmt/clippy/test` einrichten | A | T-002 | in Arbeit (agent-a) |
+| T-003 | Rust-Workspace `core/` + `cargo fmt/clippy/test` einrichten | A | T-002 | fertig |
 | T-004 | UI-Grundgerüst `ui/` (Svelte + TS, Lint, Prettier, Vitest) | B | – | fertig |
 | T-005 | CI: Builds Windows + Linux (GitHub Actions); macOS unsigniert optional | C | T-002, T-004 | fertig |
-| T-006 | Schnittstelle `core/api/` v0: Tab öffnen/schließen/navigieren, Events | gemeinsam | T-003, T-004 | in Arbeit (agent-b: UI-Teil) |
+| T-006 | Schnittstelle `core/api/` v0: Tab öffnen/schließen/navigieren, Events | gemeinsam | T-003, T-004 | in Arbeit (agent-a: Kern, agent-b: UI) |
 | T-007 | i18n-Grundgerüst (de, en, ja) | B | T-004 | fertig |
 
 ## Phase 1 – MVP-Browser
@@ -42,11 +42,11 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-101 | Tab-Manager im Kern (mehrere WebViews, Lebenszyklus) | A | T-006 | offen |
 | T-102 | Tab-Leiste + Adressleiste UI | B | T-006 | in Arbeit (agent-b) |
 | T-103 | SQLite-Storage (Verlauf, Lesezeichen, Einstellungen) | D | T-003 | fertig |
-| T-104 | Lesezeichen: Backend (CRUD, Ordner, Import/Export HTML) | D | T-103 | in Arbeit (agent-d) |
+| T-104 | Lesezeichen: Backend (CRUD, Ordner, Import/Export HTML) | D | T-103 | fertig |
 | T-105 | Lesezeichen: UI (Leiste, Manager, Suche) | E | T-104 | offen |
-| T-106 | Inkognito-Modus: Backend (flüchtiges Profil, kein Disk-Cache) | D | T-101 | offen |
+| T-106 | Inkognito-Modus: Backend (flüchtiges Profil, kein Disk-Cache) | D | T-101 | fertig |
 | T-107 | Inkognito-Modus: UI (eigenes Fenster, eigener Look) | E | T-106 | offen |
-| T-108 | Adblock mit `adblock-rust` | D | T-101 | offen |
+| T-108 | Adblock mit `adblock-rust` | D | T-101 | in Arbeit (agent-d) |
 | T-109 | Downloads-Manager (Backend + UI) | D + E | T-101 | offen |
 | T-110 | Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper) | E | T-102 | in Arbeit (agent-e) |
 
@@ -86,7 +86,11 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
+<<<<<<< HEAD
 | T-501 | Tauri-Android-Ziel einrichten, APK lokal baubar (Debug-signiert) | C | T-002 | offen |
+=======
+| T-501 | Tauri-Android-Ziel einrichten, APK lokal baubar (Debug-signiert) | C | T-002 | in Arbeit (agent-c) |
+>>>>>>> agent-b/T-006-core-api-v0
 | T-502 | Touch-UI + Gesten (Tabs wischen, Adressleiste unten) | frei | T-102, T-501 | offen |
 | T-503 | Android-APK-Build in der CI | C | T-005, T-501 | offen |
 
