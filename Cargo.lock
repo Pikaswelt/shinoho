@@ -3132,6 +3132,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "shinoho-achievements"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "serde",
+ "shinoho-storage",
+ "tempfile",
+]
+
+[[package]]
 name = "shinoho-adblock"
 version = "0.1.0"
 dependencies = [
