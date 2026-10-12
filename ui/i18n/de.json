@@ -27,6 +27,15 @@
     "downloads": "Downloads",
     "incognito": "Inkognito"
   },
+  "themes": {
+    "title": "Themes",
+    "selectTheme": "Design auswählen",
+    "defaultDark": "Default Dark",
+    "sakuraNeon": "Sakura Neon",
+    "midnightCyber": "Midnight Cyber",
+    "ninjaStealth": "Ninja Stealth",
+    "lightMinimal": "Light Minimal"
+  },
   "hub": {
     "title": "Shinoho Hub",
     "search": {

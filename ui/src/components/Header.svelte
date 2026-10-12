@@ -1,5 +1,6 @@
 <script lang="ts">
   import { t } from '../i18n';
+  import ThemeSelector from './ThemeSelector.svelte';
 
   interface Props {
     title?: string;
@@ -13,12 +14,17 @@
     <span class="logo-accent">✦</span>
     <span class="logo-text">{title}</span>
   </div>
+
+  <div class="header-actions">
+    <ThemeSelector />
+  </div>
 </header>
 
 <style>
   .app-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 12px;
     height: 36px;
     background-color: var(--color-bg-surface);
@@ -39,5 +45,11 @@
 
   .logo-text {
     letter-spacing: 0.5px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 </style>
