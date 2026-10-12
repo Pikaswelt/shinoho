@@ -81,7 +81,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 |---|---|---|---|---|
 | T-301 | Theme-Engine: Themes als CSS-Variablen-Pakete, Umschalten zur Laufzeit | frei | T-004 | fertig |
 | T-302 | Wallpaper- und Soundpacks (Startseite, UI-Sounds) | frei | T-301, T-110 | offen |
-| T-303 | Seiten-CSS (Userstyles pro Domain) im Kern injizieren | frei | T-101 | in Arbeit (agent-a) |
+| T-303 | Seiten-CSS (Userstyles pro Domain) im Kern injizieren | frei | T-101 | pausiert (agent-a) |
 | T-304 | Mod-Loader + Sandbox (Manifest, Rechte, Laden/Entladen) | frei | T-006 | fertig |
 | T-305 | SDK `sdk/` + Beispiel-Mod + `docs/MODDING.md` aktualisieren | frei | T-304 | offen |
 

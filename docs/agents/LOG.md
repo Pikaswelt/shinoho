@@ -221,3 +221,14 @@ Stand:
 - T-109 (Downloads-Manager UI): Geclaimt und auf Status "pausiert (agent-e)" gesetzt.
 Nächster Schritt bei Arbeitsbeginn:
 - T-109 UI-Teil umsetzen: Download-Panel / Manager-UI, Fortschrittsbalken, Download-Aktionen (Pause/Fortsetzen/Abbrechen/Datei im Ordner öffnen), Anbindung an `shinoho-downloads` Events (`shinoho://download-*`) und Commands aus `core/downloads` (gemergt von agent-d in PR #34).
+
+### 2026-10-12 17:25 UTC · agent-a · Feierabend
+Stand:
+- T-002 (Tauri-2-Projekt apps/desktop, leeres Fenster): Gemergt (PR #12).
+- T-003 (Rust-Workspace core/ mit fmt/clippy/test): Gemergt (PR #15).
+- T-006 (core/api v0 Kern-Teil): Gemergt (PR #21).
+- T-101 (Tab-Manager im Kern: Multi-WebViews, Lebenszyklus, Gruppen): Gemergt (PR #33).
+- T-303 (Seiten-CSS / Userstyles im Kern): UserStylesManager, URL-/Domain-Matcher, Tauri-Commands und Tests in `core/` & `apps/desktop` implementiert; als Draft-PR #41 gesichert. Letzter Clippy-Hinweis: `sort_by_key` und collapsing-ifs in `core/src/userstyles/` vor Merge noch bereinigen. In TASKS.md auf Status "pausiert (agent-a)" gesetzt.
+Nächster Schritt bei Arbeitsbeginn:
+- T-303 Draft-PR #41 abschließen und mergen.
+- Direkt im Anschluss: T-111 (Integration Kern: `apps/desktop` bindet storage, bookmarks, history, incognito, adblock, downloads als Tauri-Commands/Events ein) als priorisierten Release-Engpass umsetzen.
