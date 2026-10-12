@@ -1,5 +1,6 @@
 <script lang="ts">
   import { t, getLocale } from '../i18n';
+  import ThemeSelector from './ThemeSelector.svelte';
   import { incognitoStore } from './incognito/incognitoStore';
   import IncognitoBadge from './incognito/IncognitoBadge.svelte';
 
@@ -38,7 +39,7 @@
     {/if}
   </div>
 
-  <div class="header-right">
+  <div class="header-actions">
     {#if incognitoState.isIncognito}
       <IncognitoBadge />
     {:else}
@@ -53,6 +54,7 @@
         <span class="launch-label">{tr('incognito.badge')}</span>
       </button>
     {/if}
+    <ThemeSelector />
   </div>
 </header>
 
@@ -100,7 +102,7 @@
     margin-left: 6px;
   }
 
-  .header-right {
+  .header-actions {
     display: flex;
     align-items: center;
     gap: 8px;

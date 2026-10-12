@@ -28,6 +28,15 @@
     "downloads": "ダウンロード",
     "incognito": "シークレット"
   },
+  "themes": {
+    "title": "テーマ",
+    "selectTheme": "テーマを選択",
+    "defaultDark": "デフォルト・ダーク",
+    "sakuraNeon": "サクラ・ネオン",
+    "midnightCyber": "ミッドナイト・サイバー",
+    "ninjaStealth": "ニンジャ・ステルス",
+    "lightMinimal": "ライト・ミニマル"
+  },
   "hub": {
     "title": "シノホ ハブ",
     "search": {

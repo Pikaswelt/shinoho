@@ -7,6 +7,7 @@
   import { IncognitoStartPage, incognitoStore } from './components/incognito';
   import { tabService, type TabInfo, type TabId } from './api/tabs';
   import { t, getLocale, setLocale, SUPPORTED_LOCALES, type SupportedLocale } from './i18n';
+  import { themeManager } from './themes';
 
   let currentLang = $state<SupportedLocale>(getLocale());
   let tabs = $state<TabInfo[]>([]);
@@ -30,6 +31,7 @@
   }
 
   onMount(() => {
+    themeManager.init();
     refreshTabs();
     const unsubscribe = tabService.onTabEvent(() => {
       refreshTabs();
