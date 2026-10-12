@@ -1,0 +1,19 @@
+[package]
+name = "shinoho-desktop"
+description = "Shinoho – Desktop-App (Windows, Linux, macOS)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "shinoho"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }

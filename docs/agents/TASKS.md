@@ -10,8 +10,8 @@ Status: `offen` · `in Arbeit (agent-x)` · `blockiert` · `review` · `fertig`
 
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
-| T-001 | Lizenzdatei (MPL-2.0) + `.gitignore` + `.editorconfig` anlegen | A | – | offen |
-| T-002 | Tauri-2-Projekt anlegen (`apps/desktop`), leeres Fenster | A | – | offen |
+| T-001 | Lizenzdatei (MPL-2.0) + `.gitignore` + `.editorconfig` anlegen | A | – | review (agent-a) |
+| T-002 | Tauri-2-Projekt anlegen (`apps/desktop`), leeres Fenster | A | – | review (agent-a) |
 | T-003 | Rust-Workspace `core/` + `cargo fmt/clippy/test` einrichten | A | T-002 | offen |
 | T-004 | UI-Grundgerüst `ui/` (Svelte + TS, Lint, Prettier, Vitest) | B | – | offen |
 | T-005 | CI: Builds Windows + Linux (GitHub Actions); macOS unsigniert optional | A | T-002, T-004 | offen |

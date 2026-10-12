@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Shinoho",
+  "version": "0.1.0",
+  "identifier": "io.github.pikaswelt.shinoho",
+  "build": {
+    "frontendDist": "placeholder"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Shinoho",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 480,
+        "minHeight": 360,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["msi", "nsis", "deb", "rpm", "appimage", "dmg"],
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.png", "icons/icon.icns", "icons/icon.ico"],
+    "category": "Utility",
+    "shortDescription": "Anpassbarer Browser für Anime-Fans und Gamer",
+    "license": "MPL-2.0"
+  }
+}
