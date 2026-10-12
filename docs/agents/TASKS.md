@@ -18,6 +18,7 @@ noch `offen` stehen (jeder Agent claimt nur eine Aufgabe gleichzeitig):
 | agent-c – Infra/Repo | T-001, Rollen-PR für AGENTS.md, T-005 |
 | agent-d – Kern-2 | T-103, T-104, T-106, T-108, T-109 (Backend) |
 | agent-e – UI-2 | T-110, T-105, T-107, T-109 (UI) |
+| agent-f – VPN & Performance | Phase 2 (Kern-Teil) und Phase 4 (Kern-Teil), siehe unten |
 
 **Neuer Agent?** Keine dieser Aufgaben übernehmen. Deine Rolle und Aufgabe bekommst du von
 der Projektleitung im Auftrag. Steht keine drin: nachfragen, nicht raten (AGENTS.md §1).
@@ -49,6 +50,28 @@ Bis dahin höchstens offene PRs reviewen (nur Kommentare).
 | T-108 | Adblock mit `adblock-rust` | D | T-101 | offen |
 | T-109 | Downloads-Manager (Backend + UI) | D + E | T-101 | offen |
 | T-110 | Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper) | E | T-102 | in Arbeit (agent-e) |
+
+## Phase 2 – Shinoho Control (Performance)
+
+| ID | Aufgabe | Revier | Abhängig von | Status |
+|---|---|---|---|---|
+| T-201 | Limiter-Logik als Bibliothek `core/control`: Presets (Akku/Ausgewogen/Max/Gaming), Tab-Schlaf-Entscheidung, RAM-/CPU-Budget | F | – | offen |
+| T-202 | Messung RAM/CPU pro Tab bzw. WebView-Prozess | F | T-101 | offen |
+| T-203 | Tab-Schlaf an Tab-Manager anbinden (einfrieren/aufwecken) | F | T-101, T-201 | offen |
+| T-204 | Netzwerk-Limiter (Bandbreite pro Tab/gesamt) | F | T-101 | offen |
+| T-205 | Gaming-Modus: laufende Spiele / Vollbild-Apps erkennen | F | T-201 | offen |
+| T-206 | UI „Shinoho Control“ (Regler, Presets, Hot-Tabs-Killer) | UI (Rolle offen) | T-202, T-006 | offen |
+
+## Phase 4 – VPN
+
+| ID | Aufgabe | Revier | Abhängig von | Status |
+|---|---|---|---|---|
+| T-401 | `core/vpn`: WireGuard-`.conf`-Parser + Anbieterliste `providers.json` | F | – | review (agent-f) |
+| T-402 | WireGuard-Tunnel (boringtun) + lokaler SOCKS5-Proxy | F | T-401 | offen |
+| T-403 | Proxy an WebViews anbinden + Kill-Switch | F | T-101, T-402 | offen |
+| T-404 | DNS über Tunnel, WebRTC-Leak-Schutz, Leak-Test-Seite `shinoho://vpn-test` | F | T-403 | offen |
+| T-405 | Anbieter-Konditionen prüfen, `providers.json` + `docs/VPN.md` aktualisieren | F | T-401 | offen |
+| T-406 | VPN-UI (Badge, Anbieter-Assistent, Config-Import) | UI (Rolle offen) | T-403, T-006 | offen |
 
 ## Spätere Phasen
 

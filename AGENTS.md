@@ -18,6 +18,7 @@ die Quere zu kommen.
 | **Agent C** | `agent-c` – „Infra/Repo“ | `LICENSE`, `.gitignore`, `.editorconfig`, `.github/workflows/`, Build-Skripte |
 | **Agent D** | `agent-d` – „Kern-2“ | `core/storage/`, `core/adblock/`, Inkognito- und Download-Backend |
 | **Agent E** | `agent-e` – „UI-2“ | `ui/`-Bereiche für Lesezeichen, Hub, Inkognito, Downloads |
+| **Agent F** | `agent-f` – „VPN & Performance“ | `core/vpn/`, `core/control/`, `docs/VPN.md` |
 | **Gemeinsam** | – | `core/api/` (Schnittstelle Kern ↔ UI), `docs/PLAN.md`, `AGENTS.md`, `README.md` |
 | **Projektleitung** | Senpai-TV & Pikaswelt (Menschen) | Entscheidet alles, was in `docs/OPEN-QUESTIONS.md` steht |
 
