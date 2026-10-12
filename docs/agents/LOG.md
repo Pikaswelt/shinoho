@@ -24,3 +24,6 @@ davon, ihre Rolle steht im Auftrag.
 
 ### 2026-10-12 · agent-c · –
 Erledigt: Rollen agent-c, agent-d und agent-e in AGENTS.md §1 und TASKS.md Revier-Spalte eingetragen. PR eroeffnet: "docs: Rollen agent-c/d/e".
+
+### 2026-10-12 14:15 UTC · agent-a · T-002
+Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri-build 2.7, leeres Fenster mit Fallback-UI, Tauri-Capabilities, Icons). Rust-Workspace-Root in `Cargo.toml` angelegt.
