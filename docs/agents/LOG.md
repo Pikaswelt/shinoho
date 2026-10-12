@@ -22,29 +22,25 @@ Noch offen: Q9 (Shino-chan Stil/Zeichner) – blockiert nichts vor Phase 6.
 vergeben – siehe Abschnitt „Aktive Verteilung“ in `TASKS.md`. Neue Agents übernehmen keine
 davon, ihre Rolle steht im Auftrag.
 
+### 2026-10-12 · agent-c · T-001
+Erledigt: LICENSE (MPL-2.0), .gitignore fuer Rust/Node/Tauri, .editorconfig angelegt. PR #3 eroeffnet.
+Status: Gemergt.
+
 ### 2026-10-12 · agent-c · –
 Erledigt: Rollen agent-c, agent-d und agent-e in AGENTS.md §1 und TASKS.md Revier-Spalte eingetragen. PR eroeffnet: "docs: Rollen agent-c/d/e".
+Status: Gemergt.
 
 <<<<<<< HEAD
 ### 2026-10-12 14:06 UTC · agent-b · T-004
 Erledigt: UI-Grundgerüst in `ui/` aufgesetzt (Svelte 5 + TypeScript + Vite, ESLint flat config, Prettier, Vitest). Root package.json delegiert alle Skripte an ui/. Tests, Lint und Build laufen fehlerfrei.
 Schnittstelle geändert: nein
 
+### 2026-10-12 14:15 UTC · agent-a · T-002
+Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri-build 2.7, leeres Fenster mit Fallback-UI, Tauri-Capabilities, Icons). Rust-Workspace-Root in `Cargo.toml` angelegt.
+
 ### 2026-10-12 14:16 UTC · agent-b · T-007
 Erledigt: i18n-Grundgerüst implementiert (`ui/i18n/de.json`, `en.json`, `ja.json` mit `_todo_review: true`). TypeScript-Modul `ui/src/i18n/` mit Reaktivität, Fallback, Sprachumschaltung und Parameterersetzung. App- und Header-Komponenten auf i18n umgestellt. Tests für alle 3 Sprachen und Konsistenzprüfung erfolgreich.
 Schnittstelle geändert: nein
-
-
-### 2026-10-12 · projektleitung · –
-5 Agents arbeiten parallel (agent-a bis agent-e). Alle Aufgaben aus Phase 0 und 1 sind fest
-vergeben – siehe Abschnitt „Aktive Verteilung“ in `TASKS.md`. Neue Agents übernehmen keine
-davon, ihre Rolle steht im Auftrag.
-
-### 2026-10-12 · agent-c · T-001
-Erledigt: LICENSE (MPL-2.0), .gitignore fuer Rust/Node/Tauri, .editorconfig angelegt. PR #3 eroeffnet.
-Status: Warte auf Review und Merge durch Projektleitung.
-### 2026-10-12 · agent-c · –
-Erledigt: Rollen agent-c, agent-d und agent-e in AGENTS.md §1 und TASKS.md Revier-Spalte eingetragen. PR eroeffnet: "docs: Rollen agent-c/d/e".
 
 ### 2026-10-12 · agent-f · T-401
 Neu dabei: **agent-f – VPN & Performance** (Auftrag der Projektleitung: freie Aufgaben übernehmen).
@@ -62,4 +58,8 @@ Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri
 ### 2026-10-12 14:10 UTC · agent-d · T-103
 Erledigt: Eigenständige Crate `core/storage` mit SQLite-Backend (rusqlite bundled), Schema-Migrationen, Verlauf (History Visits & Top Sites), Lesezeichen (Baumstruktur & CRUD), Einstellungen (KV & JSON) und Downloads implementiert. Tests, clippy und fmt erfolgreich.
 Status: Fertig und in Root-Workspace eingebunden.
+
+### 2026-10-12 · agent-c · T-005
+Erledigt: GitHub Actions CI-Workflow (.github/workflows/ci.yml) für UI, Rust und Desktop-Builds (Linux, Windows, macOS) eingerichtet.
+Abhängigkeiten T-002 und T-004 gemergt, main in Branch integriert. PR #9 fertiggestellt.
 
