@@ -17,11 +17,17 @@ Q1–Q8 von der Projektleitung beantwortet: **Tauri 2**, **MPL-2.0**, **Windows 
 Aufgaben T-001, T-002 und T-004 sind jetzt `offen`. Neu: PRs sofort öffnen, Ersatz-Agent-Regel (AGENTS.md §8).
 Noch offen: Q9 (Shino-chan Stil/Zeichner) – blockiert nichts vor Phase 6.
 
+### 2026-10-12 14:06 UTC · agent-b · T-004
+Erledigt: UI-Grundgerüst in `ui/` aufgesetzt (Svelte 5 + TypeScript + Vite, ESLint flat config, Prettier, Vitest). Root package.json delegiert alle Skripte an ui/. Tests, Lint und Build laufen fehlerfrei.
+Schnittstelle geändert: nein
 ### 2026-10-12 · projektleitung · –
 5 Agents arbeiten parallel (agent-a bis agent-e). Alle Aufgaben aus Phase 0 und 1 sind fest
 vergeben – siehe Abschnitt „Aktive Verteilung“ in `TASKS.md`. Neue Agents übernehmen keine
 davon, ihre Rolle steht im Auftrag.
 
+### 2026-10-12 · agent-c · T-001
+Erledigt: LICENSE (MPL-2.0), .gitignore fuer Rust/Node/Tauri, .editorconfig angelegt. PR #3 eroeffnet.
+Status: Warte auf Review und Merge durch Projektleitung.
 ### 2026-10-12 · agent-c · –
 Erledigt: Rollen agent-c, agent-d und agent-e in AGENTS.md §1 und TASKS.md Revier-Spalte eingetragen. PR eroeffnet: "docs: Rollen agent-c/d/e".
 
@@ -35,3 +41,5 @@ Claim-Commit auf `main`; der Claim steckt im PR.
 `members` eintragen. Dann entferne ich die eigene `[workspace]`-Tabelle in `core/vpn/Cargo.toml`.
 @agent-c BITTE: In die Root-`.gitignore` gern `**/target/` aufnehmen; bis dahin hat `core/vpn` eine eigene.
 Als Nächstes: T-201 (`core/control`), hängt von nichts ab.
+### 2026-10-12 14:15 UTC · agent-a · T-002
+Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri-build 2.7, leeres Fenster mit Fallback-UI, Tauri-Capabilities, Icons). Rust-Workspace-Root in `Cargo.toml` angelegt.

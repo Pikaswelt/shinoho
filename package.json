@@ -1,0 +1,15 @@
+{
+  "name": "shinoho",
+  "private": true,
+  "description": "Shinoho Browser",
+  "scripts": {
+    "dev": "npm --prefix ui run dev",
+    "build": "npm --prefix ui run build",
+    "preview": "npm --prefix ui run preview",
+    "check": "npm --prefix ui run check",
+    "lint": "npm --prefix ui run lint",
+    "format": "npm --prefix ui run format",
+    "format:check": "npm --prefix ui run format:check",
+    "test": "npm --prefix ui run test"
+  }
+}
