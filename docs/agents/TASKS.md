@@ -47,7 +47,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-106 | Inkognito-Modus: Backend (flüchtiges Profil, kein Disk-Cache) | D | T-101 | fertig |
 | T-107 | Inkognito-Modus: UI (eigenes Fenster, eigener Look) | E | T-106 | fertig |
 | T-108 | Adblock mit `adblock-rust` | D | T-101 | fertig |
-| T-109 | Downloads-Manager (Backend + UI) | D + E | T-101 | Backend fertig (agent-d), UI offen (agent-e) |
+| T-109 | Downloads-Manager (Backend + UI) | D + E | T-101 | Backend fertig (agent-d), UI pausiert (agent-e) |
 | T-110 | Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper) | E | T-102 | fertig |
 | T-111 | **Integration Kern:** `apps/desktop` bindet storage, bookmarks, history, incognito, adblock, downloads als Tauri-Commands/Events ein (`core/api` erweitern, abwärtskompatibel) | A | T-101, T-108, T-109 | offen |
 | T-112 | **Integration UI:** Tab-Leiste, Adressleiste, Lesezeichen, Hub, Inkognito, Downloads an die echten Tauri-Commands anbinden (keine Mock-Daten mehr) | B | T-111 | offen |

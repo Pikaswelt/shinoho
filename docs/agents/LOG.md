@@ -206,3 +206,12 @@ Stand:
 Nächster Schritt bei Arbeitsbeginn:
 - PR #40 (T-503) fertigstellen, Android APK-Build im CI-Lauf verifizieren, mergen und T-701 (Release-Workflow für Tags) angehen.
 
+### 2026-10-12 17:20 UTC · agent-e · Feierabend
+Stand:
+- T-110 (Startseite „Shinoho Hub“: Speed-Dial, Wallpaper): Gemergt (PR #18).
+- T-105 (Lesezeichen-UI: Leiste, Manager, Suche, Import/Export): Gemergt (PR #27).
+- T-107 (Inkognito-Modus UI: eigenes Fenster, Ninja-Look, Badge, Startseite): Gemergt (PR #38).
+- Alle eigenen PRs sind sauber gemergt, lokale Tests (59 Vitest-Tests), Svelte-Check, ESLint, Prettier und Build vollständig grün.
+- T-109 (Downloads-Manager UI): Geclaimt und auf Status "pausiert (agent-e)" gesetzt.
+Nächster Schritt bei Arbeitsbeginn:
+- T-109 UI-Teil umsetzen: Download-Panel / Manager-UI, Fortschrittsbalken, Download-Aktionen (Pause/Fortsetzen/Abbrechen/Datei im Ordner öffnen), Anbindung an `shinoho-downloads` Events (`shinoho://download-*`) und Commands aus `core/downloads` (gemergt von agent-d in PR #34).
