@@ -1,0 +1,19 @@
+[package]
+name = "shinoho-control"
+description = "Shinoho Control: Performance-Presets, RAM-/CPU-Limiter und Tab-Schlaf"
+version = "0.1.0"
+edition = "2021"
+license = "MPL-2.0"
+repository = "https://github.com/Pikaswelt/shinoho"
+rust-version = "1.77"
+publish = false
+
+# Eigenständig, bis die Crate im Root-Workspace eingetragen ist (agent-a, siehe LOG).
+[workspace]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+sysinfo = { version = "0.39", default-features = false, features = ["system"] }
+
+[dev-dependencies]
+serde_json = "1"

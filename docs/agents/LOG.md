@@ -41,7 +41,6 @@ Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri
 Erledigt: i18n-Grundgerüst implementiert (`ui/i18n/de.json`, `en.json`, `ja.json` mit `_todo_review: true`). TypeScript-Modul `ui/src/i18n/` mit Reaktivität, Fallback, Sprachumschaltung und Parameterersetzung. App- und Header-Komponenten auf i18n umgestellt. Tests für alle 3 Sprachen und Konsistenzprüfung erfolgreich.
 Schnittstelle geändert: nein
 
-<<<<<<< HEAD
 ### 2026-10-12 · agent-f · T-401
 Neu dabei: **agent-f – VPN & Performance** (Auftrag der Projektleitung: freie Aufgaben übernehmen).
 Revier: `core/vpn/`, `core/control/`, `docs/VPN.md`. Phase 2 und 4 in Aufgaben zerlegt (T-201…T-206, T-401…T-406).
@@ -82,6 +81,17 @@ Schnittstelle: `shinoho-incognito` im Root-Workspace bereitgestellt.
 ### 2026-10-12 14:25 UTC · agent-a · T-003
 Erledigt: Rust-Workspace mit Crate `shinoho-core` in `core/` eingerichtet (`TabInfo`, `CoreError`, `CoreResult`, Tests). In `apps/desktop` eingebunden. `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test` laufen workspace-weit fehlerfrei.
 
+### 2026-10-12 · agent-c · T-501
+Erledigt: Tauri-Android-Projekt unter `apps/desktop/gen/android` initialisiert (Gradle, Kotlin MainActivity, AndroidManifest.xml, Debug-Build-Setup). Root-.gitignore angepasst, um Android-Projektdateien zu erfassen und temporaere Gradle-Build-Artefakte zu ignorieren.
+### 2026-10-12 · agent-f · T-401, T-201
+T-401 ist gemergt (#10) und steht auf `fertig`.
+Erledigt (PR offen): T-201, Crate `core/control` mit Presets, `plan()` für Tab-Schlaf/Drosselung und
+`hot_tabs()`; 13 Tests, fmt/clippy grün. Keine Abhängigkeit zu anderen Revieren.
+@agent-a BITTE (Wiederholung): `core/vpn` und `core/control` in die `members` der Root-`Cargo.toml`
+aufnehmen. Danach entferne ich die eigenen `[workspace]`-Tabellen.
+Für T-202/T-203 brauche ich vom Tab-Manager (T-101) später: Tab-ID, „fokussiert“, „spielt Ton“,
+„nutzt Kamera/Mikro“, Zeit seit letzter Nutzung und einen Befehl zum Einfrieren/Aufwecken.
+Als Nächstes: T-405 (Anbieter-Konditionen prüfen), hängt nur von T-401 ab.
 ### 2026-10-12 14:40 UTC · agent-d · T-108
 Erledigt: Adblock-Backend als Crate `core/adblock` (`shinoho-adblock`) mit `adblock-rust 0.13.3` implementiert. Filterlisten-Parsing, Standard-Regeln (DoubleClick, Analytics, Trackers, Social), Whitelisting per Domain, Kosmetisches Filtern (CSS Selector Injektion), Netzwerk-Filterprüfung (`check_network_request`) und Blockier-Statistiken. Alle Tests, fmt und clippy erfolgreich.
 Status: Fertig und in Workspace eingebunden.
@@ -102,11 +112,31 @@ Erledigt: Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper, Widgets) vollstä
 - 18 Vitest-Tests erfolgreich, Svelte-Check 0 Fehler, ESLint & Prettier fehlerfrei.
 Schnittstelle geändert: nein
 
+### 2026-10-12 14:50 UTC · agent-e · T-105
+Erledigt: Lesezeichen-UI (Leiste, Manager, Suche, Import/Export) vollständig umgesetzt:
+- Lesezeichenleiste (`BookmarkBar.svelte`): Horizontale Leiste mit Ordner-Dropdowns, Favicons, Quick-Add und Schnellzugriff auf den Manager.
+- Lesezeichen-Manager (`BookmarkManager.svelte`): Vollständige Verwaltung mit Ordnerbaum (Lesezeichenleiste, Weitere, Mobile, benutzerdefinierte Ordner), Echtzeitsuche nach Titel/URL/Tags, Tag-Filter, Add/Edit-Modal und Löschbestätigung.
+- HTML Import & Export (`bookmarkHtml.ts`): Vollständig kompatibel zum Netscape Bookmark File 1 Format und Backend von agent-d (`core/storage`).
+- Reaktivität & Persistenz (`bookmarkStore.ts`) mit LocalStorage-Fallback und Standard-Lesezeichen für Anime & Gaming.
+- Mehrsprachigkeit (de, en, ja) in `ui/i18n/`.
+- 12 Vitest-Tests erfolgreich (insgesamt 30 Tests grün), Svelte-Check 0 Fehler, ESLint & Prettier fehlerfrei, Vite Build erfolgreich.
+Schnittstelle geändert: nein
 ### 2026-10-12 14:25 UTC · agent-b · T-006 (UI-Teil)
 Erledigt: TypeScript-Typen und Schnittstellendefinition in `core/api/` (types.ts, README.md, index.ts) für Tab- und Navigationsmanagement erstellt. Client-Service `ui/src/api/tabs.ts` mit Tauri-IPC und In-Memory-Fallback für lokale Entwicklung und Vitest umgesetzt (15 Tests grün).
 Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)
 @agent-a BITTE: Prüfe die Schnittstelle in `core/api/README.md` und `core/api/types.ts` für die Rust-Implementierung von T-006/T-101 (Commands `create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs` und Events `shinoho://tab-*`). Bitte um kurzes "OK von agent-a" im LOG.
 
+### 2026-10-12 · agent-c · –
+Erledigt: .gitattributes mit merge=union fuer LOG.md und text=auto eol=lf angelegt, um Merge-Konflikte im LOG und CRLF-Probleme unter Windows zu verhindern.
+
+### 2026-10-12 · projektleitung · –
+Phasen 3, 5, 6 und 7 in Aufgaben zerlegt. Ziel: **Release v0.1.0 mit `.exe` und `.apk`** (T-701, T-799 → agent-c).
+Neu: AGENTS.md §9 – Gast-Agents arbeiten nur an Aufgaben mit Revier `frei`. Alle Agents mergen
+eigene PRs selbst, sobald die Checks grün sind.
+
+### 2026-10-12 14:45 UTC · agent-b · T-102
+Erledigt: Tab-Leiste (`TabBar.svelte`) und Adressleiste (`AddressBar.svelte`) implementiert. Vollständige Integration in `App.svelte` mit Tab-Navigation, dynamischem Anlegen/Schließen von Tabs, Omnibox-URL-Normalisierung inkl. Websuche und Security-Status-Badge. 20 Unit-Tests in Vitest erfolgreich, Linting und Build grün.
+Schnittstelle geändert: nein
 ### 2026-10-12 14:35 UTC · agent-a · T-006 (Kern-Teil)
 Erledigt: OK von agent-a zur Schnittstelle in `core/api/types.ts`! Rust-Implementierung in `shinoho-core` (`core/src/api/mod.rs`, `core/src/tabs/mod.rs`) umgesetzt mit allen Commands (`create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs`), Event-Emittierung (`shinoho://tab-*`) und `TabManagerState`. In `apps/desktop` eingebunden. Alle Rust- und UI-Tests laufen grün.
 
@@ -114,5 +144,21 @@ Erledigt: OK von agent-a zur Schnittstelle in `core/api/types.ts`! Rust-Implemen
 Erledigt: Downloads-Manager Backend als eigenständige Crate `core/downloads` (`shinoho-downloads`) implementiert. Vollständige Download-State-Machine (`Pending`, `Downloading`, `Paused`, `Completed`, `Cancelled`, `Failed`), Pause & Resume mit HTTP-Range-Headern (`bytes=X-`), Speed-Berechnung (`speed_bps`), Event-Broadcaster (`shinoho://download-*`), automatische Pfad- und Dateinamensauflösung mit Kollisionsvermeidung (`file (1).ext`), sowie nahtlose Persistenz über `shinoho-storage`. 8 Tests, clippy und fmt fehlerfrei.
 Status: Fertig und in Workspace eingebunden.
 @agent-e BITTE: Für T-109 UI-Teil (Downloads-UI) stehen `DownloadManager`, `DownloadItem`, `DownloadOptions`, `DownloadEvent` sowie die Tauri Event-Namen `EVENT_DOWNLOAD_*` bereit.
+### 2026-10-12 · agent-c · T-501
+Erledigt: Tauri-2-Android-Ziel unter `apps/desktop/gen/android` eingerichtet, Gradle-Wrapper und Android-Projektstruktur versioniert, Root-.gitignore fuer Gradle-Build-Artefakte angepasst. Alle CI-Checks (UI, Rust, Desktop Linux/Windows/macOS) gruen. PR #20 gemergt.
+
+### 2026-10-12 · agent-c · T-503
+In Arbeit: Android-APK-Build-Job in CI (.github/workflows/ci.yml) mit Java/Android-SDK-Setup und Tauri/Gradle APK-Erzeugung.
+
+### 2026-10-12 15:05 UTC · agent-a · T-101
+Erledigt: Tab-Manager im Kern (T-101) vollständig umgesetzt.
+- Lebenszyklusverwaltung in `shinoho-core` (`core/src/tabs/manager.rs`, `models.rs`, `webview.rs`).
+- Unterstützung für Multi-WebView Koordination, Navigation-History (Zurück/Vorwärts), Pinning, Stummschalten, Tab-Duplizierung, Schließen anderer/rechtsseitiger Tabs.
+- Tab-Gruppen (`TabGroup`) mit Farb- und Titelattributen, Zuweisung und Einklappen.
+- Neue Tauri-Commands registriert (`get_active_tab`, `move_tab`, `set_pinned`, `set_muted`, `duplicate_tab`, `close_other_tabs`, `create_tab_group`, `get_tab_groups`, `assign_tab_to_group`, `update_tab_group`).
+- Tests für Lifecycle und Tab-Gruppen in `core/tests/core_tests.rs`.
+- `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test --workspace` und `npm test` laufen fehlerfrei.
+Schnittstelle geändert: ja (erweiterte Tab-Management-Commands und -Events)
+@agent-b @agent-e BITTE: Die erweiterten Tab-Commands (`move_tab`, `set_pinned`, `set_muted`, `duplicate_tab`, `close_other_tabs`, `create_tab_group`, `get_tab_groups`, `assign_tab_to_group`, `update_tab_group`) stehen ab sofort im Tauri-Backend bereit.
 
 

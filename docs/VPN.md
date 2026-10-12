@@ -34,17 +34,21 @@ Opera betreibt eigene Server – das kostet viel Geld (Server + Traffic). Für d
 
 ## 3. Empfohlene kostenlose Anbieter
 
-> ⚠️ Stand: Oktober 2026 – Konditionen ändern sich. **Vor jedem Release prüfen** und diese
-> Tabelle aktualisieren. Die Liste wird im Browser aus einer Datei geladen
-> (`core/vpn/providers.json`), damit sie ohne neues Release aktualisiert werden kann.
+> ⚠️ Geprüft am **12.10.2026** (T-405). Konditionen ändern sich – **vor jedem Release erneut
+> prüfen**. Maßgeblich ist `core/vpn/providers.json`; dort stehen pro Anbieter auch die Quellen.
+> Einträge mit „unbestätigt“ ließen sich nicht aus einer offiziellen Quelle belegen.
 
-| Anbieter | Datenlimit (Gratis) | Stärken | Einschränkungen | Einbindung in Shinoho |
+| Anbieter | Datenlimit (Gratis) | Stärken | Einschränkungen | In Shinoho importierbar? |
 |---|---|---|---|---|
-| **Proton VPN Free** ⭐ | Unbegrenzt | Schweiz, geprüfte No-Logs-Policy, keine Werbung, Open-Source-Apps | Wenige Länder, Server-Wahl automatisch, 1 Gerät | WireGuard-Config im Proton-Konto herunterladen → importieren |
-| **Windscribe Free** | 10 GB/Monat (mit E-Mail) | Viele Länder für Gratis-Plan, beliebige Geräte | Datenlimit | Prüfen, ob Config-Generator im Gratis-Plan verfügbar ist ❓ |
-| **hide.me Free** | 10 GB/Monat | No-Logs, keine Werbung | Datenlimit, wenige Standorte | WireGuard-Einrichtung prüfen ❓ |
-| **PrivadoVPN Free** | 10 GB/Monat | Schweiz, gute Geschwindigkeit | Datenlimit, wenige Standorte | WireGuard-Einrichtung prüfen ❓ |
-| **Cloudflare WARP** | Unbegrenzt | Sehr schnell, verschlüsselt WLAN-Verkehr | **Kein echter Standortwechsel**, eher „sicheres DNS + Verschlüsselung“ | Nur als Option „Schnell & sicher“, nicht als Anonymisierung |
+| **Proton VPN Free** ⭐ | Unbegrenzt | Schweiz, unabhängig geprüfte No-Logs-Policy, keine Werbung | 1 Gerät, rund 10 Länder, Standort wird zugewiesen | ✅ **Ja** – auf account.protonvpn.com → Downloads → WireGuard eine `.conf` erzeugen und importieren ([Anleitung](https://protonvpn.com/support/wireguard-configurations/)) |
+| **Windscribe Free** | 10 GB/Monat mit bestätigter E-Mail, sonst 2 GB | 10 Länder | WireGuard-Dateien nur für zahlende Kunden ([Quelle](https://windscribe.com/knowledge-base/articles/where-do-i-access-my-wireguard-configs)) | ❌ Nur mit eigener App |
+| **hide.me Free** | 10 GB/Monat | Keine Werbung | 1 Gerät, wenige Standorte, laut Test keine manuellen Konfig-Dateien im Gratis-Plan | ❌ Nur mit eigener App (unbestätigt) |
+| **PrivadoVPN Free** | 10 GB alle 30 Tage | Schweiz, 13 Standorte | Keine unabhängige Prüfung; was nach 10 GB passiert, ist widersprüchlich; Konfig-Dateien gelten 30 Tage | ❓ Download unter „Manual Configuration“ existiert, ob mit Gratis-Konto: unbestätigt |
+| **Cloudflare WARP** | Unbegrenzt | Sehr schnell, verschlüsselt den Verkehr | **Kein Standortwechsel**; keine offizielle WireGuard-Datei, Drittwerkzeuge (wgcf) sind eine Grauzone | ❌ Nur mit der offiziellen 1.1.1.1-App |
+
+**Fazit für den Anbieter-Assistenten:** Zurzeit ist **nur Proton VPN Free** direkt in Shinoho
+nutzbar. Die anderen zeigt der Assistent als Alternativen mit Hinweis „nur mit eigener App“.
+Für Gamer wichtig: Proton Free wählt den Server selbst, der Ping kann also schwanken.
 
 **Nicht empfehlen / blockieren:** Gratis-VPNs ohne nachvollziehbare No-Logs-Policy, die
 Daten verkaufen oder Nutzer-Bandbreite weiterverkaufen (z. B. Peer-to-Peer-„VPNs“).
