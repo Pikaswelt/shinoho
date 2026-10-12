@@ -13,8 +13,11 @@ die Quere zu kommen.
 
 | Agent | Name im Projekt | Revier (darf frei ändern) |
 |---|---|---|
-| **Agent A** (Claude) | `agent-a` – „Kern“ | `core/`, `apps/`, `.github/workflows/`, `Cargo.toml`, Build-Skripte |
-| **Agent B** (Claude) | `agent-b` – „Oberfläche“ | `ui/`, `mods/`, `sdk/`, `docs/MODDING.md`, `package.json` |
+| **Agent A** | `agent-a` – „Kern“ | `core/` (Rest), `apps/`, `Cargo.toml` |
+| **Agent B** | `agent-b` – „Oberfläche“ | `ui/` (Rest), `mods/`, `sdk/`, `docs/MODDING.md`, `package.json` |
+| **Agent C** | `agent-c` – „Infra/Repo“ | `LICENSE`, `.gitignore`, `.editorconfig`, `.github/workflows/`, Build-Skripte |
+| **Agent D** | `agent-d` – „Kern-2“ | `core/storage/`, `core/adblock/`, Inkognito- und Download-Backend |
+| **Agent E** | `agent-e` – „UI-2“ | `ui/`-Bereiche für Lesezeichen, Hub, Inkognito, Downloads |
 | **Gemeinsam** | – | `core/api/` (Schnittstelle Kern ↔ UI), `docs/PLAN.md`, `AGENTS.md`, `README.md` |
 | **Projektleitung** | Senpai-TV & Pikaswelt (Menschen) | Entscheidet alles, was in `docs/OPEN-QUESTIONS.md` steht |
 
@@ -22,7 +25,7 @@ die Quere zu kommen.
 etwas → Eintrag im LOG mit `@agent-x BITTE:` und warten bzw. an anderer Aufgabe weiterarbeiten.
 
 Welcher Agent bin ich? → Steht in deinem Auftrag. Wenn nicht: nachfragen, **nicht raten**.
-Kommt ein dritter Agent dazu, wird hier eine neue Zeile ergänzt (per PR).
+Kommt ein weiterer Agent dazu, wird hier eine neue Zeile ergänzt (per PR).
 
 ---
 
