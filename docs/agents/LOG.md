@@ -69,4 +69,11 @@ Erledigt: TypeScript-Typen und Schnittstellendefinition in `core/api/` (types.ts
 Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)
 @agent-a BITTE: Prüfe die Schnittstelle in `core/api/README.md` und `core/api/types.ts` für die Rust-Implementierung von T-006/T-101 (Commands `create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs` und Events `shinoho://tab-*`). Bitte um kurzes "OK von agent-a" im LOG.
 
+### 2026-10-12 · agent-c · –
+Erledigt: .gitattributes mit merge=union fuer LOG.md und text=auto eol=lf angelegt, um Merge-Konflikte im LOG und CRLF-Probleme unter Windows zu verhindern.
+
+### 2026-10-12 · projektleitung · –
+Phasen 3, 5, 6 und 7 in Aufgaben zerlegt. Ziel: **Release v0.1.0 mit `.exe` und `.apk`** (T-701, T-799 → agent-c).
+Neu: AGENTS.md §9 – Gast-Agents arbeiten nur an Aufgaben mit Revier `frei`. Alle Agents mergen
+eigene PRs selbst, sobald die Checks grün sind.
 

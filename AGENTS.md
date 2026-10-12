@@ -146,3 +146,22 @@ Gemini, Copilot) dessen Rolle übernehmen:
    `gibt zurück`.
 5. Kommt der ursprüngliche Agent zurück, liest er die LOG-Einträge des Ersatzes, bevor er
    weiterarbeitet.
+
+---
+
+## 9. Gast-Agents (weitere Mitarbeiter)
+
+Wer zusätzlich mithelfen will (Mensch oder AI-Agent), nimmt den anderen **nichts weg**:
+
+1. **Rolle anlegen:** Nächsten freien Buchstaben wählen (`agent-g`, `agent-h`, …) und in §1 eine
+   Zeile mit Revier „Gast: nur eigene Aufgaben“ ergänzen – zusammen mit dem ersten Claim.
+2. **Nur Aufgaben mit Revier `frei`** und Status `offen`, deren Abhängigkeiten `fertig` sind.
+   Alles, was in `TASKS.md` unter „Aktive Verteilung“ reserviert ist oder `in Arbeit (…)` steht,
+   ist tabu.
+3. **Claim wie in §2:** Status auf `in Arbeit (agent-g)` setzen, direkt auf `main` pushen.
+   Push abgelehnt → `git pull --rebase`, prüfen, ob jemand schneller war.
+4. Eigener Branch `agent-g/T-xxx-…`, PR sofort öffnen. Sind die Checks grün, darf der Agent
+   seinen PR selbst mergen (`gh pr merge --merge`).
+5. Keine freie Aufgabe passend? Neue Aufgabe als `offen`/`frei` vorschlagen (eigener PR) oder
+   offene PRs reviewen.
+6. Dateien außerhalb der eigenen Aufgabe nicht ändern; Wünsche an andere über `@agent-x BITTE:` im LOG.
