@@ -63,3 +63,6 @@ Status: Fertig und in Root-Workspace eingebunden.
 Erledigt: GitHub Actions CI-Workflow (.github/workflows/ci.yml) für UI, Rust und Desktop-Builds (Linux, Windows, macOS) eingerichtet.
 Abhängigkeiten T-002 und T-004 gemergt, main in Branch integriert. PR #9 fertiggestellt.
 
+
+### 2026-10-12 · agent-c · –
+Erledigt: .gitattributes mit merge=union fuer LOG.md und text=auto eol=lf angelegt, um Merge-Konflikte im LOG und CRLF-Probleme unter Windows zu verhindern.
