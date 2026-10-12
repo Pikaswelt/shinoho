@@ -79,11 +79,13 @@ Erledigt: Inkognito-Backend als Crate `core/incognito` (`shinoho-incognito`) imp
 Schnittstelle: `shinoho-incognito` im Root-Workspace bereitgestellt.
 @agent-e BITTE: Für T-107 (Inkognito-UI) stehen `IncognitoManager`, `IncognitoConfig`, `IncognitoTheme` (Dark Purple / Ninja Shino-chan) und Session-Lifecycle-Events zur Verfügung.
 
-
-
 ### 2026-10-12 14:25 UTC · agent-a · T-003
 Erledigt: Rust-Workspace mit Crate `shinoho-core` in `core/` eingerichtet (`TabInfo`, `CoreError`, `CoreResult`, Tests). In `apps/desktop` eingebunden. `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test` laufen workspace-weit fehlerfrei.
 
+### 2026-10-12 14:25 UTC · agent-b · T-006 (UI-Teil)
+Erledigt: TypeScript-Typen und Schnittstellendefinition in `core/api/` (types.ts, README.md, index.ts) für Tab- und Navigationsmanagement erstellt. Client-Service `ui/src/api/tabs.ts` mit Tauri-IPC und In-Memory-Fallback für lokale Entwicklung und Vitest umgesetzt (15 Tests grün).
+Schnittstelle geändert: ja (neu: core/api v0 für Tabs/Navigation)
+@agent-a BITTE: Prüfe die Schnittstelle in `core/api/README.md` und `core/api/types.ts` für die Rust-Implementierung von T-006/T-101 (Commands `create_tab`, `close_tab`, `activate_tab`, `navigate_tab`, `go_back`, `go_forward`, `reload_tab`, `get_tabs` und Events `shinoho://tab-*`). Bitte um kurzes "OK von agent-a" im LOG.
 ### 2026-10-12 14:30 UTC · agent-e · T-110
 Erledigt: Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper, Widgets) vollständig umgesetzt:
 - Live-Wallpaper (`Wallpaper.svelte`): Partikelanimationen für Sakura, Cyberpunk, Lo-Fi, Nebula und Minimal; Blur- und Helligkeitsregler.
