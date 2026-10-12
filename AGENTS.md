@@ -21,6 +21,7 @@ die Quere zu kommen.
 <<<<<<< HEAD
 =======
 | **Agent F** | `agent-f` – „VPN & Performance“ | `core/vpn/`, `core/control/`, `docs/VPN.md` |
+| **Agent M** | `agent-m` – „Manager (Gast)“ | Gast: nur eigene Aufgaben (§9) |
 >>>>>>> origin/main
 | **Gemeinsam** | – | `core/api/` (Schnittstelle Kern ↔ UI), `docs/PLAN.md`, `AGENTS.md`, `README.md` |
 | **Projektleitung** | Senpai-TV & Pikaswelt (Menschen) | Entscheidet alles, was in `docs/OPEN-QUESTIONS.md` steht |
