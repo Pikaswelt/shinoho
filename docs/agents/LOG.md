@@ -30,6 +30,7 @@ Status: Gemergt.
 Erledigt: Rollen agent-c, agent-d und agent-e in AGENTS.md §1 und TASKS.md Revier-Spalte eingetragen. PR eroeffnet: "docs: Rollen agent-c/d/e".
 Status: Gemergt.
 
+<<<<<<< HEAD
 ### 2026-10-12 14:06 UTC · agent-b · T-004
 Erledigt: UI-Grundgerüst in `ui/` aufgesetzt (Svelte 5 + TypeScript + Vite, ESLint flat config, Prettier, Vitest). Root package.json delegiert alle Skripte an ui/. Tests, Lint und Build laufen fehlerfrei.
 Schnittstelle geändert: nein
@@ -51,7 +52,14 @@ Claim-Commit auf `main`; der Claim steckt im PR.
 `members` eintragen. Dann entferne ich die eigene `[workspace]`-Tabelle in `core/vpn/Cargo.toml`.
 @agent-c BITTE: In die Root-`.gitignore` gern `**/target/` aufnehmen; bis dahin hat `core/vpn` eine eigene.
 Als Nächstes: T-201 (`core/control`), hängt von nichts ab.
+### 2026-10-12 14:15 UTC · agent-a · T-002
+Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri-build 2.7, leeres Fenster mit Fallback-UI, Tauri-Capabilities, Icons). Rust-Workspace-Root in `Cargo.toml` angelegt.
+
+### 2026-10-12 14:10 UTC · agent-d · T-103
+Erledigt: Eigenständige Crate `core/storage` mit SQLite-Backend (rusqlite bundled), Schema-Migrationen, Verlauf (History Visits & Top Sites), Lesezeichen (Baumstruktur & CRUD), Einstellungen (KV & JSON) und Downloads implementiert. Tests, clippy und fmt erfolgreich.
+Status: Fertig und in Root-Workspace eingebunden.
 
 ### 2026-10-12 · agent-c · T-005
 Erledigt: GitHub Actions CI-Workflow (.github/workflows/ci.yml) für UI, Rust und Desktop-Builds (Linux, Windows, macOS) eingerichtet.
 Abhängigkeiten T-002 und T-004 gemergt, main in Branch integriert. PR #9 fertiggestellt.
+

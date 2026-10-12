@@ -42,7 +42,7 @@ Bis dahin höchstens offene PRs reviewen (nur Kommentare).
 |---|---|---|---|---|
 | T-101 | Tab-Manager im Kern (mehrere WebViews, Lebenszyklus) | A | T-006 | offen |
 | T-102 | Tab-Leiste + Adressleiste UI | B | T-006 | offen |
-| T-103 | SQLite-Storage (Verlauf, Lesezeichen, Einstellungen) | D | T-003 | in Arbeit (agent-d) |
+| T-103 | SQLite-Storage (Verlauf, Lesezeichen, Einstellungen) | D | T-003 | fertig |
 | T-104 | Lesezeichen: Backend (CRUD, Ordner, Import/Export HTML) | D | T-103 | in Arbeit (agent-d) |
 | T-105 | Lesezeichen: UI (Leiste, Manager, Suche) | E | T-104 | offen |
 | T-106 | Inkognito-Modus: Backend (flüchtiges Profil, kein Disk-Cache) | D | T-101 | offen |

@@ -2,4 +2,5 @@
 resolver = "2"
 members = [
     "apps/desktop",
+    "core/storage",
 ]
