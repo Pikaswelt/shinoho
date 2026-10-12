@@ -4,4 +4,10 @@ members = [
     "apps/desktop",
     "core",
     "core/storage",
+    "core/incognito",
+    "core/adblock",
+    "core/sync",
+    "core/achievements",
+    "core/feeds",
+    "core/anime",
 ]

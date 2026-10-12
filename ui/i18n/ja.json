@@ -27,5 +27,132 @@
     "history": "履歴",
     "downloads": "ダウンロード",
     "incognito": "シークレット"
+  },
+  "hub": {
+    "title": "シノホ ハブ",
+    "search": {
+      "placeholder": "ウェブ検索またはURLを入力...",
+      "searchWith": "{engine} で検索",
+      "open": "開く"
+    },
+    "speedDial": {
+      "title": "スピードダイヤル",
+      "addShortcut": "ショートカットを追加",
+      "editShortcut": "ショートカットを編集",
+      "deleteShortcut": "ショートカットを削除",
+      "pinShortcut": "ピン留め",
+      "unpinShortcut": "ピン留め解除",
+      "nameLabel": "名前",
+      "urlLabel": "ウェブアドレス (URL)",
+      "categoryLabel": "カテゴリー",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "deleteConfirm": "このショートカットを削除してもよろしいですか？",
+      "clicks": "{count} 回クリック",
+      "categories": {
+        "all": "すべて",
+        "anime": "アニメ・マンガ",
+        "gaming": "ゲーム",
+        "dev": "開発",
+        "social": "SNS"
+      }
+    },
+    "wallpaper": {
+      "title": "壁紙とエフェクト",
+      "choosePreset": "壁紙を選択",
+      "customUrl": "カスタム画像URL",
+      "customUrlPlaceholder": "https://example.com/wallpaper.jpg",
+      "blur": "ぼかし (Blur)",
+      "brightness": "明るさ",
+      "particles": "パーティクル効果を有効にする",
+      "particleDensity": "パーティクル密度",
+      "presets": {
+        "sakura": "桜吹雪 (Sakura Blossom)",
+        "sakuraDesc": "そよ風に舞うピンクの桜の花びら",
+        "cyberpunk": "ネオ東京 (Cyberpunk)",
+        "cyberpunkDesc": "光るパルスを持つダークネオングリッド",
+        "lofi": "ローファイの夕暮れ (Lo-Fi)",
+        "lofiDesc": "温かいグラデーションの心地よい夕焼け空",
+        "nebula": "ダークネビュラ (Dark Nebula)",
+        "nebulaDesc": "きらめく星の粒子が漂う深宇宙",
+        "minimal": "シノ・ミニマル",
+        "minimalDesc": "目に優しい洗練されたダークグレー"
+      }
+    },
+    "widgets": {
+      "title": "ウィジェット",
+      "animeCountdown": "アニメ最新話カウントダウン",
+      "freeGames": "無料ゲームレーダー",
+      "mascot": "シノちゃんマスコット",
+      "nextEpIn": "第{ep}話まであと {time}",
+      "claimUntil": "{date} まで無料",
+      "free": "無料",
+      "noEpisodes": "近日放送予定のアニメが見つかりません",
+      "noGames": "現在無料配布中のゲームはありません"
+    },
+    "mascot": {
+      "greetingMorning": "先輩、おはようございます！今日も一日頑張りましょう！✨",
+      "greetingAfternoon": "こんにちは！今日観るアニメはもう決めましたか？🌸",
+      "greetingEvening": "こんばんは！ゲームやアニメでリラックスする時間ですね！🎮",
+      "greetingNight": "もう夜遅いですよ！睡眠をしっかり取ってくださいね！🌙"
+    },
+    "settings": {
+      "title": "スタートページ設定",
+      "toggleWidgets": "ウィジェットをカスタマイズ",
+      "resetDefaults": "デフォルトに戻す"
+    }
+  },
+  "bookmarks": {
+    "bar": {
+      "title": "ブックマークバー",
+      "empty": "ブックマークバーにはまだ何もありません。ショートカットをドラッグするか星アイコンをクリックしてください。",
+      "openManager": "ブックマークマネージャーを開く",
+      "addCurrent": "現在のページをブックマーク",
+      "showBar": "ブックマークバーを表示",
+      "hideBar": "ブックマークバーを非表示"
+    },
+    "manager": {
+      "title": "ブックマークマネージャー",
+      "searchPlaceholder": "タイトル、URL、タグでブックマークを検索...",
+      "newBookmark": "新しいブックマーク",
+      "newFolder": "新しいフォルダー",
+      "importHtml": "HTMLインポート",
+      "exportHtml": "HTMLエクスポート",
+      "resetDefaults": "デフォルトを復元",
+      "allBookmarks": "すべてのブックマーク",
+      "emptyFolder": "このフォルダーは空です。",
+      "noResults": "一致するブックマークが見つかりませんでした。",
+      "itemsCount": "{count}件のアイテム",
+      "itemsCountSingle": "1件のアイテム"
+    },
+    "folders": {
+      "toolbar": "ブックマークバー",
+      "other": "その他のブックマーク",
+      "mobile": "モバイルブックマーク"
+    },
+    "modal": {
+      "addBookmarkTitle": "ブックマークを追加",
+      "editBookmarkTitle": "ブックマークを編集",
+      "addFolderTitle": "新しいフォルダーを作成",
+      "editFolderTitle": "フォルダー名を変更",
+      "nameLabel": "タイトル / 名前",
+      "urlLabel": "ウェブアドレス (URL)",
+      "folderLabel": "保存先フォルダー",
+      "tagsLabel": "タグ (カンマ区切り)",
+      "tagsHelp": "例: anime, gaming, stream",
+      "save": "保存",
+      "cancel": "キャンセル"
+    },
+    "actions": {
+      "open": "開く",
+      "edit": "編集",
+      "delete": "削除",
+      "deleteConfirm": "本当に「{title}」を削除しますか？",
+      "deleteFolderConfirm": "フォルダー「{title}」と含まれるすべてのアイテムを削除してもよろしいですか？"
+    },
+    "import": {
+      "success": "{bookmarks}件のブックマークと{folders}件のフォルダーを正常にインポートしました！",
+      "error": "HTMLファイルのインポートに失敗しました。"
+    }
   }
 }

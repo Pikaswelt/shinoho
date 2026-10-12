@@ -26,5 +26,132 @@
     "history": "History",
     "downloads": "Downloads",
     "incognito": "Incognito"
+  },
+  "hub": {
+    "title": "Shinoho Hub",
+    "search": {
+      "placeholder": "Search the web or enter URL...",
+      "searchWith": "Search with {engine}",
+      "open": "Open"
+    },
+    "speedDial": {
+      "title": "Speed Dial",
+      "addShortcut": "Add shortcut",
+      "editShortcut": "Edit shortcut",
+      "deleteShortcut": "Delete shortcut",
+      "pinShortcut": "Pin",
+      "unpinShortcut": "Unpin",
+      "nameLabel": "Name",
+      "urlLabel": "Web address (URL)",
+      "categoryLabel": "Category",
+      "save": "Save",
+      "cancel": "Cancel",
+      "deleteConfirm": "Are you sure you want to remove this shortcut?",
+      "clicks": "{count} clicks",
+      "categories": {
+        "all": "All",
+        "anime": "Anime & Manga",
+        "gaming": "Gaming",
+        "dev": "Development",
+        "social": "Social Media"
+      }
+    },
+    "wallpaper": {
+      "title": "Wallpaper & Effects",
+      "choosePreset": "Choose wallpaper",
+      "customUrl": "Custom image URL",
+      "customUrlPlaceholder": "https://example.com/wallpaper.jpg",
+      "blur": "Blur",
+      "brightness": "Brightness",
+      "particles": "Enable particle effects",
+      "particleDensity": "Particle density",
+      "presets": {
+        "sakura": "Sakura Blossom (Anime)",
+        "sakuraDesc": "Pink cherry blossom petals with gentle breeze",
+        "cyberpunk": "Neon Tokyo (Cyberpunk)",
+        "cyberpunkDesc": "Dark neon grid with glowing pulse",
+        "lofi": "Lo-Fi Evening",
+        "lofiDesc": "Cozy twilight sky with warm gradient",
+        "nebula": "Dark Nebula",
+        "nebulaDesc": "Deep space background with sparkling star particles",
+        "minimal": "Shino Minimal",
+        "minimalDesc": "Sleek eye-friendly dark gray"
+      }
+    },
+    "widgets": {
+      "title": "Widgets",
+      "animeCountdown": "Anime Episode Countdown",
+      "freeGames": "Free Games Radar",
+      "mascot": "Shino-chan Mascot",
+      "nextEpIn": "Episode {ep} in {time}",
+      "claimUntil": "Free until {date}",
+      "free": "Free",
+      "noEpisodes": "No upcoming episodes found",
+      "noGames": "No active free game giveaways"
+    },
+    "mascot": {
+      "greetingMorning": "Good morning, Senpai! Ready for a productive day? ✨",
+      "greetingAfternoon": "Konnichiwa! Which anime is on your watchlist today? 🌸",
+      "greetingEvening": "Good evening! Time for gaming or relaxing! 🎮",
+      "greetingNight": "It's getting late! Remember to get enough sleep! 🌙"
+    },
+    "settings": {
+      "title": "Home Page Settings",
+      "toggleWidgets": "Customize widgets",
+      "resetDefaults": "Reset to defaults"
+    }
+  },
+  "bookmarks": {
+    "bar": {
+      "title": "Bookmarks Bar",
+      "empty": "No bookmarks on the bar yet. Drag shortcuts here or click the star icon.",
+      "openManager": "Open Bookmarks Manager",
+      "addCurrent": "Bookmark current page",
+      "showBar": "Show bookmarks bar",
+      "hideBar": "Hide bookmarks bar"
+    },
+    "manager": {
+      "title": "Bookmarks Manager",
+      "searchPlaceholder": "Search bookmarks by title, URL or tags...",
+      "newBookmark": "New Bookmark",
+      "newFolder": "New Folder",
+      "importHtml": "Import HTML",
+      "exportHtml": "Export HTML",
+      "resetDefaults": "Load Default Bookmarks",
+      "allBookmarks": "All Bookmarks",
+      "emptyFolder": "This folder is empty.",
+      "noResults": "No bookmarks found matching your search.",
+      "itemsCount": "{count} items",
+      "itemsCountSingle": "1 item"
+    },
+    "folders": {
+      "toolbar": "Bookmarks Bar",
+      "other": "Other Bookmarks",
+      "mobile": "Mobile Bookmarks"
+    },
+    "modal": {
+      "addBookmarkTitle": "Add Bookmark",
+      "editBookmarkTitle": "Edit Bookmark",
+      "addFolderTitle": "Create New Folder",
+      "editFolderTitle": "Rename Folder",
+      "nameLabel": "Title / Name",
+      "urlLabel": "Web Address (URL)",
+      "folderLabel": "Target Folder",
+      "tagsLabel": "Tags (comma-separated)",
+      "tagsHelp": "e.g. anime, gaming, stream",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "actions": {
+      "open": "Open",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteConfirm": "Are you sure you want to delete '{title}'?",
+      "deleteFolderConfirm": "Are you sure you want to delete folder '{title}' and all its contents?"
+    },
+    "import": {
+      "success": "Successfully imported {bookmarks} bookmarks and {folders} folders!",
+      "error": "Failed to import HTML bookmark file."
+    }
   }
 }

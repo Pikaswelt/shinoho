@@ -26,5 +26,132 @@
     "history": "Verlauf",
     "downloads": "Downloads",
     "incognito": "Inkognito"
+  },
+  "hub": {
+    "title": "Shinoho Hub",
+    "search": {
+      "placeholder": "Suche im Web oder URL eingeben...",
+      "searchWith": "Suchen mit {engine}",
+      "open": "Öffnen"
+    },
+    "speedDial": {
+      "title": "Schnellwahl",
+      "addShortcut": "Verknüpfung hinzufügen",
+      "editShortcut": "Verknüpfung bearbeiten",
+      "deleteShortcut": "Verknüpfung löschen",
+      "pinShortcut": "Anpinnen",
+      "unpinShortcut": "Lösen",
+      "nameLabel": "Name",
+      "urlLabel": "Webadresse (URL)",
+      "categoryLabel": "Kategorie",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "deleteConfirm": "Möchtest du diese Verknüpfung wirklich entfernen?",
+      "clicks": "{count} Klicks",
+      "categories": {
+        "all": "Alle",
+        "anime": "Anime & Manga",
+        "gaming": "Gaming",
+        "dev": "Entwicklung",
+        "social": "Social Media"
+      }
+    },
+    "wallpaper": {
+      "title": "Hintergrund & Effekte",
+      "choosePreset": "Hintergrund wählen",
+      "customUrl": "Eigene Bild-URL",
+      "customUrlPlaceholder": "https://example.com/wallpaper.jpg",
+      "blur": "Unschärfe (Blur)",
+      "brightness": "Helligkeit",
+      "particles": "Partikel-Effekt aktivieren",
+      "particleDensity": "Partikeldichte",
+      "presets": {
+        "sakura": "Sakura Blossom (Anime)",
+        "sakuraDesc": "Rosa Kirschblütenblätter mit sanfter Brise",
+        "cyberpunk": "Neon Tokyo (Cyberpunk)",
+        "cyberpunkDesc": "Dunkles Neon-Raster mit pulsierendem Glow",
+        "lofi": "Lo-Fi Evening",
+        "lofiDesc": "Gemütlicher Abendhimmel mit warmem Farbverlauf",
+        "nebula": "Dark Nebula",
+        "nebulaDesc": "Tiefes Weltall mit leuchtenden Sternenpartikeln",
+        "minimal": "Shino Minimal",
+        "minimalDesc": "Schlichtes, augenschonendes Dunkelgrau"
+      }
+    },
+    "widgets": {
+      "title": "Widgets",
+      "animeCountdown": "Anime Episoden-Countdown",
+      "freeGames": "Gratis-Spiele Radar",
+      "mascot": "Shino-chan Maskottchen",
+      "nextEpIn": "Folge {ep} in {time}",
+      "claimUntil": "Kostenlos bis {date}",
+      "free": "Gratis",
+      "noEpisodes": "Keine anstehenden Episoden gefunden",
+      "noGames": "Keine aktuellen Gratis-Aktionen"
+    },
+    "mascot": {
+      "greetingMorning": "Guten Morgen, Senpai! Bereit für einen produktiven Tag? ✨",
+      "greetingAfternoon": "Konnichiwa! Welcher Anime steht heute auf deiner Liste? 🌸",
+      "greetingEvening": "Guten Abend! Zeit zum Zocken oder Entspannen! 🎮",
+      "greetingNight": "Schon so spät? Vergiss nicht, genug zu schlafen! 🌙"
+    },
+    "settings": {
+      "title": "Startseiten-Einstellungen",
+      "toggleWidgets": "Widgets anpassen",
+      "resetDefaults": "Auf Standard zurücksetzen"
+    }
+  },
+  "bookmarks": {
+    "bar": {
+      "title": "Lesezeichenleiste",
+      "empty": "Noch keine Lesezeichen auf der Leiste. Ziehe Verknüpfungen hierher oder klicke auf das Sternchen.",
+      "openManager": "Lesezeichen-Manager öffnen",
+      "addCurrent": "Aktuelle Seite als Lesezeichen speichern",
+      "showBar": "Lesezeichenleiste anzeigen",
+      "hideBar": "Lesezeichenleiste ausblenden"
+    },
+    "manager": {
+      "title": "Lesezeichen-Verwaltung",
+      "searchPlaceholder": "Lesezeichen nach Titel, URL oder Tags durchsuchen...",
+      "newBookmark": "Neues Lesezeichen",
+      "newFolder": "Neuer Ordner",
+      "importHtml": "HTML importieren",
+      "exportHtml": "HTML exportieren",
+      "resetDefaults": "Standard-Lesezeichen laden",
+      "allBookmarks": "Alle Lesezeichen",
+      "emptyFolder": "Dieser Ordner ist leer.",
+      "noResults": "Keine Lesezeichen für deine Suche gefunden.",
+      "itemsCount": "{count} Einträge",
+      "itemsCountSingle": "1 Eintrag"
+    },
+    "folders": {
+      "toolbar": "Lesezeichenleiste",
+      "other": "Weitere Lesezeichen",
+      "mobile": "Mobile Lesezeichen"
+    },
+    "modal": {
+      "addBookmarkTitle": "Lesezeichen hinzufügen",
+      "editBookmarkTitle": "Lesezeichen bearbeiten",
+      "addFolderTitle": "Neuen Ordner erstellen",
+      "editFolderTitle": "Ordner umbenennen",
+      "nameLabel": "Titel / Name",
+      "urlLabel": "Webadresse (URL)",
+      "folderLabel": "Zielordner",
+      "tagsLabel": "Tags (kommagetrennt)",
+      "tagsHelp": "z.B. anime, gaming, stream",
+      "save": "Speichern",
+      "cancel": "Abbrechen"
+    },
+    "actions": {
+      "open": "Öffnen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "deleteConfirm": "Möchtest du '{title}' wirklich löschen?",
+      "deleteFolderConfirm": "Möchtest du den Ordner '{title}' und alle enthaltenen Einträge wirklich löschen?"
+    },
+    "import": {
+      "success": "{bookmarks} Lesezeichen und {folders} Ordner erfolgreich importiert!",
+      "error": "Fehler beim Importieren der HTML-Datei."
+    }
   }
 }
