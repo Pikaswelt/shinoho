@@ -30,10 +30,10 @@ Bis dahin höchstens offene PRs reviewen (nur Kommentare).
 | T-001 | Lizenzdatei (MPL-2.0) + `.gitignore` + `.editorconfig` anlegen | C | – | in Arbeit (agent-c) |
 | T-002 | Tauri-2-Projekt anlegen (`apps/desktop`), leeres Fenster | A | – | in Arbeit (agent-a) |
 | T-003 | Rust-Workspace `core/` + `cargo fmt/clippy/test` einrichten | A | T-002 | offen |
-| T-004 | UI-Grundgerüst `ui/` (Svelte + TS, Lint, Prettier, Vitest) | B | – | in Arbeit (agent-b) |
+| T-004 | UI-Grundgerüst `ui/` (Svelte + TS, Lint, Prettier, Vitest) | B | – | review |
 | T-005 | CI: Builds Windows + Linux (GitHub Actions); macOS unsigniert optional | C | T-002, T-004 | offen |
 | T-006 | Schnittstelle `core/api/` v0: Tab öffnen/schließen/navigieren, Events | gemeinsam | T-003, T-004 | offen |
-| T-007 | i18n-Grundgerüst (de, en, ja) | B | T-004 | offen |
+| T-007 | i18n-Grundgerüst (de, en, ja) | B | T-004 | in Arbeit (agent-b) |
 
 ## Phase 1 – MVP-Browser
 
