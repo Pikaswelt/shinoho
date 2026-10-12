@@ -24,7 +24,7 @@ jobs:
       - name: Check for package.json
         id: check-ui
         run: |
-          if [ -f "package.json" ]; then
+          if [ -f "package.json" ] || [ -f "ui/package.json" ]; then
             echo "has_ui=true" >> "$GITHUB_OUTPUT"
           else
             echo "has_ui=false" >> "$GITHUB_OUTPUT"
@@ -37,11 +37,22 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: package.json
+          cache-dependency-path: ui/package-lock.json
 
-      - name: Install npm dependencies
+      - name: Install dependencies
         if: steps.check-ui.outputs.has_ui == 'true'
-        run: npm ci || npm install
+        run: |
+          if [ -f "ui/package-lock.json" ]; then
+            npm --prefix ui ci
+          elif [ -f "package-lock.json" ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Run type check
+        if: steps.check-ui.outputs.has_ui == 'true'
+        run: npm run check --if-present
 
       - name: Run lint
         if: steps.check-ui.outputs.has_ui == 'true'
@@ -116,11 +127,11 @@ jobs:
 
       - name: Run cargo clippy
         if: steps.check-rust.outputs.has_rust == 'true'
-        run: cargo clippy --all-targets --all-features -- -D warnings
+        run: cargo clippy --workspace --all-targets --all-features -- -D warnings
 
       - name: Run cargo test
         if: steps.check-rust.outputs.has_rust == 'true'
-        run: cargo test --all
+        run: cargo test --workspace
 
   build-desktop:
     name: Build Desktop (${{ matrix.name }})
@@ -186,12 +197,15 @@ jobs:
         if: steps.check-build.outputs.has_rust == 'true'
         uses: swatinem/rust-cache@v2
 
-      - name: Build UI assets (if package.json exists)
+      - name: Build UI assets
         if: steps.check-build.outputs.has_rust == 'true'
         shell: bash
         run: |
-          if [ -f "package.json" ]; then
-            npm ci || npm install
+          if [ -f "ui/package-lock.json" ]; then
+            npm --prefix ui ci
+            npm run build --if-present
+          elif [ -f "package.json" ]; then
+            npm install
             npm run build --if-present
           fi
 

@@ -22,9 +22,36 @@ Noch offen: Q9 (Shino-chan Stil/Zeichner) – blockiert nichts vor Phase 6.
 vergeben – siehe Abschnitt „Aktive Verteilung“ in `TASKS.md`. Neue Agents übernehmen keine
 davon, ihre Rolle steht im Auftrag.
 
+### 2026-10-12 · agent-c · T-001
+Erledigt: LICENSE (MPL-2.0), .gitignore fuer Rust/Node/Tauri, .editorconfig angelegt. PR #3 eroeffnet.
+Status: Gemergt.
+
 ### 2026-10-12 · agent-c · –
 Erledigt: Rollen agent-c, agent-d und agent-e in AGENTS.md §1 und TASKS.md Revier-Spalte eingetragen. PR eroeffnet: "docs: Rollen agent-c/d/e".
+Status: Gemergt.
+
+### 2026-10-12 14:06 UTC · agent-b · T-004
+Erledigt: UI-Grundgerüst in `ui/` aufgesetzt (Svelte 5 + TypeScript + Vite, ESLint flat config, Prettier, Vitest). Root package.json delegiert alle Skripte an ui/. Tests, Lint und Build laufen fehlerfrei.
+Schnittstelle geändert: nein
+
+### 2026-10-12 14:15 UTC · agent-a · T-002
+Erledigt: Tauri-2-Grundgerüst in `apps/desktop` eingerichtet (Tauri 2.12, tauri-build 2.7, leeres Fenster mit Fallback-UI, Tauri-Capabilities, Icons). Rust-Workspace-Root in `Cargo.toml` angelegt.
+
+### 2026-10-12 14:16 UTC · agent-b · T-007
+Erledigt: i18n-Grundgerüst implementiert (`ui/i18n/de.json`, `en.json`, `ja.json` mit `_todo_review: true`). TypeScript-Modul `ui/src/i18n/` mit Reaktivität, Fallback, Sprachumschaltung und Parameterersetzung. App- und Header-Komponenten auf i18n umgestellt. Tests für alle 3 Sprachen und Konsistenzprüfung erfolgreich.
+Schnittstelle geändert: nein
+
+### 2026-10-12 · agent-f · T-401
+Neu dabei: **agent-f – VPN & Performance** (Auftrag der Projektleitung: freie Aufgaben übernehmen).
+Revier: `core/vpn/`, `core/control/`, `docs/VPN.md`. Phase 2 und 4 in Aufgaben zerlegt (T-201…T-206, T-401…T-406).
+Erledigt (PR offen): T-401, Crate `core/vpn` mit WireGuard-Parser und `providers.json`; 11 Tests, fmt/clippy grün.
+Hinweis: Meine Sitzung darf nur auf `claude/modest-darwin-cmmdbs` pushen, daher kein `agent-f/…`-Branch und kein
+Claim-Commit auf `main`; der Claim steckt im PR.
+@agent-a BITTE: Sobald der Root-Workspace steht (T-002/T-003), `core/vpn` (und später `core/control`) in
+`members` eintragen. Dann entferne ich die eigene `[workspace]`-Tabelle in `core/vpn/Cargo.toml`.
+@agent-c BITTE: In die Root-`.gitignore` gern `**/target/` aufnehmen; bis dahin hat `core/vpn` eine eigene.
+Als Nächstes: T-201 (`core/control`), hängt von nichts ab.
 
 ### 2026-10-12 · agent-c · T-005
-Erledigt: GitHub Actions CI-Workflow (.github/workflows/ci.yml) fuer UI, Rust und Desktop-Builds (Linux, Windows, macOS) vorbereitet.
-Status: Als Draft-PR eroeffnet. Warte auf Fertigstellung und Merge von T-002 (agent-a) und T-004 (agent-b).
+Erledigt: GitHub Actions CI-Workflow (.github/workflows/ci.yml) für UI, Rust und Desktop-Builds (Linux, Windows, macOS) eingerichtet.
+Abhängigkeiten T-002 und T-004 gemergt, main in Branch integriert. PR #9 fertiggestellt.

@@ -1,0 +1,30 @@
+{
+  "app": {
+    "title": "Shinoho",
+    "tagline": "Browser für Anime- & Gaming-Fans",
+    "ready": "Shinoho Browser UI bereit"
+  },
+  "nav": {
+    "back": "Zurück",
+    "forward": "Vor",
+    "reload": "Neu laden",
+    "home": "Startseite"
+  },
+  "addressbar": {
+    "placeholder": "Webadresse eingeben oder suchen...",
+    "go": "Aufrufen"
+  },
+  "tabs": {
+    "newTab": "Neuer Tab",
+    "close": "Tab schließen",
+    "untitled": "Unbenannt",
+    "pinned": "Angepinnt"
+  },
+  "common": {
+    "settings": "Einstellungen",
+    "bookmarks": "Lesezeichen",
+    "history": "Verlauf",
+    "downloads": "Downloads",
+    "incognito": "Inkognito"
+  }
+}

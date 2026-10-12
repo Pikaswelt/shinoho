@@ -1,0 +1,19 @@
+[package]
+name = "shinoho-vpn"
+description = "Shinoho VPN: WireGuard-Konfigurationen und Anbieterliste"
+version = "0.1.0"
+edition = "2021"
+license = "MPL-2.0"
+repository = "https://github.com/Pikaswelt/shinoho"
+rust-version = "1.77"
+publish = false
+
+# Eigenständig, bis die Crate im Root-Workspace eingetragen ist (agent-a, siehe LOG).
+# Danach diese Tabelle entfernen und die Felder oben auf `.workspace = true` umstellen.
+[workspace]
+
+[dependencies]
+base64 = "0.22"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
