@@ -68,6 +68,7 @@
     "wallpaper": {
       "title": "Hintergrund & Effekte",
       "choosePreset": "Hintergrund wählen",
+      "syncWithTheme": "Hintergrund an aktives Theme anpassen",
       "customUrl": "Eigene Bild-URL",
       "customUrlPlaceholder": "https://example.com/wallpaper.jpg",
       "blur": "Unschärfe (Blur)",
@@ -84,9 +85,16 @@
         "nebula": "Dark Nebula",
         "nebulaDesc": "Tiefes Weltall mit leuchtenden Sternenpartikeln",
         "minimal": "Shino Minimal",
-        "minimalDesc": "Schlichtes, augenschonendes Dunkelgrau"
+        "minimalDesc": "Schlichtes, augenschonendes Dunkelgrau",
+        "retrowave": "Retrowave Horizon",
+        "retrowaveDesc": "Neon-Sonnenuntergang und 80s Synthwave-Horizont",
+        "pixelart": "Pixel Arcade",
+        "pixelartDesc": "Pixel-Sternenfeld und Retro-Gaming-Atmosphäre",
+        "lofiRoom": "Lo-Fi Anime Room",
+        "lofiRoomDesc": "Gemütliche Zimmer-Ästhetik mit warmen Glühwürmchen"
       }
     },
+
     "widgets": {
       "title": "Widgets",
       "animeCountdown": "Anime Episoden-Countdown",
@@ -203,5 +211,25 @@
     "autoOff": "Automatisches Sparen ist aus.",
     "autoLabel": "Automatisch sparen",
     "dismiss": "Hinweis ausblenden"
+  },
+  "sounds": {
+    "title": "UI-Sounds & Soundpacks",
+    "enabled": "Dezente UI-Sounds aktivieren",
+    "syncWithTheme": "Soundpack an aktives Theme anpassen",
+    "volume": "Lautstärke",
+    "choosePack": "Soundpack wählen",
+    "test": "Sound testen",
+    "packs": {
+      "subtle": "Dezente UI-Sounds",
+      "subtleDesc": "Sanfte, unaufdringliche Klicks und weiche Töne",
+      "kawaii": "Kawaii Anime",
+      "kawaiiDesc": "Helle, fröhliche Glöckchen und magische Chimes",
+      "cyberpunk": "Cyberpunk 2088",
+      "cyberpunkDesc": "Synthesizer-Glitches, futuristische Laserticks und Chiptunes",
+      "gaming": "8-Bit Retro Gaming",
+      "gamingDesc": "Klassische Arcade-Sprünge, Münztöne und Sieges-Fanfaren",
+      "mecha": "Sci-Fi Mecha",
+      "mechaDesc": "Resonante Servomotoren und HUD-Bestätigungen"
+    }
   }
 }

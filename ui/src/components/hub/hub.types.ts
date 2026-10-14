@@ -1,5 +1,14 @@
 export type WallpaperType =
-  'sakura' | 'cyberpunk' | 'lofi' | 'nebula' | 'gradient' | 'image' | 'video';
+  | 'sakura'
+  | 'cyberpunk'
+  | 'lofi'
+  | 'nebula'
+  | 'gradient'
+  | 'image'
+  | 'video'
+  | 'retrowave'
+  | 'pixelart'
+  | 'lofi-room';
 
 export interface WallpaperPreset {
   id: string;
@@ -19,6 +28,7 @@ export interface WallpaperSettings {
   opacity: number; // 0.1 to 1.0
   particlesEnabled: boolean;
   particleDensity: number; // 10 to 100
+  syncWithTheme?: boolean;
 }
 
 export interface SpeedDialItem {

@@ -69,6 +69,14 @@ export class ThemeManager {
     return this.activeTheme;
   }
 
+  public getActiveWallpaper(): string | undefined {
+    return this.activeTheme.defaultWallpaper;
+  }
+
+  public getActiveSoundPack(): string | undefined {
+    return this.activeTheme.defaultSoundPack;
+  }
+
   public setTheme(id: string): ThemeDefinition {
     const target = this.themes.get(id);
     if (!target) {

@@ -28,5 +28,7 @@ export interface ThemeDefinition {
   isDark: boolean;
   author?: string;
   version?: string;
+  defaultWallpaper?: string;
+  defaultSoundPack?: string;
   variables: ThemeVariables;
 }

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { TabInfo, TabId } from '@core/api';
   import { t } from '../i18n';
+  import { soundManager } from '../sounds';
 
   interface Props {
     tabs: TabInfo[];
@@ -12,9 +13,20 @@
 
   let { tabs, activeTabId, onSelectTab, onCloseTab, onNewTab }: Props = $props();
 
+  function handleSelect(id: TabId) {
+    soundManager.play('tab.switch');
+    onSelectTab(id);
+  }
+
   function handleClose(e: MouseEvent, tabId: TabId) {
     e.stopPropagation();
+    soundManager.play('tab.close');
     onCloseTab(tabId);
+  }
+
+  function handleNew() {
+    soundManager.play('tab.open');
+    onNewTab();
   }
 </script>
 
@@ -29,9 +41,9 @@
         role="tab"
         aria-selected={tab.id === activeTabId}
         tabindex="0"
-        onclick={() => onSelectTab(tab.id)}
+        onclick={() => handleSelect(tab.id)}
         onkeydown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') onSelectTab(tab.id);
+          if (e.key === 'Enter' || e.key === ' ') handleSelect(tab.id);
         }}
         data-testid={`tab-${tab.id}`}
       >
@@ -68,7 +80,7 @@
     type="button"
     class="new-tab-btn"
     title={t('tabs.newTab')}
-    onclick={onNewTab}
+    onclick={handleNew}
     data-testid="new-tab-btn"
   >
     +

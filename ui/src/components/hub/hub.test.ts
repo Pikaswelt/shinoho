@@ -60,15 +60,38 @@ describe('Shinoho Hub Store', () => {
     let state = hubStore.getState();
     expect(state.wallpaper.activeId).toBe('cyberpunk');
 
+    hubStore.setActiveWallpaper('retrowave');
+    state = hubStore.getState();
+    expect(state.wallpaper.activeId).toBe('retrowave');
+
+    hubStore.setActiveWallpaper('pixelart');
+    state = hubStore.getState();
+    expect(state.wallpaper.activeId).toBe('pixelart');
+
+    hubStore.setActiveWallpaper('lofi-room');
+    state = hubStore.getState();
+    expect(state.wallpaper.activeId).toBe('lofi-room');
+
     hubStore.updateWallpaperSettings({
       blur: 10,
       brightness: 0.8,
       particlesEnabled: false,
+      syncWithTheme: true,
     });
     state = hubStore.getState();
     expect(state.wallpaper.blur).toBe(10);
     expect(state.wallpaper.brightness).toBe(0.8);
     expect(state.wallpaper.particlesEnabled).toBe(false);
+    expect(state.wallpaper.syncWithTheme).toBe(true);
+
+    // Test handleThemeChange with syncWithTheme
+    hubStore.handleThemeChange('sakura');
+    expect(hubStore.getState().wallpaper.activeId).toBe('sakura');
+
+    // When syncWithTheme is false, theme change does not override
+    hubStore.updateWallpaperSettings({ syncWithTheme: false });
+    hubStore.handleThemeChange('cyberpunk');
+    expect(hubStore.getState().wallpaper.activeId).toBe('sakura');
   });
 
   it('builds search URLs correctly for all engines', () => {

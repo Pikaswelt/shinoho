@@ -69,6 +69,7 @@
     "wallpaper": {
       "title": "壁紙とエフェクト",
       "choosePreset": "壁紙を選択",
+      "syncWithTheme": "テーマに合わせて壁紙を自動設定",
       "customUrl": "カスタム画像URL",
       "customUrlPlaceholder": "https://example.com/wallpaper.jpg",
       "blur": "ぼかし (Blur)",
@@ -85,9 +86,16 @@
         "nebula": "ダークネビュラ (Dark Nebula)",
         "nebulaDesc": "きらめく星の粒子が漂う深宇宙",
         "minimal": "シノ・ミニマル",
-        "minimalDesc": "目に優しい洗練されたダークグレー"
+        "minimalDesc": "目に優しい洗練されたダークグレー",
+        "retrowave": "レトロウェーブの地平線",
+        "retrowaveDesc": "ネオンの夕焼けと80年代シンセウェーブの地平線",
+        "pixelart": "ピクセル・アーケード",
+        "pixelartDesc": "ピクセル星空とレトロゲームの雰囲気",
+        "lofiRoom": "ローファイ・アニメルーム",
+        "lofiRoomDesc": "温かいホタルの光が漂う落ち着いたアニメルーム"
       }
     },
+
     "widgets": {
       "title": "ウィジェット",
       "animeCountdown": "アニメ最新話カウントダウン",
@@ -204,5 +212,25 @@
     "autoOff": "自動節約はオフです。",
     "autoLabel": "自動で節約",
     "dismiss": "通知を閉じる"
+  },
+  "sounds": {
+    "title": "UIサウンド＆サウンドパック",
+    "enabled": "控えめなUIサウンドを有効にする",
+    "syncWithTheme": "テーマに合わせてサウンドパックを自動設定",
+    "volume": "音量",
+    "choosePack": "サウンドパックを選択",
+    "test": "サウンドを試聴",
+    "packs": {
+      "subtle": "控えめなUIサウンド",
+      "subtleDesc": "穏やかで邪魔にならないクリックとソフトな音",
+      "kawaii": "カワイイ・アニメ",
+      "kawaiiDesc": "明るく陽気なベルと魔法のチャイム",
+      "cyberpunk": "サイバーパンク2088",
+      "cyberpunkDesc": "シンセサイザーのグリッチと未来的なレーザー音",
+      "gaming": "8ビット・レトロゲーム",
+      "gamingDesc": "クラシックなアーケードジャンプ音やコイン音",
+      "mecha": "SFメカ",
+      "mechaDesc": "サーボモーターとHUD確認音"
+    }
   }
 }
