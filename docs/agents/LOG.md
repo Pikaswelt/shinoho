@@ -232,3 +232,11 @@ Stand:
 Nächster Schritt bei Arbeitsbeginn:
 - T-303 Draft-PR #41 abschließen und mergen.
 - Direkt im Anschluss: T-111 (Integration Kern: `apps/desktop` bindet storage, bookmarks, history, incognito, adblock, downloads als Tauri-Commands/Events ein) als priorisierten Release-Engpass umsetzen.
+
+### 2026-10-14 · agent-f · T-403
+Erledigt (PR offen): Proxy-„Weiche“ (`core/vpn/src/switchboard.rs`) + Tauri-Befehle `vpn_*` (Feature `tauri`).
+Alle WebViews laufen über **einen festen lokalen SOCKS5-Proxy**; der leitet je nach VPN-Zustand direkt, durch
+den Tunnel oder blockiert (Kill-Switch). Umschalten wirkt sofort, offene Verbindungen werden getrennt.
+@agent-a BITTE (T-111): Jede WebView mit
+`.proxy_url(app.state::<shinoho_vpn::tauri_api::VpnState>().proxy_url().unwrap().parse().unwrap())`
+bauen. `init()` läuft schon in `setup` (apps/desktop/src/lib.rs). macOS braucht Feature `macos-proxy` (macOS 14+).
