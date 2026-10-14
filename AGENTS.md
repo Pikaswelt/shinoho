@@ -1,176 +1,99 @@
-# AGENTS.md – Regeln für AI-Agents im Shinoho-Projekt
+# AGENTS.md – Regeln & Workflow für KI-Agents im Shinoho-Projekt
 
-Diese Datei gilt für **jeden** AI-Agent (Claude, Codex, Copilot, Gemini, …), der an Shinoho
-arbeitet. Ziel: Zwei (oder mehr) Agents arbeiten **gleichzeitig** auf GitHub, ohne sich in
-die Quere zu kommen.
+Dieses Projekt wird kollaborativ von mehreren KI-Agents über **FancyAgent** gesteuert.
+Das manuelle Editieren von `TASKS.md` und Committen auf `main` zum Task-Locking ist abgelöst.
 
-> **Lies vor jeder Arbeitssitzung:** diese Datei → [`docs/agents/TASKS.md`](docs/agents/TASKS.md)
-> → die letzten Einträge in [`docs/agents/LOG.md`](docs/agents/LOG.md) → [`docs/PLAN.md`](docs/PLAN.md).
+> 🌐 **Dashboard:** [https://fancyagent.crazymine.de/app/p/shinoho](https://fancyagent.crazymine.de/app/p/shinoho)  
+> 🔌 **MCP-Endpunkt:** `https://fancyagent.crazymine.de/mcp`
 
 ---
 
-## 1. Rollen & Reviere
+## 1. Verbindung über MCP
 
-| Agent | Name im Projekt | Revier (darf frei ändern) |
+Agents binden FancyAgent als HTTP-MCP-Server ein:
+
+```bash
+claude mcp add --transport http fancyagent https://fancyagent.crazymine.de/mcp --header "Authorization: Bearer <DEIN_AGENT_TOKEN>"
+```
+
+### Start jeder Sitzung
+1. **System-Prompt laden:** Rufe `get_system_prompt` auf. Dort stehen deine aktuellen Berechtigungen, Reviere und Projektanweisungen.
+2. **Status setzen:** Rufe `set_status` auf (z. B. *„Prüfe offene Aufgaben für UI-Integration“*), damit Maintainer live im Dashboard sehen, woran du arbeitest.
+
+---
+
+## 2. Ablauf einer Aufgabe (Workflow)
+
+```text
+list_tasks 
+  → claim_task (Aufgabe beanspruchen, Lease aktiv halten per heartbeat)
+  → Branch erstellen: agent/<name>/T-xxx-beschreibung
+  → Code implementieren & Tests ausführen (siehe §4 Qualitätsstandards)
+  → Pull Request auf GitHub öffnen mit "Hub-Task: #<id>" im PR-Body
+  → submit_pull_request aufrufen
+  → Automatische Review-Aufgabe für Reviewer-Agents
+  → Merge (Maintainer / FancyAgent mit sha-Commit-Bindung)
+```
+
+1. **Aufgabe wählen:** Rufe `list_tasks` auf.
+2. **Beanspruchen:** Rufe `claim_task({ task_id: ... })` auf.
+   * Keine direkten Commits auf `main` mehr nötig! FancyAgent sperrt die Aufgabe atomar für dich.
+   * Halte deinen Lease bei längerer Arbeit mit `heartbeat({ task_id: ... })` aktiv.
+3. **Branch & Entwicklung:**
+   * Branch anlegen: `feat/T-xxx-...` oder `fix/T-xxx-...`
+   * Conventional Commits verwenden (`feat(...)`, `fix(...)`, `chore(...)`).
+4. **Pull Request einreichen:**
+   * PR gegen `main` öffnen.
+   * Im PR-Text zwingend den Marker hinterlegen:
+     ```text
+     Hub-Task: #<task_id>
+     ```
+   * Rufe `submit_pull_request({ task_id: ..., pull_number: ... })` auf.
+   * FancyAgent prüft automatisch erlaubte/geschützte Pfade und erstellt die Review-Aufgabe.
+5. **Review & Merge:**
+   * Reviewer-Agents rufen `get_pull_request` und `submit_review({ task_id: ..., verdict: "approved" | "changes_requested" })` auf.
+   * Sobald Freigaben vorliegen und CI grün ist, wird der PR via `merge_pull_request` gemergt.
+
+---
+
+## 3. Kommunikation & Dateien
+
+* **Projekt-Chat:** Nutze `send_message` und `read_messages` / `inbox` für Absprachen, Fragen oder Übergaben an andere Agents.
+* **Geteilte Notizen/Snippets:** Nutze `write_file` und `read_file` in FancyAgent, um Dumps, Logs oder Schnittstellen-Entwürfe projektweit bereitzustellen.
+* Das alte Anhängen an `docs/agents/LOG.md` ist nicht mehr erforderlich, kann aber bei Bedarf ergänzend genutzt werden.
+
+---
+
+## 4. Architektur & Reviere
+
+| Bereich | Pfade | Verantwortlichkeit |
 |---|---|---|
-| **Agent A** | `agent-a` – „Kern“ | `core/` (Rest), `apps/`, `Cargo.toml` |
-| **Agent B** | `agent-b` – „Oberfläche“ | `ui/` (Rest), `mods/`, `sdk/`, `docs/MODDING.md`, `package.json` |
-| **Agent C** | `agent-c` – „Infra/Repo“ | `LICENSE`, `.gitignore`, `.editorconfig`, `.github/workflows/`, Build-Skripte |
-| **Agent D** | `agent-d` – „Kern-2“ | `core/storage/`, `core/adblock/`, Inkognito- und Download-Backend |
-| **Agent E** | `agent-e` – „UI-2“ | `ui/`-Bereiche für Lesezeichen, Hub, Inkognito, Downloads |
-| **Agent F** | `agent-f` – „VPN & Performance“ | `core/vpn/`, `core/control/`, `docs/VPN.md` |
-| **Agent M** | `agent-m` – „Manager (Gast)“ | Gast: nur eigene Aufgaben (§9) |
-| **Gemeinsam** | – | `core/api/` (Schnittstelle Kern ↔ UI), `docs/PLAN.md`, `AGENTS.md`, `README.md` |
-| **Projektleitung** | Senpai-TV & Pikaswelt (Menschen) | Entscheidet alles, was in `docs/OPEN-QUESTIONS.md` steht |
+| **Kern** | `core/`, `Cargo.toml` | Rust Workspace (storage, adblock, incognito, vpn, control, feeds) |
+| **Desktop** | `apps/desktop/` | Tauri 2 Desktop-App & Shell |
+| **Oberfläche** | `ui/`, `package.json` | Svelte 5 + TypeScript + Vite |
+| **Schnittstelle** | `core/api/` | Tauri-Commands & Event-Typen (Kern ↔ UI) |
+| **Infra/CI** | `.github/workflows/`, Build-Skripte | CI, Android-Builds, Releases |
+| **Mods & SDK** | `sdk/`, `docs/MODDING.md` | Modding-Schnittstelle & Loader |
 
-**Regel:** Dateien im Revier des anderen Agents werden **nicht** geändert. Braucht man dort
-etwas → Eintrag im LOG mit `@agent-x BITTE:` und warten bzw. an anderer Aufgabe weiterarbeiten.
-
-Welcher Agent bin ich? → Steht in deinem Auftrag. Wenn nicht: nachfragen, **nicht raten**.
-Kommt ein weiterer Agent dazu, wird hier eine neue Zeile ergänzt (per PR).
+> **Wichtig für `core/api/`:** Änderungen an der Schnittstelle müssen abwärtskompatibel sein. Bei Breaking Changes immer zuerst im Chat (`send_message`) abstimmen!
 
 ---
 
-## 2. Ablauf einer Aufgabe
+## 5. Qualitätsstandards vor PR
 
-1. **Aktualisieren:** `git fetch origin && git checkout main && git pull`
-2. **Aufgabe wählen** in `docs/agents/TASKS.md` – nur Aufgaben aus dem eigenen Revier
-   mit Status `offen`, deren Abhängigkeiten `fertig` sind.
-3. **Aufgabe beanspruchen (Claim):** Status auf `in Arbeit (agent-x)` setzen, direkt auf
-   `main` committen und pushen: `chore(tasks): agent-x übernimmt T-012`.
-   - Push abgelehnt? → `git pull --rebase`, prüfen, ob die Aufgabe inzwischen der andere
-     Agent genommen hat. Wenn ja: andere Aufgabe wählen.
-   - Das ist der **einzige** direkte Commit auf `main`. Alles andere läuft über PRs.
-4. **Branch anlegen:** `agent-a/T-012-kurzer-name` bzw. `agent-b/T-012-kurzer-name`
-5. **Arbeiten** – kleine, thematische Commits (siehe §4).
-6. **Pull Request sofort** gegen `main` öffnen – direkt nach dem ersten Push, nicht erst am Ende
-   (bei unfertiger Arbeit als Draft). Titel: `T-012: <Beschreibung>`.
-   Im PR-Text: was, warum, wie getestet, betroffene Schnittstellen.
-7. **CI muss grün sein.** Der andere Agent darf reviewen (Kommentar), die Projektleitung
-   mergt bzw. gibt Merge frei.
-8. Nach Merge: Status in `TASKS.md` auf `fertig` setzen, kurzer LOG-Eintrag.
+Jeder PR muss lokal getestet werden, bevor `submit_pull_request` aufgerufen wird:
 
-**Max. 1 Aufgabe gleichzeitig pro Agent** (Ausnahme: Aufgabe ist blockiert → im LOG
-vermerken, dann darf eine zweite begonnen werden).
-
----
-
-## 3. Kommunikation – `docs/agents/LOG.md`
-
-- **Nur anhängen**, nie alte Einträge ändern oder löschen.
-- Format:
-  ```
-  ### 2026-10-12 14:30 UTC · agent-a · T-012
-  Erledigt: …
-  Schnittstelle geändert: …   (falls ja)
-  @agent-b BITTE: …            (falls etwas gebraucht wird)
-  @projektleitung FRAGE: …          (falls eine Entscheidung nötig ist)
-  ```
-- Fragen an die Projektleitung zusätzlich in `docs/OPEN-QUESTIONS.md` eintragen.
-  **Bei offenen Grundsatzfragen nicht selbst entscheiden – fragen!**
-- LOG-Einträge dürfen im eigenen PR mitkommen; bei Konflikten in `LOG.md` einfach
-  **beide** Einträge behalten (chronologisch).
-
----
-
-## 4. Git-Regeln
-
-- **Nie** `git push --force` auf `main` oder auf Branches des anderen Agents.
-- **Nie** den Branch des anderen Agents ändern.
-- Commit-Nachrichten im Stil *Conventional Commits*, Deutsch oder Englisch:
-  `feat(vpn): WireGuard-Proxy hinzugefügt`, `fix(ui): Tab-Leiste flackert`, `docs: …`
-- Vor dem PR: `main` in den eigenen Branch mergen (oder rebasen, solange nur man selbst
-  auf dem Branch arbeitet) und Konflikte lösen.
-- Keine generierten Dateien committen (Builds, `node_modules/`, `target/`).
-- Keine Geheimnisse (API-Keys, Tokens, VPN-Configs mit Private Keys) committen.
-
-### Urheberschaft / Mitwirkende
-- **Keine** `Co-Authored-By`-Zeilen, Signaturen oder Hinweise auf AI-Agents in Commits,
-  PRs, Code-Kommentaren oder Doku.
-- Autoren des Projekts sind **Senpai-TV** und **Pikaswelt**. AI-Agents tragen sich **nicht** als Contributor ein
-  (keine `CONTRIBUTORS`-, `AUTHORS`-Einträge o. Ä.).
-
----
-
-## 5. Schnittstelle Kern ↔ UI (`core/api/`)
-
-- Alle Tauri-Commands und Events sind in `core/api/` beschrieben (Rust-Typen + generierte
-  TypeScript-Typen für `ui/`).
-- Änderung an der Schnittstelle = **eigene Aufgabe** im Board, Vorschlag im LOG,
-  Bestätigung des anderen Agents (`OK von agent-b`) abwarten.
-- Nur **abwärtskompatible** Erweiterungen ohne Absprache erlaubt (neues Feld optional,
-  neuer Command). Umbenennen/Löschen nie ohne Absprache.
-
----
-
-## 6. Qualitätsregeln
-
-| Bereich | Muss vor PR laufen |
+| Bereich | Pflicht-Checks |
 |---|---|
-| Rust (`core/`) | `cargo fmt --check`, `cargo clippy -- -D warnings`, `cargo test` |
-| UI (`ui/`, `sdk/`) | `npm run lint`, `npm run format:check`, `npm test` |
-| Doku | Links funktionieren, Beispiele passen zum Code |
-
-- Neue Funktionen bekommen Tests.
-- Performance ist Kernversprechen: keine schweren Abhängigkeiten ohne Begründung im PR.
-- UI-Texte über i18n-Dateien (`ui/i18n/de.json`, `en.json`, `ja.json`), nie fest im Code.
-  Neue Texte immer in **allen drei** Sprachen anlegen (Japanisch darf vorläufig maschinell
-  übersetzt sein, dann mit `"_todo_review": true` markieren).
+| **Rust (`core/`, `apps/desktop`)** | `cargo fmt --check`<br>`cargo clippy -- -D warnings`<br>`cargo test` |
+| **UI (`ui/`, `sdk/`)** | `npm run lint`<br>`npm run format:check`<br>`npm test` |
+| **i18n (Mehrsprachigkeit)** | Texte **immer** über `ui/i18n/` (`de.json`, `en.json`, `ja.json`). Keine Hardcoded-Strings im UI-Code. |
 
 ---
 
-## 7. Wenn etwas schiefgeht
+## 6. Urheberschaft & Git-Regeln
 
-- **Merge-Konflikt im fremden Revier:** nicht selbst lösen → LOG-Eintrag, anderen Agent bitten.
-- **CI auf `main` rot:** wer es kaputt gemacht hat, repariert sofort; alle anderen mergen
-  nichts, bis `main` wieder grün ist.
-- **Unklarheit / Widerspruch im Plan:** stoppen, `@projektleitung FRAGE:` ins LOG und in
-  `OPEN-QUESTIONS.md`, an anderer Aufgabe weiterarbeiten.
-
----
-
-## 8. Ersatz-Agent (wenn ein Limit leer ist)
-
-Ist bei einem Agent das Nutzungslimit erreicht, kann ein **anderer Agent** (z. B. Codex,
-Gemini, Copilot) dessen Rolle übernehmen:
-
-1. Der Ersatz übernimmt die Rolle **komplett** (`agent-a` oder `agent-b`) – gleiches Revier,
-   gleiche Branch-Präfixe. Er bekommt die Rolle von der Projektleitung im Auftrag genannt.
-2. Zuerst lesen: diese Datei, `TASKS.md`, die letzten LOG-Einträge der Rolle und den offenen PR
-   der laufenden Aufgabe.
-3. Eine Aufgabe `in Arbeit (agent-x)` wird auf **demselben Branch** weitergeführt
-   (kein neuer Branch, kein Force-Push).
-4. LOG-Eintrag bei Übernahme und bei Rückgabe: `agent-a (Ersatz: <Name>) übernimmt` /
-   `gibt zurück`.
-5. Kommt der ursprüngliche Agent zurück, liest er die LOG-Einträge des Ersatzes, bevor er
-   weiterarbeitet.
-
----
-
-## 9. Gast-Agents (weitere Mitarbeiter)
-
-Wer zusätzlich mithelfen will (Mensch oder AI-Agent), nimmt den anderen **nichts weg**:
-
-1. **Rolle anlegen:** Nächsten freien Buchstaben wählen (`agent-g`, `agent-h`, …) und in §1 eine
-   Zeile mit Revier „Gast: nur eigene Aufgaben“ ergänzen – zusammen mit dem ersten Claim.
-2. **Nur Aufgaben mit Revier `frei`** und Status `offen`, deren Abhängigkeiten `fertig` sind.
-   Alles, was in `TASKS.md` unter „Aktive Verteilung“ reserviert ist oder `in Arbeit (…)` steht,
-   ist tabu.
-3. **Claim wie in §2:** Status auf `in Arbeit (agent-g)` setzen, direkt auf `main` pushen.
-   Push abgelehnt → `git pull --rebase`, prüfen, ob jemand schneller war.
-4. Eigener Branch `agent-g/T-xxx-…`, PR sofort öffnen. Sind die Checks grün, darf der Agent
-   seinen PR selbst mergen (`gh pr merge --merge`).
-5. Keine freie Aufgabe passend? Neue Aufgabe als `offen`/`frei` vorschlagen (eigener PR) oder
-   offene PRs reviewen.
-6. Dateien außerhalb der eigenen Aufgabe nicht ändern; Wünsche an andere über `@agent-x BITTE:` im LOG.
-
----
-
-## 10. Tempo-Regeln (gelten für alle)
-
-- **Nie ohne Aufgabe:** Ist eine Aufgabe gemergt oder blockiert, sofort die nächste claimen
-  (eigene reservierte, sonst Revier `frei`).
-- **Eigene PRs selbst mergen**, sobald die Checks grün sind. Konflikte im eigenen PR sofort lösen
-  (`LOG.md`: beide Einträge behalten, `TASKS.md`: Stand von `main` + eigener Status).
-- **PR-Wart ist agent-c:** Fremde PRs, die über 15 Minuten nicht aktualisiert wurden, prüft er,
-  löst Konflikte und merged sie bei grünen Checks, sonst Kommentar an den Autor.
+* **Autoren:** Die offiziellen Autoren des Projekts sind **Senpai-TV** und **Pikaswelt**.
+* **Keine AI-Signaturen:** Keine `Co-Authored-By`-Zeilen, Prompts, Modellnamen oder AI-Signaturen in Commits, PR-Beschreibungen oder Kommentaren.
+* **Kein Force-Push:** Niemals `git push --force` auf `main`.
+* **Geschützte Pfade:** `.github/**` ist geschützt und darf nur von Maintainern geändert werden.

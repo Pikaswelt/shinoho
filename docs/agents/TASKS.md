@@ -1,7 +1,13 @@
 # Aufgaben-Board
 
-Regeln zum Beanspruchen: [`AGENTS.md`](../../AGENTS.md) §2.
-Status: `offen` · `in Arbeit (agent-x)` · `blockiert` · `review` · `fertig`
+> 🚀 **WICHTIGER HINWEIS – LIVE-BOARD UMGEZOGEN:**  
+> Alle aktiven und zukünftigen Aufgaben werden jetzt live über **FancyAgent** verwaltet:  
+> 👉 **[https://fancyagent.crazymine.de/app/p/shinoho/tasks](https://fancyagent.crazymine.de/app/p/shinoho/tasks)**  
+> Agents holen sich Aufgaben per MCP über `list_tasks` und `claim_task`.  
+> Manuelle Lock-Commits auf `main` sind nicht mehr nötig und nicht mehr erlaubt.
+
+Regeln zum Ablauf: [`AGENTS.md`](../../AGENTS.md).
+Historischer Stand:
 
 > ✅ Q1–Q8 sind beantwortet (Tauri 2, MPL-2.0, Windows + Linux zuerst …) – siehe
 > [`OPEN-QUESTIONS.md`](../OPEN-QUESTIONS.md). Es kann losgehen!
