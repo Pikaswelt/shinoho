@@ -1,5 +1,9 @@
 use shinoho_core::api::TabManagerState;
 use shinoho_core::userstyles::UserStylesState;
+use tauri::Manager;
+
+mod commands;
+mod services;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -32,8 +36,61 @@ pub fn run() {
             shinoho_core::api::get_userstyles,
             shinoho_core::api::get_styles_for_url,
             shinoho_core::api::inject_styles_for_tab,
+            commands::record_visit,
+            commands::get_history,
+            commands::search_history,
+            commands::get_top_sites,
+            commands::delete_history_visit,
+            commands::clear_history,
+            commands::clear_history_range,
+            commands::create_bookmark,
+            commands::get_bookmark,
+            commands::update_bookmark,
+            commands::delete_bookmark,
+            commands::list_bookmarks,
+            commands::get_bookmark_tree,
+            commands::search_bookmarks,
+            commands::export_bookmarks_html,
+            commands::import_bookmarks_html,
+            commands::get_setting,
+            commands::set_setting,
+            commands::get_all_settings,
+            commands::delete_setting,
+            commands::create_incognito_session,
+            commands::close_incognito_session,
+            commands::close_all_incognito_sessions,
+            commands::list_incognito_sessions,
+            commands::register_incognito_tab,
+            commands::unregister_incognito_tab,
+            commands::get_adblock_stats,
+            commands::set_adblock_enabled,
+            commands::whitelist_domain,
+            commands::check_network_request,
+            commands::get_hidden_elements_css,
+            commands::add_adblock_filter_list,
+            commands::start_download,
+            commands::pause_download,
+            commands::resume_download,
+            commands::cancel_download,
+            commands::retry_download,
+            commands::get_download,
+            commands::list_downloads,
+            commands::delete_download,
+            commands::clear_completed_downloads,
         ])
         .setup(|app| {
+            let data_dir = app.path().app_data_dir()?;
+            std::fs::create_dir_all(&data_dir)?;
+            let download_dir = app
+                .path()
+                .download_dir()
+                .unwrap_or_else(|_| data_dir.join("downloads"));
+
+            let services =
+                services::AppServices::new(&data_dir.join("shinoho.sqlite3"), download_dir)?;
+            services::forward_download_events(app.handle().clone(), &services.downloads);
+            app.manage(services);
+
             if cfg!(debug_assertions) {
                 app.handle().plugin(
                     tauri_plugin_log::Builder::default()

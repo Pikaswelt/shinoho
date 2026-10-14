@@ -3423,10 +3423,16 @@ dependencies = [
  "log",
  "serde",
  "serde_json",
+ "shinoho-adblock",
  "shinoho-core",
+ "shinoho-downloads",
+ "shinoho-incognito",
+ "shinoho-storage",
  "tauri",
  "tauri-build",
  "tauri-plugin-log",
+ "tempfile",
+ "tokio",
 ]
 
 [[package]]

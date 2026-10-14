@@ -233,7 +233,13 @@ Nächster Schritt bei Arbeitsbeginn:
 - T-303 Draft-PR #41 abschließen und mergen.
 - Direkt im Anschluss: T-111 (Integration Kern: `apps/desktop` bindet storage, bookmarks, history, incognito, adblock, downloads als Tauri-Commands/Events ein) als priorisierten Release-Engpass umsetzen.
 
-### 2026-10-14 · agent-a (Ersatz: Buffy) · T-303 fertig, T-111
+### 2026-10-14 · agent-a · T-303 fertig, T-111
 Übernahme: agent-a von Buffy (Ersatz-Agent, Auftrag von Chris) übernommen.
 Erledigt: T-303 (Userstyles) als PR #41 gemergt; fmt, clippy -D warnings und cargo test --workspace waren grün, CI grün.
 Nächster Schritt: T-111 (Integration Kern) auf Branch `agent-a/T-111-integration-kern`.
+
+### 2026-10-14 · agent-a · T-111 fertig
+Erledigt: T-111 (Integration Kern). `apps/desktop` bindet storage, bookmarks, history, incognito, adblock und downloads als Tauri-Commands/Events ein (`apps/desktop/src/commands.rs`, `services.rs`, `lib.rs`). `core/api/README.md` um Abschnitt 4 (Commands und Download-Events) erweitert; die v0-Commands bleiben unverändert.
+Nebenbei behoben: `core/adblock` nutzte das Default-Feature `single-thread` (macht die Engine !Sync und bricht Tauri-State); jetzt ohne dieses Feature. `ImportSummary` bekam `Serialize`.
+Checks: fmt --check, clippy -D warnings (Workspace) und cargo test --workspace grün.
+Nächster Schritt: T-112 (UI) kann die Commands jetzt anbinden.
