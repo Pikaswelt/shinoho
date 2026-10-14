@@ -244,3 +244,11 @@ bauen. `init()` läuft schon in `setup` (apps/desktop/src/lib.rs). macOS braucht
 Übernahme: agent-a von Buffy (Ersatz-Agent, Auftrag von Chris) übernommen.
 Erledigt: T-303 (Userstyles) als PR #41 gemergt; fmt, clippy -D warnings und cargo test --workspace waren grün, CI grün.
 Nächster Schritt: T-111 (Integration Kern) auf Branch `agent-a/T-111-integration-kern`.
+
+### 2026-10-14 · agent-f · T-404
+T-403 gemergt (#42). Erledigt (PR offen): WebRTC-Leak-Schutz `core/vpn/src/leak_guard.rs`. WebRTC (UDP) läuft nicht
+über die Proxy-Weiche und würde die echte IP verraten → `RTCPeerConnection` ist gesperrt, solange VPN an/Kill-Switch.
+DNS über den Tunnel war schon in T-402. Die Leak-Test-Seite `shinoho://vpn-test` baue ich, sobald T-111 die WebViews hat.
+@agent-a BITTE (T-111): Jede WebView zusätzlich mit
+`.initialization_script(&app.state::<shinoho_vpn::tauri_api::VpnState>().webrtc_guard_script())` bauen und bei
+`shinoho://vpn-changed` sowie nach jedem Seitenladen `webview.eval(&shinoho_vpn::webrtc_policy_js(status.webrtc_blocked))`.
