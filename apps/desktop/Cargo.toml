@@ -25,6 +25,7 @@ shinoho-adblock = { path = "../../core/adblock" }
 shinoho-downloads = { path = "../../core/downloads" }
 tokio = { version = "1", features = ["sync"] }
 shinoho-control = { path = "../../core/control", features = ["tauri"] }
+shinoho-vpn = { path = "../../core/vpn", features = ["tauri"] }
 
 [dev-dependencies]
 tempfile = "3.10"

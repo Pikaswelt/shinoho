@@ -16,6 +16,11 @@ thiserror = "2"
 boringtun = { version = "0.7", default-features = false }
 smoltcp = { version = "0.14", default-features = false, features = ["std", "medium-ip", "proto-ipv4", "proto-ipv6", "socket-tcp", "socket-udp", "socket-dns"] }
 tokio = { version = "1", features = ["net", "rt", "sync", "time", "macros", "io-util"] }
+tauri = { version = "2", optional = true }
+
+[features]
+# Tauri-Befehle für VPN und die Proxy-Weiche der WebViews (T-403).
+tauri = ["dep:tauri"]
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "io-util", "time"] }

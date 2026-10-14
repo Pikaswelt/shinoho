@@ -1,6 +1,7 @@
 use shinoho_control::tauri_api::GamingState;
 use shinoho_core::api::TabManagerState;
 use shinoho_core::userstyles::UserStylesState;
+use shinoho_vpn::tauri_api::VpnState;
 use tauri::Manager;
 
 mod commands;
@@ -11,6 +12,7 @@ pub fn run() {
     tauri::Builder::default()
         .manage(TabManagerState::new())
         .manage(GamingState::default())
+        .manage(VpnState::default())
         .manage(UserStylesState::new())
         .invoke_handler(tauri::generate_handler![
             shinoho_core::api::create_tab,
@@ -34,6 +36,12 @@ pub fn run() {
             shinoho_control::tauri_api::gaming_status,
             shinoho_control::tauri_api::gaming_set_auto,
             shinoho_control::tauri_api::gaming_set_rules,
+            shinoho_vpn::tauri_api::vpn_status,
+            shinoho_vpn::tauri_api::vpn_providers,
+            shinoho_vpn::tauri_api::vpn_import_config,
+            shinoho_vpn::tauri_api::vpn_connect,
+            shinoho_vpn::tauri_api::vpn_disconnect,
+            shinoho_vpn::tauri_api::vpn_set_kill_switch,
             shinoho_core::api::add_userstyle,
             shinoho_core::api::update_userstyle,
             shinoho_core::api::toggle_userstyle,
@@ -97,6 +105,8 @@ pub fn run() {
             app.manage(services);
 
             shinoho_control::tauri_api::start_watcher(app.handle());
+            // Proxy-Weiche vor allen WebViews starten; diese nutzen VpnState::proxy_url().
+            shinoho_vpn::tauri_api::init(app.handle())?;
             if cfg!(debug_assertions) {
                 app.handle().plugin(
                     tauri_plugin_log::Builder::default()
