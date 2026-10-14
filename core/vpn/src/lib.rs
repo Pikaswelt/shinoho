@@ -3,6 +3,7 @@
 //!
 //! Dazu der WireGuard-Tunnel mit lokalem SOCKS5-Proxy (T-402).
 
+pub mod leak_guard;
 pub mod providers;
 pub mod switchboard;
 #[cfg(feature = "tauri")]
@@ -10,6 +11,7 @@ pub mod tauri_api;
 pub mod tunnel;
 pub mod wgconfig;
 
+pub use leak_guard::{webrtc_guard_script, webrtc_policy_js};
 pub use providers::{load_bundled_providers, parse_providers, Provider, ProviderList};
 pub use switchboard::{Route, Switchboard};
 pub use tunnel::{Tunnel, TunnelError};
