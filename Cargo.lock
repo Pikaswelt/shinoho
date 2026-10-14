@@ -3413,6 +3413,7 @@ dependencies = [
  "serde_json",
  "tauri",
  "thiserror 2.0.21",
+ "url",
 ]
 
 [[package]]
