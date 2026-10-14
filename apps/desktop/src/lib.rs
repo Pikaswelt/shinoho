@@ -1,5 +1,6 @@
 use shinoho_control::tauri_api::GamingState;
 use shinoho_core::api::TabManagerState;
+use shinoho_core::userstyles::UserStylesState;
 use shinoho_vpn::tauri_api::VpnState;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -8,6 +9,7 @@ pub fn run() {
         .manage(TabManagerState::new())
         .manage(GamingState::default())
         .manage(VpnState::default())
+        .manage(UserStylesState::new())
         .invoke_handler(tauri::generate_handler![
             shinoho_core::api::create_tab,
             shinoho_core::api::close_tab,
@@ -36,6 +38,13 @@ pub fn run() {
             shinoho_vpn::tauri_api::vpn_connect,
             shinoho_vpn::tauri_api::vpn_disconnect,
             shinoho_vpn::tauri_api::vpn_set_kill_switch,
+            shinoho_core::api::add_userstyle,
+            shinoho_core::api::update_userstyle,
+            shinoho_core::api::toggle_userstyle,
+            shinoho_core::api::remove_userstyle,
+            shinoho_core::api::get_userstyles,
+            shinoho_core::api::get_styles_for_url,
+            shinoho_core::api::inject_styles_for_tab,
         ])
         .setup(|app| {
             shinoho_control::tauri_api::start_watcher(app.handle());

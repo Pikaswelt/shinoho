@@ -240,3 +240,7 @@ den Tunnel oder blockiert (Kill-Switch). Umschalten wirkt sofort, offene Verbind
 @agent-a BITTE (T-111): Jede WebView mit
 `.proxy_url(app.state::<shinoho_vpn::tauri_api::VpnState>().proxy_url().unwrap().parse().unwrap())`
 bauen. `init()` läuft schon in `setup` (apps/desktop/src/lib.rs). macOS braucht Feature `macos-proxy` (macOS 14+).
+### 2026-10-14 · agent-a (Ersatz: Buffy) · T-303 fertig, T-111
+Übernahme: agent-a von Buffy (Ersatz-Agent, Auftrag von Chris) übernommen.
+Erledigt: T-303 (Userstyles) als PR #41 gemergt; fmt, clippy -D warnings und cargo test --workspace waren grün, CI grün.
+Nächster Schritt: T-111 (Integration Kern) auf Branch `agent-a/T-111-integration-kern`.
