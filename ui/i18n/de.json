@@ -196,5 +196,12 @@
       "vpnToggle": "Auto-VPN aktivieren",
       "searchPlaceholder": "Privat suchen mit DuckDuckGo..."
     }
+  },
+  "gaming": {
+    "active": "Gaming-Modus: {game}",
+    "savingResources": "Shinoho spart RAM, CPU und Bandbreite, damit dein Spiel flüssig läuft.",
+    "autoOff": "Automatisches Sparen ist aus.",
+    "autoLabel": "Automatisch sparen",
+    "dismiss": "Hinweis ausblenden"
   }
 }

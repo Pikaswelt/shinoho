@@ -197,5 +197,12 @@
       "vpnToggle": "自動VPNを有効化",
       "searchPlaceholder": "DuckDuckGoでプライベート検索..."
     }
+  },
+  "gaming": {
+    "active": "ゲームモード：{game}",
+    "savingResources": "ゲームが快適に動くよう、ShinohoはRAM・CPU・帯域を節約しています。",
+    "autoOff": "自動節約はオフです。",
+    "autoLabel": "自動で節約",
+    "dismiss": "通知を閉じる"
   }
 }
