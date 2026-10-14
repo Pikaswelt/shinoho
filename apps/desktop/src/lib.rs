@@ -1,4 +1,4 @@
-use shinoho_control::tauri_api::{GamingState, MonitorState};
+use shinoho_control::tauri_api::{GamingState, MonitorState, SleeperState};
 use shinoho_core::api::TabManagerState;
 use shinoho_core::userstyles::UserStylesState;
 use shinoho_vpn::tauri_api::VpnState;
@@ -9,6 +9,7 @@ pub fn run() {
         .manage(TabManagerState::new())
         .manage(GamingState::default())
         .manage(MonitorState::default())
+        .manage(SleeperState::default())
         .manage(VpnState::default())
         .manage(UserStylesState::new())
         .invoke_handler(tauri::generate_handler![
@@ -34,6 +35,8 @@ pub fn run() {
             shinoho_control::tauri_api::gaming_set_auto,
             shinoho_control::tauri_api::gaming_set_rules,
             shinoho_control::tauri_api::control_stats,
+            shinoho_control::tauri_api::control_asleep_tabs,
+            shinoho_control::tauri_api::control_touch_tab,
             shinoho_vpn::tauri_api::vpn_status,
             shinoho_vpn::tauri_api::vpn_providers,
             shinoho_vpn::tauri_api::vpn_import_config,
@@ -50,6 +53,7 @@ pub fn run() {
         ])
         .setup(|app| {
             shinoho_control::tauri_api::start_watcher(app.handle());
+            shinoho_control::tauri_api::start_sleeper(app.handle());
             // Proxy-Weiche vor allen WebViews starten; diese nutzen VpnState::proxy_url().
             shinoho_vpn::tauri_api::init(app.handle())?;
             if cfg!(debug_assertions) {
