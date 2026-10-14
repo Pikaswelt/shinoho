@@ -3,6 +3,7 @@
   import Header from './components/Header.svelte';
   import TabBar from './components/TabBar.svelte';
   import AddressBar from './components/AddressBar.svelte';
+  import GamingModeBanner from './components/gaming/GamingModeBanner.svelte';
   import { BookmarkBar, BookmarkManager } from './components/bookmarks';
   import { IncognitoStartPage, incognitoStore } from './components/incognito';
   import { tabService, type TabInfo, type TabId } from './api/tabs';
@@ -133,6 +134,8 @@
 
   <BookmarkBar onNavigate={handleNavigate} />
   <BookmarkManager onNavigate={handleNavigate} />
+
+  <GamingModeBanner />
 
   <main class="content-viewport" data-testid="content-viewport">
     {#if incognitoState.isIncognito && (!activeTab || activeTab.url === 'shinoho://incognito' || activeTab.url === 'shinoho://hub')}

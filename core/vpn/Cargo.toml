@@ -8,10 +8,6 @@ repository = "https://github.com/Pikaswelt/shinoho"
 rust-version = "1.77"
 publish = false
 
-# Eigenständig, bis die Crate im Root-Workspace eingetragen ist (agent-a, siehe LOG).
-# Danach diese Tabelle entfernen und die Felder oben auf `.workspace = true` umstellen.
-[workspace]
-
 [dependencies]
 base64 = "0.22"
 serde = { version = "1", features = ["derive"] }

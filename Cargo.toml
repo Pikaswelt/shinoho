@@ -12,4 +12,6 @@ members = [
     "core/feeds",
     "core/anime",
     "core/mods",
+    "core/control",
+    "core/vpn",
 ]
