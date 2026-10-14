@@ -16,6 +16,7 @@ pub const VERSION: u8 = 5;
 pub enum Reply {
     Succeeded = 0,
     GeneralFailure = 1,
+    ConnectionNotAllowed = 2,
     NetworkUnreachable = 3,
     HostUnreachable = 4,
     ConnectionRefused = 5,
@@ -23,11 +24,27 @@ pub enum Reply {
     AddressTypeNotSupported = 8,
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Request {
     Connect(SocketAddr),
     /// Domainname, wird im Tunnel aufgelöst.
     ConnectDomain(String, u16),
+}
+
+impl Reply {
+    /// Antwortcode eines anderen SOCKS5-Servers übernehmen (unbekannte → allgemeiner Fehler).
+    pub fn from_code(code: u8) -> Reply {
+        match code {
+            0 => Reply::Succeeded,
+            2 => Reply::ConnectionNotAllowed,
+            3 => Reply::NetworkUnreachable,
+            4 => Reply::HostUnreachable,
+            5 => Reply::ConnectionRefused,
+            7 => Reply::CommandNotSupported,
+            8 => Reply::AddressTypeNotSupported,
+            _ => Reply::GeneralFailure,
+        }
+    }
 }
 
 /// Liest Begrüßung und Anfrage. Bei ungültigen Anfragen wird die passende

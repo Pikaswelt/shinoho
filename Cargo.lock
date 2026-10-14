@@ -3579,6 +3579,7 @@ dependencies = [
  "serde_json",
  "shinoho-control",
  "shinoho-core",
+ "shinoho-vpn",
  "tauri",
  "tauri-build",
  "tauri-plugin-log",
@@ -3671,6 +3672,7 @@ dependencies = [
  "serde",
  "serde_json",
  "smoltcp",
+ "tauri",
  "thiserror 2.0.21",
  "tokio",
 ]
