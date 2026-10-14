@@ -232,3 +232,8 @@ Stand:
 Nächster Schritt bei Arbeitsbeginn:
 - T-303 Draft-PR #41 abschließen und mergen.
 - Direkt im Anschluss: T-111 (Integration Kern: `apps/desktop` bindet storage, bookmarks, history, incognito, adblock, downloads als Tauri-Commands/Events ein) als priorisierten Release-Engpass umsetzen.
+
+### 2026-10-14 · agent-a (Ersatz: Buffy) · T-303 fertig, T-111
+Übernahme: agent-a von Buffy (Ersatz-Agent, Auftrag von Chris) übernommen.
+Erledigt: T-303 (Userstyles) als PR #41 gemergt; fmt, clippy -D warnings und cargo test --workspace waren grün, CI grün.
+Nächster Schritt: T-111 (Integration Kern) auf Branch `agent-a/T-111-integration-kern`.

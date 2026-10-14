@@ -1,11 +1,13 @@
 use shinoho_control::tauri_api::GamingState;
 use shinoho_core::api::TabManagerState;
+use shinoho_core::userstyles::UserStylesState;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .manage(TabManagerState::new())
         .manage(GamingState::default())
+        .manage(UserStylesState::new())
         .invoke_handler(tauri::generate_handler![
             shinoho_core::api::create_tab,
             shinoho_core::api::close_tab,
@@ -28,6 +30,13 @@ pub fn run() {
             shinoho_control::tauri_api::gaming_status,
             shinoho_control::tauri_api::gaming_set_auto,
             shinoho_control::tauri_api::gaming_set_rules,
+            shinoho_core::api::add_userstyle,
+            shinoho_core::api::update_userstyle,
+            shinoho_core::api::toggle_userstyle,
+            shinoho_core::api::remove_userstyle,
+            shinoho_core::api::get_userstyles,
+            shinoho_core::api::get_styles_for_url,
+            shinoho_core::api::inject_styles_for_tab,
         ])
         .setup(|app| {
             shinoho_control::tauri_api::start_watcher(app.handle());
