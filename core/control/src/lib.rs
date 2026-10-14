@@ -8,6 +8,8 @@
 pub mod gaming;
 mod plan;
 mod preset;
+#[cfg(feature = "tauri")]
+pub mod tauri_api;
 
 pub use gaming::{GameRules, GameWatcher, GamingEvent};
 pub use plan::{hot_tabs, plan, Action, TabSnapshot};

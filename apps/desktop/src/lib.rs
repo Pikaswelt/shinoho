@@ -1,3 +1,4 @@
+use shinoho_control::tauri_api::GamingState;
 use shinoho_core::api::TabManagerState;
 use shinoho_core::userstyles::UserStylesState;
 
@@ -5,6 +6,7 @@ use shinoho_core::userstyles::UserStylesState;
 pub fn run() {
     tauri::Builder::default()
         .manage(TabManagerState::new())
+        .manage(GamingState::default())
         .manage(UserStylesState::new())
         .invoke_handler(tauri::generate_handler![
             shinoho_core::api::create_tab,
@@ -25,6 +27,9 @@ pub fn run() {
             shinoho_core::api::get_tab_groups,
             shinoho_core::api::assign_tab_to_group,
             shinoho_core::api::update_tab_group,
+            shinoho_control::tauri_api::gaming_status,
+            shinoho_control::tauri_api::gaming_set_auto,
+            shinoho_control::tauri_api::gaming_set_rules,
             shinoho_core::api::add_userstyle,
             shinoho_core::api::update_userstyle,
             shinoho_core::api::toggle_userstyle,
@@ -34,6 +39,7 @@ pub fn run() {
             shinoho_core::api::inject_styles_for_tab,
         ])
         .setup(|app| {
+            shinoho_control::tauri_api::start_watcher(app.handle());
             if cfg!(debug_assertions) {
                 app.handle().plugin(
                     tauri_plugin_log::Builder::default()
