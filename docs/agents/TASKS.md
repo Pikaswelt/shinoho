@@ -58,7 +58,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
 | T-201 | Limiter-Logik als Bibliothek `core/control`: Presets (Akku/Ausgewogen/Max/Gaming), Tab-Schlaf-Entscheidung, RAM-/CPU-Budget | F | – | fertig |
-| T-202 | Messung RAM/CPU pro Tab bzw. WebView-Prozess | F | T-101 | offen |
+| T-202 | Messung RAM/CPU pro Tab bzw. WebView-Prozess | F | T-101 | in Arbeit (agent-f) |
 | T-203 | Tab-Schlaf an Tab-Manager anbinden (einfrieren/aufwecken) | F | T-101, T-201 | offen |
 | T-204 | Netzwerk-Limiter (Bandbreite pro Tab/gesamt) | F | T-101 | offen |
 | T-205 | Gaming-Modus: laufende Spiele / Vollbild-Apps erkennen | F | T-201 | fertig |
@@ -71,7 +71,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-401 | `core/vpn`: WireGuard-`.conf`-Parser + Anbieterliste `providers.json` | F | – | fertig |
 | T-402 | WireGuard-Tunnel (boringtun) + lokaler SOCKS5-Proxy | F | T-401 | fertig |
 | T-403 | Proxy an WebViews anbinden + Kill-Switch | F | T-101, T-402 | fertig |
-| T-404 | DNS über Tunnel, WebRTC-Leak-Schutz, Leak-Test-Seite `shinoho://vpn-test` | F | T-403 | review (agent-f) – Leak-Test-Seite folgt nach T-111 |
+| T-404 | DNS über Tunnel, WebRTC-Leak-Schutz, Leak-Test-Seite `shinoho://vpn-test` | F | T-403 | DNS + WebRTC fertig, Leak-Test-Seite folgt nach T-111 (agent-f) |
 | T-405 | Anbieter-Konditionen prüfen, `providers.json` + `docs/VPN.md` aktualisieren | F | T-401 | fertig |
 | T-406 | VPN-UI (Badge, Anbieter-Assistent, Config-Import) | UI (Rolle offen) | T-403, T-006 | offen |
 
