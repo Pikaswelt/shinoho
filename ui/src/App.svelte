@@ -9,6 +9,8 @@
   import { tabService, type TabInfo, type TabId } from './api/tabs';
   import { t, getLocale, setLocale, SUPPORTED_LOCALES, type SupportedLocale } from './i18n';
   import { themeManager } from './themes';
+  import { soundManager } from './sounds';
+  import { hubStore } from './components/hub/hubStore';
 
   let currentLang = $state<SupportedLocale>(getLocale());
   let tabs = $state<TabInfo[]>([]);
@@ -32,12 +34,27 @@
   }
 
   onMount(() => {
-    themeManager.init();
+    const initialTheme = themeManager.init();
+    soundManager.init();
+    if (initialTheme) {
+      soundManager.handleThemeChange(initialTheme.defaultSoundPack);
+      hubStore.handleThemeChange(initialTheme.defaultWallpaper);
+    }
+
+    const unsubTheme = themeManager.onThemeChange((theme) => {
+      soundManager.handleThemeChange(theme.defaultSoundPack);
+      hubStore.handleThemeChange(theme.defaultWallpaper);
+    });
+
     refreshTabs();
-    const unsubscribe = tabService.onTabEvent(() => {
+    const unsubTabs = tabService.onTabEvent(() => {
       refreshTabs();
     });
-    return unsubscribe;
+
+    return () => {
+      unsubTheme();
+      unsubTabs();
+    };
   });
 
   async function handleSelectTab(id: TabId) {

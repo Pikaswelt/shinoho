@@ -68,6 +68,7 @@
     "wallpaper": {
       "title": "Wallpaper & Effects",
       "choosePreset": "Choose wallpaper",
+      "syncWithTheme": "Sync wallpaper with active theme",
       "customUrl": "Custom image URL",
       "customUrlPlaceholder": "https://example.com/wallpaper.jpg",
       "blur": "Blur",
@@ -84,9 +85,16 @@
         "nebula": "Dark Nebula",
         "nebulaDesc": "Deep space background with sparkling star particles",
         "minimal": "Shino Minimal",
-        "minimalDesc": "Sleek eye-friendly dark gray"
+        "minimalDesc": "Sleek eye-friendly dark gray",
+        "retrowave": "Retrowave Horizon",
+        "retrowaveDesc": "Neon sunset and 80s synthwave horizon",
+        "pixelart": "Pixel Arcade",
+        "pixelartDesc": "Pixel starfield and retro gaming atmosphere",
+        "lofiRoom": "Lo-Fi Anime Room",
+        "lofiRoomDesc": "Cozy anime room aesthetic with warm fireflies"
       }
     },
+
     "widgets": {
       "title": "Widgets",
       "animeCountdown": "Anime Episode Countdown",
@@ -203,5 +211,25 @@
     "autoOff": "Automatic saving is off.",
     "autoLabel": "Save automatically",
     "dismiss": "Hide notice"
+  },
+  "sounds": {
+    "title": "UI Sounds & Soundpacks",
+    "enabled": "Enable subtle UI sounds",
+    "syncWithTheme": "Sync soundpack with active theme",
+    "volume": "Volume",
+    "choosePack": "Choose soundpack",
+    "test": "Test sound",
+    "packs": {
+      "subtle": "Subtle UI Sounds",
+      "subtleDesc": "Gentle, non-intrusive clicks and soft chimes",
+      "kawaii": "Kawaii Anime",
+      "kawaiiDesc": "Bright, cheerful bells and magical chimes",
+      "cyberpunk": "Cyberpunk 2088",
+      "cyberpunkDesc": "Synthesizer glitches, futuristic laser ticks, and chiptunes",
+      "gaming": "8-Bit Retro Gaming",
+      "gamingDesc": "Classic arcade jumps, coin taps, and victory fanfares",
+      "mecha": "Sci-Fi Mecha",
+      "mechaDesc": "Resonant servomotors and HUD lock-on chimes"
+    }
   }
 }

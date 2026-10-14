@@ -1,5 +1,6 @@
 <script lang="ts">
   import { WALLPAPER_PRESETS, hubStore } from './hubStore';
+  import { soundManager, BUILTIN_SOUND_PACKS } from '../../sounds';
   import { tHub } from './i18n';
 
   let { isOpen, onClose }: { isOpen: boolean; onClose: () => void } = $props();
@@ -7,6 +8,11 @@
   let hubState = $state(hubStore.getState());
   hubStore.subscribe((s) => {
     hubState = s;
+  });
+
+  let soundState = $state(soundManager.getSettings());
+  soundManager.subscribe((s) => {
+    soundState = s;
   });
 
   function selectPreset(id: string) {
@@ -36,6 +42,43 @@
   function handleCustomUrlChange(e: Event) {
     const val = (e.target as HTMLInputElement).value.trim();
     hubStore.updateWallpaperSettings({ customUrl: val || undefined });
+  }
+
+  function handleWallpaperThemeSync(e: Event) {
+    const checked = (e.target as HTMLInputElement).checked;
+    hubStore.updateWallpaperSettings({ syncWithTheme: checked });
+  }
+
+  function handleSoundToggle(e: Event) {
+    const checked = (e.target as HTMLInputElement).checked;
+    soundManager.setEnabled(checked);
+    if (checked) {
+      soundManager.play('click');
+    }
+  }
+
+  function handleSoundVolume(e: Event) {
+    const val = parseFloat((e.target as HTMLInputElement).value);
+    soundManager.setVolume(val);
+  }
+
+  function handleSoundThemeSync(e: Event) {
+    const checked = (e.target as HTMLInputElement).checked;
+    soundManager.setSyncWithTheme(checked);
+  }
+
+  function selectSoundPack(id: string) {
+    soundManager.setSoundPack(id);
+    soundManager.play('tab.open');
+  }
+
+  function testSound() {
+    soundManager.play('download.done');
+  }
+
+  function handleResetAll() {
+    hubStore.resetToDefaults();
+    soundManager.resetToDefaults();
   }
 </script>
 
@@ -76,6 +119,19 @@
               </button>
             {/each}
           </div>
+        </div>
+
+        <!-- Wallpaper Theme Sync -->
+        <div class="setting-section">
+          <label class="toggle-row">
+            <span>{tHub('hub.wallpaper.syncWithTheme')}</span>
+            <input
+              type="checkbox"
+              checked={hubState.wallpaper.syncWithTheme ?? true}
+              onchange={handleWallpaperThemeSync}
+              data-testid="wallpaper-theme-sync-toggle"
+            />
+          </label>
         </div>
 
         <!-- Custom Image URL -->
@@ -154,6 +210,75 @@
           {/if}
         </div>
 
+        <!-- UI-Sounds & Soundpacks -->
+        <div class="setting-section" data-testid="sound-settings-section">
+          <h4>{tHub('sounds.title')}</h4>
+          <label class="toggle-row">
+            <span>{tHub('sounds.enabled')}</span>
+            <input
+              type="checkbox"
+              checked={soundState.enabled}
+              onchange={handleSoundToggle}
+              data-testid="sound-enabled-toggle"
+            />
+          </label>
+
+          {#if soundState.enabled}
+            <label class="toggle-row">
+              <span>{tHub('sounds.syncWithTheme')}</span>
+              <input
+                type="checkbox"
+                checked={soundState.syncWithTheme}
+                onchange={handleSoundThemeSync}
+                data-testid="sound-theme-sync-toggle"
+              />
+            </label>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <span>{tHub('sounds.volume')}</span>
+                <span>{Math.round(soundState.volume * 100)}%</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                value={soundState.volume}
+                oninput={handleSoundVolume}
+                data-testid="sound-volume-slider"
+              />
+            </div>
+
+            <div class="soundpacks-subhead">
+              <span>{tHub('sounds.choosePack')}</span>
+            </div>
+            <div class="soundpacks-grid">
+              {#each BUILTIN_SOUND_PACKS as pack}
+                <button
+                  type="button"
+                  class="soundpack-card"
+                  class:active={soundState.activePackId === pack.id}
+                  data-testid={`soundpack-card-${pack.id}`}
+                  onclick={() => selectSoundPack(pack.id)}
+                >
+                  <span class="soundpack-name">{tHub(pack.i18nKey)}</span>
+                  <span class="soundpack-desc">{tHub(pack.descriptionKey)}</span>
+                </button>
+              {/each}
+            </div>
+
+            <button
+              type="button"
+              class="btn-test-sound"
+              data-testid="test-sound-btn"
+              onclick={testSound}
+            >
+              🔊 {tHub('sounds.test')}
+            </button>
+          {/if}
+        </div>
+
         <!-- Widgets Toggle -->
         <div class="setting-section">
           <h4>{tHub('hub.settings.toggleWidgets')}</h4>
@@ -189,7 +314,7 @@
             type="button"
             class="btn-reset"
             data-testid="reset-hub-defaults"
-            onclick={() => hubStore.resetToDefaults()}
+            onclick={handleResetAll}
           >
             {tHub('hub.settings.resetDefaults')}
           </button>
@@ -244,12 +369,16 @@
     background: transparent;
     border: none;
     color: var(--color-text-muted, #8b8b9e);
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
   }
 
   .close-btn:hover {
-    color: white;
+    color: var(--color-text-main, #f0f0f5);
+    background: rgba(255, 255, 255, 0.05);
   }
 
   .drawer-content {
@@ -259,41 +388,23 @@
     gap: 20px;
   }
 
+  .setting-section {
+    display: flex;
+    flex-direction: column;
+  }
+
   .setting-section h4 {
-    margin: 0 0 10px 0;
+    margin: 0 0 12px 0;
     font-size: 13px;
-    color: var(--color-text-muted, #8b8b9e);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-  }
-
-  .field-label {
-    display: block;
-    font-size: 12px;
-    color: var(--color-text-muted, #8b8b9e);
-    margin-bottom: 6px;
-  }
-
-  .text-input {
-    width: 100%;
-    padding: 8px 12px;
-    background: var(--color-bg-base, #0f0f14);
-    border: 1px solid var(--color-border, #2a2a3c);
-    border-radius: var(--radius-sm, 4px);
-    color: var(--color-text-main, #f0f0f5);
-    font-size: 13px;
-    box-sizing: border-box;
-  }
-
-  .text-input:focus {
-    outline: none;
-    border-color: var(--color-accent, #ff4785);
+    color: var(--color-accent, #ff4785);
   }
 
   .presets-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
   }
 
   .preset-card {
@@ -330,6 +441,74 @@
     text-align: center;
   }
 
+  .soundpacks-subhead {
+    font-size: 12px;
+    color: var(--color-text-muted, #8b8b9e);
+    margin: 6px 0 8px 0;
+  }
+
+  .soundpacks-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .soundpack-card {
+    background: var(--color-bg-base, #0f0f14);
+    border: 1px solid var(--color-border, #2a2a3c);
+    border-radius: var(--radius-sm, 4px);
+    padding: 8px 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 2px;
+    transition: all 0.2s;
+  }
+
+  .soundpack-card:hover {
+    border-color: rgba(255, 71, 133, 0.5);
+  }
+
+  .soundpack-card.active {
+    border-color: var(--color-accent, #ff4785);
+    background: rgba(255, 71, 133, 0.1);
+  }
+
+  .soundpack-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-main, #f0f0f5);
+  }
+
+  .soundpack-desc {
+    font-size: 11px;
+    color: var(--color-text-muted, #8b8b9e);
+  }
+
+  .btn-test-sound {
+    background: var(--color-bg-base, #0f0f14);
+    border: 1px solid var(--color-border, #2a2a3c);
+    color: var(--color-accent, #ff4785);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm, 4px);
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-test-sound:hover {
+    border-color: var(--color-accent, #ff4785);
+    background: rgba(255, 71, 133, 0.1);
+  }
+
   .slider-group {
     margin-bottom: 12px;
   }
@@ -362,6 +541,28 @@
     width: 16px;
     height: 16px;
     cursor: pointer;
+  }
+
+  .field-label {
+    font-size: 12px;
+    color: var(--color-text-muted, #8b8b9e);
+    margin-bottom: 6px;
+  }
+
+  .text-input {
+    background: var(--color-bg-base, #0f0f14);
+    border: 1px solid var(--color-border, #2a2a3c);
+    color: var(--color-text-main, #f0f0f5);
+    padding: 8px 10px;
+    border-radius: var(--radius-sm, 4px);
+    font-size: 12px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .text-input:focus {
+    outline: none;
+    border-color: var(--color-accent, #ff4785);
   }
 
   .mt-2 {

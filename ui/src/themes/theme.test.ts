@@ -100,4 +100,18 @@ describe('Theme Engine', () => {
     expect(result).toBe(false);
     expect(themeManager.getTheme('default-dark')).toBeDefined();
   });
+
+  it('exposes defaultWallpaper and defaultSoundPack for builtin themes', () => {
+    const sakura = themeManager.getTheme('sakura-neon');
+    expect(sakura?.defaultWallpaper).toBe('sakura');
+    expect(sakura?.defaultSoundPack).toBe('kawaii');
+
+    const cyber = themeManager.getTheme('midnight-cyber');
+    expect(cyber?.defaultWallpaper).toBe('cyberpunk');
+    expect(cyber?.defaultSoundPack).toBe('cyberpunk');
+
+    themeManager.setTheme('sakura-neon');
+    expect(themeManager.getActiveWallpaper()).toBe('sakura');
+    expect(themeManager.getActiveSoundPack()).toBe('kawaii');
+  });
 });

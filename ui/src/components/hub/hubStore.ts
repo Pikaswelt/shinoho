@@ -49,6 +49,30 @@ export const WALLPAPER_PRESETS: WallpaperPreset[] = [
     previewColor: '#495057',
     descriptionKey: 'hub.wallpaper.presets.minimalDesc',
   },
+  {
+    id: 'retrowave',
+    nameKey: 'hub.wallpaper.presets.retrowave',
+    type: 'retrowave',
+    gradient: 'linear-gradient(180deg, #180928 0%, #30103e 40%, #5a1954 70%, #e65c00 100%)',
+    previewColor: '#ff007f',
+    descriptionKey: 'hub.wallpaper.presets.retrowaveDesc',
+  },
+  {
+    id: 'pixelart',
+    nameKey: 'hub.wallpaper.presets.pixelart',
+    type: 'pixelart',
+    gradient: 'radial-gradient(circle at center, #1b1035 0%, #0c061a 60%, #05020c 100%)',
+    previewColor: '#7000ff',
+    descriptionKey: 'hub.wallpaper.presets.pixelartDesc',
+  },
+  {
+    id: 'lofi-room',
+    nameKey: 'hub.wallpaper.presets.lofiRoom',
+    type: 'lofi-room',
+    gradient: 'radial-gradient(ellipse at top right, #381e4b 0%, #1f1131 50%, #10081d 100%)',
+    previewColor: '#e0a96d',
+    descriptionKey: 'hub.wallpaper.presets.lofiRoomDesc',
+  },
 ];
 
 export const SEARCH_ENGINES: SearchEngine[] = [
@@ -100,16 +124,6 @@ export const DEFAULT_SPEED_DIALS: SpeedDialItem[] = [
     createdAt: 1700000001000,
   },
   {
-    id: 'sd-crunchyroll',
-    title: 'Crunchyroll',
-    url: 'https://www.crunchyroll.com',
-    category: 'anime',
-    icon: '🍥',
-    clicks: 15,
-    pinned: true,
-    createdAt: 1700000002000,
-  },
-  {
     id: 'sd-steam',
     title: 'Steam',
     url: 'https://store.steampowered.com',
@@ -117,6 +131,16 @@ export const DEFAULT_SPEED_DIALS: SpeedDialItem[] = [
     icon: '🎮',
     clicks: 25,
     pinned: true,
+    createdAt: 1700000002000,
+  },
+  {
+    id: 'sd-crunchyroll',
+    title: 'Crunchyroll',
+    url: 'https://www.crunchyroll.com',
+    category: 'anime',
+    icon: '🍥',
+    clicks: 19,
+    pinned: false,
     createdAt: 1700000003000,
   },
   {
@@ -125,8 +149,8 @@ export const DEFAULT_SPEED_DIALS: SpeedDialItem[] = [
     url: 'https://www.twitch.tv',
     category: 'gaming',
     icon: '🟣',
-    clicks: 19,
-    pinned: true,
+    clicks: 15,
+    pinned: false,
     createdAt: 1700000004000,
   },
   {
@@ -210,6 +234,7 @@ export function createDefaultHubState(): HubState {
       opacity: 1.0,
       particlesEnabled: true,
       particleDensity: 40,
+      syncWithTheme: true,
     },
     speedDial: [...DEFAULT_SPEED_DIALS],
     selectedSearchEngine: 'duckduckgo',
@@ -348,6 +373,15 @@ class HubStore {
       ...settings,
     };
     this.saveToStorage();
+  }
+
+  public handleThemeChange(defaultWallpaper?: string): void {
+    if (this.state.wallpaper.syncWithTheme && defaultWallpaper) {
+      if (this.state.wallpaper.activeId !== defaultWallpaper) {
+        this.state.wallpaper.activeId = defaultWallpaper;
+        this.saveToStorage();
+      }
+    }
   }
 
   // --- Search Engine ---

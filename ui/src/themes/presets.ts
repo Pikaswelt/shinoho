@@ -8,6 +8,8 @@ export const DEFAULT_DARK_THEME: ThemeDefinition = {
   isDark: true,
   author: 'Shinoho Team',
   version: '1.0.0',
+  defaultWallpaper: 'minimal',
+  defaultSoundPack: 'subtle',
   variables: {
     '--color-bg-base': '#0f0f14',
     '--color-bg-surface': '#181822',
@@ -39,6 +41,8 @@ export const SAKURA_NEON_THEME: ThemeDefinition = {
   isDark: true,
   author: 'Shinoho Team',
   version: '1.0.0',
+  defaultWallpaper: 'sakura',
+  defaultSoundPack: 'kawaii',
   variables: {
     '--color-bg-base': '#13091f',
     '--color-bg-surface': '#1c0e2e',
@@ -70,6 +74,8 @@ export const MIDNIGHT_CYBER_THEME: ThemeDefinition = {
   isDark: true,
   author: 'Shinoho Team',
   version: '1.0.0',
+  defaultWallpaper: 'cyberpunk',
+  defaultSoundPack: 'cyberpunk',
   variables: {
     '--color-bg-base': '#080c14',
     '--color-bg-surface': '#0f1726',
@@ -101,6 +107,8 @@ export const NINJA_STEALTH_THEME: ThemeDefinition = {
   isDark: true,
   author: 'Shinoho Team',
   version: '1.0.0',
+  defaultWallpaper: 'minimal',
+  defaultSoundPack: 'subtle',
   variables: {
     '--color-bg-base': '#080808',
     '--color-bg-surface': '#121212',
@@ -132,6 +140,8 @@ export const LIGHT_MINIMAL_THEME: ThemeDefinition = {
   isDark: false,
   author: 'Shinoho Team',
   version: '1.0.0',
+  defaultWallpaper: 'minimal',
+  defaultSoundPack: 'subtle',
   variables: {
     '--color-bg-base': '#f3f4f6',
     '--color-bg-surface': '#ffffff',

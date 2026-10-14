@@ -53,6 +53,42 @@
           opacity: 0.3 + Math.random() * 0.6,
           color: Math.random() > 0.5 ? '#00e5ff' : '#ff007f',
         });
+      } else if (type === 'retrowave') {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: 2 + Math.random() * 5,
+          speedX: (Math.random() - 0.5) * 0.8,
+          speedY: -(0.8 + Math.random() * 2.0),
+          rotation: 0,
+          rotationSpeed: 0,
+          opacity: 0.4 + Math.random() * 0.5,
+          color: Math.random() > 0.4 ? '#ff7700' : '#ff007f',
+        });
+      } else if (type === 'pixelart') {
+        particles.push({
+          x: Math.floor(Math.random() * (width / 4)) * 4,
+          y: Math.floor(Math.random() * (height / 4)) * 4,
+          size: 4,
+          speedX: 0,
+          speedY: -(0.5 + Math.random() * 1.0),
+          rotation: 0,
+          rotationSpeed: 0,
+          opacity: 0.3 + Math.random() * 0.7,
+          color: Math.random() > 0.5 ? '#7000ff' : '#00e5ff',
+        });
+      } else if (type === 'lofi-room' || type === 'lofi') {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: 2 + Math.random() * 4,
+          speedX: (Math.random() - 0.5) * 0.4,
+          speedY: (Math.random() - 0.5) * 0.4,
+          rotation: 0,
+          rotationSpeed: 0,
+          opacity: 0.3 + Math.random() * 0.6,
+          color: Math.random() > 0.4 ? '#ffc078' : '#ffa94d',
+        });
       } else {
         // Star / dust motes
         particles.push({
@@ -110,11 +146,11 @@
           ctx.beginPath();
           ctx.ellipse(0, 0, p.size * 0.6, p.size, 0, 0, Math.PI * 2);
           ctx.fill();
-        } else if (activePreset.type === 'cyberpunk') {
-          // Draw neon diamond / square
+        } else if (activePreset.type === 'cyberpunk' || activePreset.type === 'pixelart') {
+          // Draw neon diamond / pixel square
           ctx.beginPath();
           ctx.rect(-p.size / 2, -p.size / 2, p.size, p.size);
-          ctx.shadowBlur = 8;
+          ctx.shadowBlur = 6;
           ctx.shadowColor = p.color;
           ctx.fill();
         } else {
