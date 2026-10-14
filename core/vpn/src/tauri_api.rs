@@ -93,6 +93,13 @@ impl VpnState {
         crate::leak_guard::webrtc_guard_script(self.lock().mode != VpnMode::Off)
     }
 
+    /// Bandbreite aller Tabs zusammen begrenzen (kbit/s, `None` = unbegrenzt), T-204.
+    pub fn set_bandwidth_limit_kbps(&self, kbps: Option<u32>) {
+        if let Some(board) = self.board.get() {
+            board.limiter().set_limit_kbps(kbps);
+        }
+    }
+
     pub fn status(&self) -> VpnStatus {
         let inner = self.lock();
         VpnStatus {

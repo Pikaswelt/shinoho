@@ -81,6 +81,14 @@ impl GamingState {
     }
 }
 
+/// Netzwerk-Limiter (T-204) passend zum gerade geltenden Preset setzen.
+fn apply_bandwidth<R: Runtime>(app: &AppHandle<R>, status: &GamingStatus) {
+    if let Some(vpn) = app.try_state::<shinoho_vpn::tauri_api::VpnState>() {
+        // Die Bandbreite hängt nicht vom Geräte-RAM ab.
+        vpn.set_bandwidth_limit_kbps(status.preset.limits(0).net_limit_kbps);
+    }
+}
+
 #[tauri::command]
 pub fn gaming_status(state: State<'_, GamingState>) -> GamingStatus {
     state.status()
@@ -97,6 +105,7 @@ pub fn gaming_set_auto<R: Runtime>(
         inner.auto = enabled;
         inner.status()
     };
+    apply_bandwidth(&app, &status);
     let _ = app.emit(EVENT_GAMING_CHANGED, status.clone());
     status
 }
@@ -137,6 +146,7 @@ pub fn start_watcher<R: Runtime>(app: &AppHandle<R>) {
                         };
                         inner.status()
                     };
+                    apply_bandwidth(&app, &status);
                     let _ = app.emit(EVENT_GAMING_CHANGED, status);
                 }
                 std::thread::sleep(POLL_INTERVAL);
