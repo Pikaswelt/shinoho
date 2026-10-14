@@ -1,4 +1,4 @@
-use shinoho_control::tauri_api::GamingState;
+use shinoho_control::tauri_api::{GamingState, MonitorState};
 use shinoho_core::api::TabManagerState;
 use shinoho_core::userstyles::UserStylesState;
 use shinoho_vpn::tauri_api::VpnState;
@@ -12,6 +12,7 @@ pub fn run() {
     tauri::Builder::default()
         .manage(TabManagerState::new())
         .manage(GamingState::default())
+        .manage(MonitorState::default())
         .manage(VpnState::default())
         .manage(UserStylesState::new())
         .invoke_handler(tauri::generate_handler![
@@ -36,6 +37,7 @@ pub fn run() {
             shinoho_control::tauri_api::gaming_status,
             shinoho_control::tauri_api::gaming_set_auto,
             shinoho_control::tauri_api::gaming_set_rules,
+            shinoho_control::tauri_api::control_stats,
             shinoho_vpn::tauri_api::vpn_status,
             shinoho_vpn::tauri_api::vpn_providers,
             shinoho_vpn::tauri_api::vpn_import_config,

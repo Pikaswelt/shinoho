@@ -43,6 +43,8 @@ pub struct VpnStatus {
     pub kill_switch: bool,
     /// Proxy, über den die WebViews laufen.
     pub proxy_url: Option<String>,
+    /// WebRTC ist gesperrt (VPN an, verbindet gerade oder Kill-Switch greift).
+    pub webrtc_blocked: bool,
     pub error: Option<String>,
 }
 
@@ -86,6 +88,11 @@ impl VpnState {
         self.board.get().map(Switchboard::proxy_url)
     }
 
+    /// Für `initialization_script` jeder neuen WebView (WebRTC-Leak-Schutz, T-404).
+    pub fn webrtc_guard_script(&self) -> String {
+        crate::leak_guard::webrtc_guard_script(self.lock().mode != VpnMode::Off)
+    }
+
     pub fn status(&self) -> VpnStatus {
         let inner = self.lock();
         VpnStatus {
@@ -93,6 +100,7 @@ impl VpnState {
             config_name: inner.config.as_ref().map(|(n, _)| n.clone()),
             kill_switch: inner.kill_switch,
             proxy_url: self.proxy_url(),
+            webrtc_blocked: inner.mode != VpnMode::Off,
             error: inner.error.clone(),
         }
     }
@@ -263,7 +271,7 @@ mod tests {
         let json = serde_json::to_string(&state.status()).unwrap();
         assert_eq!(
             json,
-            r#"{"mode":"off","configName":null,"killSwitch":true,"proxyUrl":null,"error":null}"#
+            r#"{"mode":"off","configName":null,"killSwitch":true,"proxyUrl":null,"webrtcBlocked":false,"error":null}"#
         );
     }
 }
