@@ -13,11 +13,12 @@
 use std::io;
 use std::net::SocketAddr;
 
-use tokio::io::{copy_bidirectional, AsyncReadExt, AsyncWriteExt};
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
 use tokio::sync::watch;
 use tokio::task::JoinHandle;
 
+use crate::limiter::RateLimiter;
 use crate::tunnel::socks::{self, Reply, Request};
 
 /// Wohin die Weiche Verbindungen leitet.
@@ -35,6 +36,7 @@ pub enum Route {
 pub struct Switchboard {
     addr: SocketAddr,
     route: watch::Sender<Route>,
+    limiter: RateLimiter,
     task: JoinHandle<()>,
 }
 
@@ -44,8 +46,14 @@ impl Switchboard {
         let listener = TcpListener::bind("127.0.0.1:0").await?;
         let addr = listener.local_addr()?;
         let (route, rx) = watch::channel(initial);
-        let task = tokio::spawn(accept_loop(listener, rx));
-        Ok(Switchboard { addr, route, task })
+        let limiter = RateLimiter::unlimited();
+        let task = tokio::spawn(accept_loop(listener, rx, limiter.clone()));
+        Ok(Switchboard {
+            addr,
+            route,
+            limiter,
+            task,
+        })
     }
 
     /// Adresse für die WebViews, z. B. `socks5://127.0.0.1:PORT`.
@@ -62,6 +70,11 @@ impl Switchboard {
         *self.route.borrow()
     }
 
+    /// Bandbreiten-Begrenzer für alle Tabs zusammen (T-204).
+    pub fn limiter(&self) -> &RateLimiter {
+        &self.limiter
+    }
+
     /// Schaltet um. Offene Verbindungen werden dabei getrennt.
     pub fn set_route(&self, route: Route) {
         self.route.send_replace(route);
@@ -74,17 +87,22 @@ impl Drop for Switchboard {
     }
 }
 
-async fn accept_loop(listener: TcpListener, route: watch::Receiver<Route>) {
+async fn accept_loop(listener: TcpListener, route: watch::Receiver<Route>, limiter: RateLimiter) {
     while let Ok((stream, _)) = listener.accept().await {
         let mut route = route.clone();
         route.mark_unchanged();
+        let limiter = limiter.clone();
         tokio::spawn(async move {
-            let _ = serve(stream, &mut route).await;
+            let _ = serve(stream, &mut route, &limiter).await;
         });
     }
 }
 
-async fn serve(mut client: TcpStream, route: &mut watch::Receiver<Route>) -> io::Result<()> {
+async fn serve(
+    mut client: TcpStream,
+    route: &mut watch::Receiver<Route>,
+    limiter: &RateLimiter,
+) -> io::Result<()> {
     let _ = client.set_nodelay(true);
     let Some(request) = socks::handshake(&mut client).await? else {
         return Ok(());
@@ -114,8 +132,16 @@ async fn serve(mut client: TcpStream, route: &mut watch::Receiver<Route>) -> io:
     socks::reply(&mut client, Reply::Succeeded).await?;
 
     let mut upstream = upstream;
+    let (mut cr, mut cw) = client.split();
+    let (mut ur, mut uw) = upstream.split();
+    let relay = async {
+        tokio::join!(
+            limiter.copy(&mut cr, &mut uw),
+            limiter.copy(&mut ur, &mut cw)
+        )
+    };
     tokio::select! {
-        _ = copy_bidirectional(&mut client, &mut upstream) => {}
+        _ = relay => {}
         // Modus gewechselt: Verbindung trennen, damit nichts am neuen Modus vorbei läuft.
         _ = route.changed() => {}
     }
@@ -217,7 +243,7 @@ mod tests {
                         let _ = tx.send(req).await;
                         let mut up = TcpStream::connect(real).await.unwrap();
                         socks::reply(&mut s, Reply::Succeeded).await.unwrap();
-                        let _ = copy_bidirectional(&mut s, &mut up).await;
+                        let _ = tokio::io::copy_bidirectional(&mut s, &mut up).await;
                     }
                 });
             }
@@ -280,6 +306,25 @@ mod tests {
         assert_eq!(code, 0);
         assert!(roundtrip(&mut s).await);
         assert_eq!(seen.recv().await, Some(Request::Connect(echo)));
+    }
+
+    #[tokio::test]
+    async fn bandwidth_limit_applies_to_proxied_traffic() {
+        let echo = echo_server().await;
+        let sb = Switchboard::start(Route::Direct).await.unwrap();
+        sb.limiter().set_limit_kbps(Some(800)); // 100 kB/s je Richtung insgesamt
+        let (mut s, _) = socks_connect(sb.addr(), echo).await;
+        let data = vec![1u8; 40_000];
+        let start = std::time::Instant::now();
+        let (mut r, mut w) = s.split();
+        let send = async { w.write_all(&data).await.unwrap() };
+        let recv = async {
+            let mut got = vec![0u8; data.len()];
+            r.read_exact(&mut got).await.unwrap();
+        };
+        tokio::join!(send, recv);
+        // 40 kB hin + 40 kB zurück teilen sich 100 kB/s ≈ 0,8 s
+        assert!(start.elapsed() > Duration::from_millis(400));
     }
 
     #[tokio::test]

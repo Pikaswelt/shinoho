@@ -3555,6 +3555,7 @@ dependencies = [
  "serde",
  "serde_json",
  "shinoho-core",
+ "shinoho-vpn",
  "sysinfo",
  "tauri",
 ]
