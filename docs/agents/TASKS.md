@@ -58,7 +58,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | ID | Aufgabe | Revier | Abhängig von | Status |
 |---|---|---|---|---|
 | T-201 | Limiter-Logik als Bibliothek `core/control`: Presets (Akku/Ausgewogen/Max/Gaming), Tab-Schlaf-Entscheidung, RAM-/CPU-Budget | F | – | fertig |
-| T-202 | Messung RAM/CPU pro Tab bzw. WebView-Prozess | F | T-101 | in Arbeit (agent-f) |
+| T-202 | Messung RAM/CPU pro Tab bzw. WebView-Prozess | F | T-101 | review (agent-f) |
 | T-203 | Tab-Schlaf an Tab-Manager anbinden (einfrieren/aufwecken) | F | T-101, T-201 | offen |
 | T-204 | Netzwerk-Limiter (Bandbreite pro Tab/gesamt) | F | T-101 | offen |
 | T-205 | Gaming-Modus: laufende Spiele / Vollbild-Apps erkennen | F | T-201 | fertig |

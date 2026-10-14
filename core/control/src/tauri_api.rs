@@ -1,6 +1,6 @@
 //! Tauri-Anbindung des Gaming-Modus (T-603), nur mit Feature `tauri`.
 //!
-//! - Befehle: `gaming_status`, `gaming_set_auto`, `gaming_set_rules`
+//! - Befehle: `gaming_status`, `gaming_set_auto`, `gaming_set_rules`, `control_stats` (T-202)
 //! - Event: `shinoho://gaming-changed` mit [`GamingStatus`], sobald ein Spiel startet oder endet
 //! - [`start_watcher`] prüft die Prozessliste alle 5 Sekunden im Hintergrund
 
@@ -11,6 +11,7 @@ use serde::Serialize;
 use tauri::{AppHandle, Emitter, Manager, Runtime, State};
 
 use crate::gaming::{GameRules, GameWatcher, GamingEvent};
+use crate::monitor::{ResourceMonitor, ResourceStats};
 use crate::Preset;
 
 pub const EVENT_GAMING_CHANGED: &str = "shinoho://gaming-changed";
@@ -105,6 +106,16 @@ pub fn gaming_set_rules(state: State<'_, GamingState>, rules: GameRules) -> Gami
     let mut inner = state.lock();
     inner.rules = rules;
     inner.status()
+}
+
+/// Verwalteter Zustand für die Messung (`app.manage(MonitorState::default())`).
+#[derive(Default)]
+pub struct MonitorState(Mutex<ResourceMonitor>);
+
+/// RAM und CPU des ganzen Shinoho-Prozessbaums (T-202). Der erste Aufruf liefert CPU = 0.
+#[tauri::command]
+pub fn control_stats(state: State<'_, MonitorState>) -> ResourceStats {
+    state.0.lock().unwrap_or_else(|e| e.into_inner()).sample()
 }
 
 /// Startet den Hintergrund-Wächter. `GamingState` muss vorher mit `manage` registriert sein.

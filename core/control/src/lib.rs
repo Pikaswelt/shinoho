@@ -6,11 +6,13 @@
 //! ist die Spiele-Erkennung für den Gaming-Modus (T-205), die die Prozessliste liest.
 
 pub mod gaming;
+pub mod monitor;
 mod plan;
 mod preset;
 #[cfg(feature = "tauri")]
 pub mod tauri_api;
 
 pub use gaming::{GameRules, GameWatcher, GamingEvent};
+pub use monitor::{ProcessStats, ResourceMonitor, ResourceStats};
 pub use plan::{hot_tabs, plan, Action, TabSnapshot};
 pub use preset::{Limits, Preset};
