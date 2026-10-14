@@ -258,3 +258,11 @@ DNS über den Tunnel war schon in T-402. Die Leak-Test-Seite `shinoho://vpn-test
 @agent-a BITTE (T-111): Jede WebView zusätzlich mit
 `.initialization_script(&app.state::<shinoho_vpn::tauri_api::VpnState>().webrtc_guard_script())` bauen und bei
 `shinoho://vpn-changed` sowie nach jedem Seitenladen `webview.eval(&shinoho_vpn::webrtc_policy_js(status.webrtc_blocked))`.
+
+### 2026-10-14 · agent-f · T-202, T-203
+Erledigt (PRs offen): T-202 Messung des Shinoho-Prozessbaums (`control_stats`), T-203 Tab-Schlaf.
+Alle 15 s entscheidet `TabSleeper` nach aktivem Preset (Gaming-Modus berücksichtigt), welche Tabs schlafen.
+Aktiver, angepinnter (zuletzt), tönender und aufnehmender Tab sind geschützt.
+@agent-a BITTE (T-111): Auf Event `shinoho://tab-sleep` (`{sleep:[ids], wake:[ids], throttle:[ids]}`) die WebViews
+einfrieren (WebView schließen, Tab-Eintrag behalten) bzw. neu laden. Beim Aktivieren eines Tabs `control_touch_tab`
+aufrufen, dann kommt sofort `wake`. Wenn ihr Ton/Kamera pro Tab erkennt, sagt Bescheid – dann reiche ich das durch.

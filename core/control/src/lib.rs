@@ -9,6 +9,7 @@ pub mod gaming;
 pub mod monitor;
 mod plan;
 mod preset;
+pub mod sleeper;
 #[cfg(feature = "tauri")]
 pub mod tauri_api;
 
@@ -16,3 +17,4 @@ pub use gaming::{GameRules, GameWatcher, GamingEvent};
 pub use monitor::{ProcessStats, ResourceMonitor, ResourceStats};
 pub use plan::{hot_tabs, plan, Action, TabSnapshot};
 pub use preset::{Limits, Preset};
+pub use sleeper::{SleepChanges, TabSleeper, TabState};

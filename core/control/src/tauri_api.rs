@@ -12,9 +12,13 @@ use tauri::{AppHandle, Emitter, Manager, Runtime, State};
 
 use crate::gaming::{GameRules, GameWatcher, GamingEvent};
 use crate::monitor::{ResourceMonitor, ResourceStats};
+use crate::sleeper::{SleepChanges, TabSleeper, TabState};
 use crate::Preset;
 
 pub const EVENT_GAMING_CHANGED: &str = "shinoho://gaming-changed";
+/// Tabs einfrieren/aufwecken/drosseln (T-203), Inhalt: [`SleepChanges`].
+pub const EVENT_TAB_SLEEP: &str = "shinoho://tab-sleep";
+const SLEEP_INTERVAL: Duration = Duration::from_secs(15);
 const POLL_INTERVAL: Duration = Duration::from_secs(5);
 
 /// Zustand, den die UI anzeigt.
@@ -125,6 +129,88 @@ pub struct MonitorState(Mutex<ResourceMonitor>);
 #[tauri::command]
 pub fn control_stats(state: State<'_, MonitorState>) -> ResourceStats {
     state.0.lock().unwrap_or_else(|e| e.into_inner()).sample()
+}
+
+/// Zustand des Tab-Schlafs (`app.manage(SleeperState::default())`).
+#[derive(Default, Clone)]
+pub struct SleeperState(Arc<Mutex<TabSleeper>>);
+
+/// IDs der Tabs, die gerade schlafen.
+#[tauri::command]
+pub fn control_asleep_tabs(state: State<'_, SleeperState>) -> Vec<String> {
+    let s = state.0.lock().unwrap_or_else(|e| e.into_inner());
+    let mut ids: Vec<String> = s.asleep().map(str::to_string).collect();
+    ids.sort();
+    ids
+}
+
+/// Ein Tab wird benutzt: sofort wecken (meldet `shinoho://tab-sleep` mit `wake`).
+#[tauri::command]
+pub fn control_touch_tab<R: Runtime>(
+    app: AppHandle<R>,
+    state: State<'_, SleeperState>,
+    tab_id: String,
+) {
+    let woke = state
+        .0
+        .lock()
+        .unwrap_or_else(|e| e.into_inner())
+        .touch(&tab_id);
+    if woke {
+        let changes = SleepChanges {
+            wake: vec![tab_id],
+            ..Default::default()
+        };
+        let _ = app.emit(EVENT_TAB_SLEEP, changes);
+    }
+}
+
+/// Startet die Tab-Schlaf-Schleife (alle 15 s). Braucht `TabManagerState`, `GamingState`
+/// und `SleeperState` im verwalteten Zustand.
+pub fn start_sleeper<R: Runtime>(app: &AppHandle<R>) {
+    let app = app.clone();
+    let sleeper = app.state::<SleeperState>().inner().clone();
+    let gaming = app.state::<GamingState>().inner().clone();
+    std::thread::Builder::new()
+        .name("shinoho-tab-sleep".into())
+        .spawn(move || {
+            let mut monitor = ResourceMonitor::new();
+            loop {
+                std::thread::sleep(SLEEP_INTERVAL);
+                let stats = monitor.sample();
+                let tabs: Vec<TabState> = {
+                    let tm = app.state::<shinoho_core::api::TabManagerState>();
+                    let mgr = tm.0.lock().unwrap_or_else(|e| e.into_inner());
+                    let active = mgr.get_active_tab().map(|t| t.id);
+                    mgr.get_tabs()
+                        .into_iter()
+                        .map(|t| TabState {
+                            active: active.as_deref() == Some(t.id.as_str()),
+                            pinned: t.is_pinned,
+                            last_accessed_at: t.last_accessed_at,
+                            audible: false,
+                            capturing: false,
+                            id: t.id,
+                        })
+                        .collect()
+                };
+                let limits = gaming.status().preset.limits(stats.device_ram_mb);
+                let now = std::time::SystemTime::now()
+                    .duration_since(std::time::UNIX_EPOCH)
+                    .map(|d| d.as_millis() as i64)
+                    .unwrap_or(0);
+                let changes = sleeper.0.lock().unwrap_or_else(|e| e.into_inner()).update(
+                    &limits,
+                    &tabs,
+                    stats.total_ram_mb,
+                    now,
+                );
+                if !changes.is_empty() {
+                    let _ = app.emit(EVENT_TAB_SLEEP, changes);
+                }
+            }
+        })
+        .expect("Tab-Schlaf konnte nicht gestartet werden");
 }
 
 /// Startet den Hintergrund-Wächter. `GamingState` muss vorher mit `manage` registriert sein.
