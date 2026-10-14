@@ -3578,12 +3578,18 @@ dependencies = [
  "log",
  "serde",
  "serde_json",
+ "shinoho-adblock",
  "shinoho-control",
  "shinoho-core",
+ "shinoho-downloads",
+ "shinoho-incognito",
+ "shinoho-storage",
  "shinoho-vpn",
  "tauri",
  "tauri-build",
  "tauri-plugin-log",
+ "tempfile",
+ "tokio",
 ]
 
 [[package]]

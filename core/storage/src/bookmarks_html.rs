@@ -2,7 +2,7 @@ use crate::bookmarks::{BookmarkNode, CreateBookmarkParams};
 use crate::error::StorageError;
 use crate::Storage;
 
-#[derive(Debug, Clone, Default, PartialEq, Eq)]
+#[derive(Debug, Clone, Default, PartialEq, Eq, serde::Serialize)]
 pub struct ImportSummary {
     pub folders_created: usize,
     pub bookmarks_created: usize,

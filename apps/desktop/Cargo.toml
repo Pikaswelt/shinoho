@@ -19,5 +19,13 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 log = "0.4"
 shinoho-core = { path = "../../core" }
+shinoho-storage = { path = "../../core/storage" }
+shinoho-incognito = { path = "../../core/incognito" }
+shinoho-adblock = { path = "../../core/adblock" }
+shinoho-downloads = { path = "../../core/downloads" }
+tokio = { version = "1", features = ["sync"] }
 shinoho-control = { path = "../../core/control", features = ["tauri"] }
 shinoho-vpn = { path = "../../core/vpn", features = ["tauri"] }
+
+[dev-dependencies]
+tempfile = "3.10"

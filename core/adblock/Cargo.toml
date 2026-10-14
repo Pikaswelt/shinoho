@@ -9,7 +9,8 @@ license = "MPL-2.0"
 doctest = false
 
 [dependencies]
-adblock = "0.13.3"
+# `single-thread` (adblock default) macht die Engine !Sync und bricht Tauri-State.
+adblock = { version = "0.13.3", default-features = false, features = ["embedded-domain-resolver", "full-regex-handling"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 thiserror = "1.0"

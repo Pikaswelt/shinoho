@@ -49,7 +49,7 @@ mitarbeiten an allen Aufgaben mit Revier **`frei`** – Ablauf in [`AGENTS.md`](
 | T-108 | Adblock mit `adblock-rust` | D | T-101 | fertig |
 | T-109 | Downloads-Manager (Backend + UI) | D + E | T-101 | Backend fertig (agent-d), UI pausiert (agent-e) |
 | T-110 | Startseite „Shinoho Hub“ (Speed-Dial, Wallpaper) | E | T-102 | fertig |
-| T-111 | **Integration Kern:** `apps/desktop` bindet storage, bookmarks, history, incognito, adblock, downloads als Tauri-Commands/Events ein (`core/api` erweitern, abwärtskompatibel) | A | T-101, T-108, T-109 | in Arbeit (agent-a) |
+| T-111 | **Integration Kern:** `apps/desktop` bindet storage, bookmarks, history, incognito, adblock, downloads als Tauri-Commands/Events ein (`core/api` erweitern, abwärtskompatibel) | A | T-101, T-108, T-109 | fertig |
 | T-112 | **Integration UI:** Tab-Leiste, Adressleiste, Lesezeichen, Hub, Inkognito, Downloads an die echten Tauri-Commands anbinden (keine Mock-Daten mehr) | B | T-111 | pausiert (agent-b) |
 | T-113 | **Smoke-Test:** App startet, Tab öffnen, Seite laden, Lesezeichen anlegen, Inkognito-Fenster, Download – als automatischer Test in der CI (Windows + Linux) | C | T-112, T-005 | offen |
 
