@@ -103,6 +103,8 @@
       "nextEpIn": "Folge {ep} in {time}",
       "claimUntil": "Kostenlos bis {date}",
       "free": "Gratis",
+      "claim": "Abholen",
+      "freeGamesEmpty": "Gerade keine Gratis-Spiele gefunden.",
       "noEpisodes": "Keine anstehenden Episoden gefunden",
       "noGames": "Keine aktuellen Gratis-Aktionen"
     },

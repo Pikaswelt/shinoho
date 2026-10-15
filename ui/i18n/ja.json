@@ -103,6 +103,8 @@
       "mascot": "シノちゃんマスコット",
       "nextEpIn": "第{ep}話まであと {time}",
       "claimUntil": "{date} まで無料",
+      "claim": "受け取る",
+      "freeGamesEmpty": "現在、無料ゲームは見つかりませんでした。",
       "free": "無料",
       "noEpisodes": "近日放送予定のアニメが見つかりません",
       "noGames": "現在無料配布中のゲームはありません"

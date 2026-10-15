@@ -103,6 +103,8 @@
       "nextEpIn": "Episode {ep} in {time}",
       "claimUntil": "Free until {date}",
       "free": "Free",
+      "claim": "Claim",
+      "freeGamesEmpty": "No free games found right now.",
       "noEpisodes": "No upcoming episodes found",
       "noGames": "No active free game giveaways"
     },
