@@ -7,6 +7,7 @@
   import { BookmarkBar, BookmarkManager } from './components/bookmarks';
   import { IncognitoStartPage, incognitoStore } from './components/incognito';
   import { tabService, type TabInfo, type TabId } from './api/tabs';
+  import { recordVisit } from './api/history';
   import { t, getLocale, setLocale, SUPPORTED_LOCALES, type SupportedLocale } from './i18n';
   import { themeManager } from './themes';
   import { soundManager } from './sounds';
@@ -75,8 +76,17 @@
 
   async function handleNavigate(url: string) {
     if (activeTabId) {
+      const tab = tabs.find((item) => item.id === activeTabId);
       await tabService.navigateTab(activeTabId, url);
       await refreshTabs();
+      // Verlauf nur fuer echte Webseiten und nie im Inkognito-Modus.
+      if (!incognitoState.isIncognito) {
+        void recordVisit({
+          url,
+          title: tab?.title && tab.url === url ? tab.title : url,
+          typed: true,
+        });
+      }
     }
   }
 

@@ -65,6 +65,10 @@
         "social": "Social Media"
       }
     },
+    "topSites": {
+      "title": "Frequently visited",
+      "visits": "{count} visits"
+    },
     "wallpaper": {
       "title": "Wallpaper & Effects",
       "choosePreset": "Choose wallpaper",
