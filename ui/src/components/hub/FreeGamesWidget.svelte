@@ -21,8 +21,10 @@
           <span class="game-title">{game.title}</span>
           <span class="game-platform">{game.platform} · {game.claimUntil}</span>
         </div>
-        <span class="claim-btn">Claim</span>
+        <span class="claim-btn">{tHub('hub.widgets.claim')}</span>
       </a>
+    {:else}
+      <p class="games-empty">{tHub('hub.widgets.freeGamesEmpty')}</p>
     {/each}
   </div>
 </div>
@@ -112,6 +114,12 @@
 
   .game-platform {
     font-size: 11px;
+    color: var(--color-text-muted, #8b8b9e);
+  }
+
+  .games-empty {
+    margin: 0;
+    font-size: 12px;
     color: var(--color-text-muted, #8b8b9e);
   }
 
