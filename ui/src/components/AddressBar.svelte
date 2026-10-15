@@ -1,5 +1,6 @@
 <script lang="ts">
   import { t } from '../i18n';
+  import { downloadStore } from './downloads/downloadStore';
 
   interface Props {
     url: string;
@@ -165,6 +166,15 @@
       data-testid="action-bookmarks"
     >
       ★
+    </button>
+    <button
+      type="button"
+      class="action-btn"
+      title={t('downloads.title')}
+      onclick={() => downloadStore.openManager()}
+      data-testid="action-downloads"
+    >
+      ⬇
     </button>
   </div>
 </div>
