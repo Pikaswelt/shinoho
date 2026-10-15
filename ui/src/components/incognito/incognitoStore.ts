@@ -14,6 +14,20 @@ export const NINJA_MASCOT_QUOTES = [
   'Privatsphäre ist Ehrensache! Weder Verlauf noch Disk-Cache berühren deine Festplatte. 🛡️',
 ];
 
+// Rust-Struct `IncognitoConfig` nutzt snake_case-Felder.
+function toBackendConfig(state: IncognitoSessionState) {
+  return {
+    auto_enable_vpn: state.autoEnableVpn,
+    disk_cache_enabled: state.diskCacheEnabled,
+    private_browsing: DEFAULT_INCOGNITO_CONFIG.privateBrowsing,
+    theme: {
+      primary_color: state.theme.primaryColor,
+      accent_color: state.theme.accentColor,
+      mascot: state.theme.mascot,
+    },
+  };
+}
+
 function detectInitialIncognito(): boolean {
   if (typeof window === 'undefined') return false;
   try {
@@ -86,7 +100,7 @@ export class IncognitoStore {
       // Desktop: Sitzung im Rust-Backend anlegen und deren ID übernehmen.
       this.invokeBackend<string>('create_incognito_session', {
         customId: customSessionId ?? null,
-        config: null,
+        config: toBackendConfig(this.state),
       })
         .then((backendId) => {
           if (this.state.isIncognito && this.state.sessionId === localId) {
