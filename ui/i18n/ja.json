@@ -66,6 +66,10 @@
         "social": "SNS"
       }
     },
+    "topSites": {
+      "title": "よく見るサイト",
+      "visits": "{count} 回の訪問"
+    },
     "wallpaper": {
       "title": "壁紙とエフェクト",
       "choosePreset": "壁紙を選択",

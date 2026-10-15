@@ -3,6 +3,7 @@
   import Wallpaper from './Wallpaper.svelte';
   import SearchBar from './SearchBar.svelte';
   import SpeedDial from './SpeedDial.svelte';
+  import TopSites from './TopSites.svelte';
   import AnimeCountdownWidget from './AnimeCountdownWidget.svelte';
   import FreeGamesWidget from './FreeGamesWidget.svelte';
   import ShinoMascotWidget from './ShinoMascotWidget.svelte';
@@ -76,6 +77,9 @@
     <div class="speed-dial-section">
       <SpeedDial {onNavigate} />
     </div>
+
+    <!-- Haeufig besuchte Seiten aus der Backend-Chronik -->
+    <TopSites {onNavigate} />
 
     <!-- Anime & Gaming Widgets Row -->
     {#if hubState.widgets.animeCountdown || hubState.widgets.freeGames}
