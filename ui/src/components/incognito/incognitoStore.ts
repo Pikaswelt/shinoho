@@ -4,6 +4,7 @@ import {
   DEFAULT_INCOGNITO_CONFIG,
   DEFAULT_INCOGNITO_THEME,
 } from './incognito.types';
+import { isTauriRuntime } from '../bookmarks/bookmarkBackend';
 
 export const NINJA_MASCOT_QUOTES = [
   'Senpai! In diesem Schattenreich hinterlassen wir keine Fußspuren. 🥷✨',
@@ -78,14 +79,42 @@ export class IncognitoStore {
 
   public enableIncognito(customSessionId?: string): void {
     this.state.isIncognito = true;
-    this.state.sessionId = customSessionId || `incognito-session-${Date.now()}`;
+    const localId = customSessionId || `incognito-session-${Date.now()}`;
+    this.state.sessionId = localId;
     this.notify();
+    if (isTauriRuntime()) {
+      // Desktop: Sitzung im Rust-Backend anlegen und deren ID übernehmen.
+      this.invokeBackend<string>('create_incognito_session', {
+        customId: customSessionId ?? null,
+        config: null,
+      })
+        .then((backendId) => {
+          if (this.state.isIncognito && this.state.sessionId === localId) {
+            this.state.sessionId = backendId;
+            this.notify();
+          }
+        })
+        .catch((err) =>
+          console.warn('[incognito] Sitzung konnte nicht im Backend angelegt werden', err),
+        );
+    }
   }
 
   public disableIncognito(): void {
+    const previousId = this.state.sessionId;
     this.state.isIncognito = false;
     this.state.sessionId = null;
     this.notify();
+    if (isTauriRuntime() && previousId) {
+      this.invokeBackend<void>('close_incognito_session', { sessionId: previousId }).catch((err) =>
+        console.warn('[incognito] Sitzung konnte nicht geschlossen werden', err),
+      );
+    }
+  }
+
+  private async invokeBackend<T>(command: string, args: Record<string, unknown>): Promise<T> {
+    const { invoke } = await import('@tauri-apps/api/core');
+    return invoke<T>(command, args);
   }
 
   public toggleAutoVpn(): void {
