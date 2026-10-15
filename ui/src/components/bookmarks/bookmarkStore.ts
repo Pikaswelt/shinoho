@@ -6,6 +6,13 @@ import type {
   BookmarkImportSummary,
 } from './bookmarks.types';
 import { exportToNetscapeHtml, parseNetscapeHtml } from './bookmarkHtml';
+import {
+  createBookmarkRemote,
+  deleteBookmarkRemote,
+  fetchBookmarkTree,
+  isTauriRuntime,
+  updateBookmarkRemote,
+} from './bookmarkBackend';
 
 const STORAGE_KEY = 'shinoho_bookmarks';
 const BAR_VISIBLE_KEY = 'shinoho_bookmarks_bar_visible';
@@ -285,6 +292,34 @@ export class BookmarkStore {
     return this.state.bookmarks.find((b) => b.id === id);
   }
 
+  /** Laedt Lesezeichen aus der Tauri-Datenbank (nur in der Desktop-App). */
+  public async hydrate(): Promise<void> {
+    if (!isTauriRuntime()) return;
+    try {
+      let remote = await fetchBookmarkTree();
+      if (remote.length === 0) {
+        // Parents stehen in DEFAULT_BOOKMARKS vor ihren Kindern.
+        for (const bookmark of DEFAULT_BOOKMARKS) {
+          await createBookmarkRemote(bookmark);
+        }
+        remote = await fetchBookmarkTree();
+      }
+      this.state.bookmarks = remote;
+      this.saveToStorage();
+      this.notify();
+    } catch (err) {
+      console.warn('[bookmarks] Laden aus der Datenbank fehlgeschlagen, nutze lokalen Stand', err);
+    }
+  }
+
+  /** Fuehrt die Operation nur in der Desktop-App aus; Fehler werden geloggt, nicht geworfen. */
+  private mirror(operation: () => Promise<void>): void {
+    if (!isTauriRuntime()) return;
+    operation().catch((err) =>
+      console.warn('[bookmarks] Synchronisation mit der Datenbank fehlgeschlagen', err),
+    );
+  }
+
   public createBookmark(input: CreateBookmarkInput): Bookmark {
     const id = input.id || `bm-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
     const parentId = input.parentId !== undefined ? input.parentId : SYSTEM_ROOT_TOOLBAR;
@@ -310,6 +345,7 @@ export class BookmarkStore {
     this.state.bookmarks = [...this.state.bookmarks, newBookmark];
     this.saveToStorage();
     this.notify();
+    this.mirror(() => createBookmarkRemote(newBookmark));
     return newBookmark;
   }
 
@@ -338,6 +374,7 @@ export class BookmarkStore {
     this.state.bookmarks = this.state.bookmarks.map((b) => (b.id === id ? updated : b));
     this.saveToStorage();
     this.notify();
+    this.mirror(() => updateBookmarkRemote(id, input));
     return updated;
   }
 
@@ -361,6 +398,9 @@ export class BookmarkStore {
     this.state.bookmarks = this.state.bookmarks.filter((b) => !idsToDelete.has(b.id));
     this.saveToStorage();
     this.notify();
+    for (const removedId of idsToDelete) {
+      this.mirror(() => deleteBookmarkRemote(removedId));
+    }
     return true;
   }
 

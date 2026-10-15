@@ -16,6 +16,10 @@
     });
   });
 
+  $effect(() => {
+    void bookmarkStore.hydrate();
+  });
+
   let activeDropdownFolderId = $state<string | null>(null);
 
   // Helper for reactive translation
