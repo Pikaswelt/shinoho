@@ -5,6 +5,7 @@
   import AddressBar from './components/AddressBar.svelte';
   import GamingModeBanner from './components/gaming/GamingModeBanner.svelte';
   import { BookmarkBar, BookmarkManager } from './components/bookmarks';
+  import { DownloadsManager } from './components/downloads';
   import { IncognitoStartPage, incognitoStore } from './components/incognito';
   import { tabService, type TabInfo, type TabId } from './api/tabs';
   import { t, getLocale, setLocale, SUPPORTED_LOCALES, type SupportedLocale } from './i18n';
@@ -151,6 +152,7 @@
 
   <BookmarkBar onNavigate={handleNavigate} />
   <BookmarkManager onNavigate={handleNavigate} />
+  <DownloadsManager />
 
   <GamingModeBanner />
 

@@ -234,5 +234,26 @@
       "mecha": "SFメカ",
       "mechaDesc": "サーボモーターとHUD確認音"
     }
+  },
+  "downloads": {
+    "title": "ダウンロード",
+    "close": "閉じる",
+    "empty": "ダウンロードはありません。",
+    "loading": "ダウンロードを読み込み中…",
+    "pause": "一時停止",
+    "resume": "再開",
+    "cancel": "キャンセル",
+    "retry": "再試行",
+    "delete": "削除",
+    "deleteConfirm": "このダウンロードをリストから削除しますか？",
+    "clearCompleted": "完了済みを消去",
+    "states": {
+      "pending": "待機中",
+      "downloading": "ダウンロード中",
+      "paused": "一時停止中",
+      "completed": "完了",
+      "cancelled": "キャンセル済み",
+      "failed": "失敗"
+    }
   }
 }

@@ -233,5 +233,26 @@
       "mecha": "Sci-Fi Mecha",
       "mechaDesc": "Resonante Servomotoren und HUD-Bestätigungen"
     }
+  },
+  "downloads": {
+    "title": "Downloads",
+    "close": "Schließen",
+    "empty": "Keine Downloads vorhanden.",
+    "loading": "Downloads werden geladen …",
+    "pause": "Pause",
+    "resume": "Fortsetzen",
+    "cancel": "Abbrechen",
+    "retry": "Erneut versuchen",
+    "delete": "Entfernen",
+    "deleteConfirm": "Diesen Download wirklich aus der Liste entfernen?",
+    "clearCompleted": "Abgeschlossene entfernen",
+    "states": {
+      "pending": "Wartend",
+      "downloading": "Lädt",
+      "paused": "Pausiert",
+      "completed": "Fertig",
+      "cancelled": "Abgebrochen",
+      "failed": "Fehlgeschlagen"
+    }
   }
 }

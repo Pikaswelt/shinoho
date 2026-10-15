@@ -233,5 +233,26 @@
       "mecha": "Sci-Fi Mecha",
       "mechaDesc": "Resonant servomotors and HUD lock-on chimes"
     }
+  },
+  "downloads": {
+    "title": "Downloads",
+    "close": "Close",
+    "empty": "No downloads yet.",
+    "loading": "Loading downloads …",
+    "pause": "Pause",
+    "resume": "Resume",
+    "cancel": "Cancel",
+    "retry": "Retry",
+    "delete": "Remove",
+    "deleteConfirm": "Really remove this download from the list?",
+    "clearCompleted": "Clear completed",
+    "states": {
+      "pending": "Pending",
+      "downloading": "Downloading",
+      "paused": "Paused",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "failed": "Failed"
+    }
   }
 }
