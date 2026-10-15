@@ -74,6 +74,8 @@ pub fn run() {
             commands::set_setting,
             commands::get_all_settings,
             commands::delete_setting,
+            commands::get_hub_state,
+            commands::save_hub_state,
             commands::create_incognito_session,
             commands::close_incognito_session,
             commands::close_all_incognito_sessions,

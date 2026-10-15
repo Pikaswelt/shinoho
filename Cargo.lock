@@ -3583,6 +3583,7 @@ dependencies = [
  "shinoho-control",
  "shinoho-core",
  "shinoho-downloads",
+ "shinoho-hub",
  "shinoho-incognito",
  "shinoho-storage",
  "shinoho-vpn",
@@ -3620,6 +3621,16 @@ dependencies = [
  "serde",
  "serde_json",
  "thiserror 1.0.69",
+]
+
+[[package]]
+name = "shinoho-hub"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "shinoho-storage",
+ "tempfile",
 ]
 
 [[package]]

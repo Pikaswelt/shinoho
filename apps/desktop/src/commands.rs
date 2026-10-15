@@ -9,6 +9,7 @@ use std::collections::HashMap;
 use serde::Deserialize;
 use shinoho_adblock::{AdblockDecision, AdblockStats};
 use shinoho_downloads::{DownloadItem, DownloadOptions};
+use shinoho_hub::HubState;
 use shinoho_incognito::IncognitoConfig;
 use shinoho_storage::{
     Bookmark, BookmarkNode, CreateBookmarkParams, HistoryVisit, ImportSummary, TopSite,
@@ -279,6 +280,18 @@ pub fn get_all_settings(state: State<'_, AppServices>) -> Result<HashMap<String,
 #[tauri::command]
 pub fn delete_setting(state: State<'_, AppServices>, key: String) -> Result<bool, String> {
     state.storage.delete_setting(&key).map_err(to_err)
+}
+
+// --- Hub ---
+
+#[tauri::command]
+pub fn get_hub_state(state: State<'_, AppServices>) -> Result<Option<HubState>, String> {
+    shinoho_hub::load(&state.storage).map_err(to_err)
+}
+
+#[tauri::command]
+pub fn save_hub_state(state: State<'_, AppServices>, hub_state: HubState) -> Result<(), String> {
+    shinoho_hub::save(&state.storage, &hub_state).map_err(to_err)
 }
 
 // --- Inkognito ---

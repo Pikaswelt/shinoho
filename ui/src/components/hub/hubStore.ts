@@ -7,6 +7,7 @@ import type {
   AnimeCountdownItem,
   FreeGameItem,
 } from './hub.types';
+import { isTauriRuntime } from '../bookmarks/bookmarkBackend';
 
 export const WALLPAPER_PRESETS: WallpaperPreset[] = [
   {
@@ -253,6 +254,31 @@ class HubStore {
 
   constructor() {
     this.state = this.loadFromStorage();
+    void this.loadFromBackend();
+  }
+
+  private async invokeBackend<T>(command: string, args: Record<string, unknown>): Promise<T> {
+    const { invoke } = await import('@tauri-apps/api/core');
+    return invoke<T>(command, args);
+  }
+
+  /** Im Desktop-Build ist das Rust-Backend die maßgebliche Quelle für den Hub-Zustand. */
+  private async loadFromBackend(): Promise<void> {
+    if (!isTauriRuntime()) return;
+    try {
+      const saved = await this.invokeBackend<HubState | null>('get_hub_state', {});
+      if (saved) {
+        this.state = {
+          ...createDefaultHubState(),
+          ...saved,
+          wallpaper: { ...createDefaultHubState().wallpaper, ...saved.wallpaper },
+          widgets: { ...createDefaultHubState().widgets, ...saved.widgets },
+        };
+        this.notify();
+      }
+    } catch (err) {
+      console.warn('[hub] Zustand konnte nicht aus dem Backend geladen werden', err);
+    }
   }
 
   private loadFromStorage(): HubState {
@@ -288,6 +314,11 @@ class HubStore {
       } catch {
         // Ignore storage write errors (quota, incognito)
       }
+    }
+    if (isTauriRuntime()) {
+      this.invokeBackend<void>('save_hub_state', { hubState: this.state }).catch((err) =>
+        console.warn('[hub] Zustand konnte nicht im Backend gespeichert werden', err),
+      );
     }
     this.notify();
   }

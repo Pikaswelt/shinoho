@@ -9,6 +9,7 @@ members = [
     "core/downloads",
     "core/sync",
     "core/achievements",
+    "core/hub",
     "core/feeds",
     "core/anime",
     "core/mods",

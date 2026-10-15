@@ -21,6 +21,7 @@ log = "0.4"
 shinoho-core = { path = "../../core" }
 shinoho-storage = { path = "../../core/storage" }
 shinoho-incognito = { path = "../../core/incognito" }
+shinoho-hub = { path = "../../core/hub" }
 shinoho-adblock = { path = "../../core/adblock" }
 shinoho-downloads = { path = "../../core/downloads" }
 tokio = { version = "1", features = ["sync"] }
